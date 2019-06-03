@@ -53,6 +53,50 @@ El mismo usuario y contraseña nominal que permiten acceder por interfaz web y c
 
 **En ningún caso, un usuario puede cargar archivos a un catálogo al cual no esté asociado y tenga permisos**.
 
+### API
+
+El proyecto infra.datos.gob.ar cuenta con una API que permite programáticamente subir archivos de datos mediante el protocolo HTTP. Todos los recursos de la API requieren un *token* de autenticación, el cual puede ser generado por usuarios ya existentes del proyecto mediante la interfaz web.
+
+Los recursos de la API son:
+
+#### Subir archivo (`/api/upload-file`)
+**Request:**
+- URL: https://infra.datos.gob.ar/api/upload-file
+- Método: **POST**
+- Parámetros (Querystring):
+    - `catalog` **(requerido)**: ID del catálogo.
+    - `dataset` **(requerido)**: ID del dataset.
+    - `distribution` **(requerido)**: ID de la distribucion.
+    - `name` **(requerido)**: Nombre del archivo.
+- Body: Contenido del archivo sin procesar **(requerido)**.
+
+Ejemplo:
+```
+curl -X POST https://infra.datos.gob.ar/api/upload-file?catalog=1&dataset=10&distribution=test&name=values.csv \
+     --header "Authorization: Bearer <TOKEN>" \
+     --header "Content-Type: application/octet-stream" \
+     --data-binary @values.csv
+```
+
+**Response: 200 OK**
+```json
+{
+    "url": "https://infra.datos.gob.ar/catalog/1/dataset/10/distribution/test/download/values.csv",
+	"replaced": false
+}
+```
+
+**Response: 400 Bad Request**
+```json
+{
+	"error": {
+		"code": 1000,
+		"message": "La distribución ya cuenta con un archivo con nombre distinto."
+	}
+}
+```
+
+
 ## Cargar catálogos
 
 El usuario dispone de un formulario en el admin de Django que le solicita:
@@ -82,3 +126,45 @@ De esta manera, el sistema genera un versionado de los archivos cargados anterio
 El mismo usuario y contraseña nominal que permiten acceder por interfaz web y cargar un archivo, permiten cargar un archivo en la ruta `/data-{iso_date}.json` y `/catalog-{iso_date}.xlsx` por FTP.
 
 **En ningún caso, un usuario puede cargar o pisar un catálogo al cual no esté asociado y tenga persmisos**.
+
+### API
+
+Los recursos de la API correspondientes a catálogos son:
+
+#### Subir catálogo (`/api/upload-catalog`)
+**Request:**
+- URL: https://infra.datos.gob.ar/api/upload-catalog
+- Método: **POST**
+- Parámetros (Querystring):
+    - `format` **(requerido)**: Formato del catálogo (`xlsx` o `json`).
+- Body: Contenido del archivo del catálogo sin procesar **(requerido)**.
+
+Ejemplo:
+```
+curl -X POST https://infra.datos.gob.ar/api/upload-catalog?format=xlsx \
+     --header "Authorization: Bearer <TOKEN>" \
+     --header "Content-Type: application/octet-stream" \
+     --data-binary @catalog.xlsx
+```
+
+**Response: 200 OK**
+```json
+{
+    "url_json": "https://infra.datos.gob.ar/catalog/1/data.json",
+    "url_xslx": "https://infra.datos.gob.ar/catalog/1/catalog.xlsx",
+	"replaced": false
+}
+```
+
+**Response: 400 Bad Request**
+```json
+{
+	"error": {
+		"code": 1000,
+		"message": "El catálogo no es válido.",
+		"failed_validations": [
+			...
+		]
+	}
+}
+```
