@@ -169,6 +169,7 @@ curl -X POST https://infra.datos.gob.ar/api/upload-catalog?format=xlsx \
 ```
 
 **Response: 400 Bad Request**
+
 Error de validación:
 ```json
 {
@@ -197,7 +198,7 @@ Error de formato/interpretación del archivo:
 {
 	"error": {
 		"code": 1002,
-		"message": "No se cuenta con los permisos necesarios para crear el archivo."
+		"message": "No se cuenta con los permisos necesarios para crear o modificar el catálogo."
 	}
 }
 ```
