@@ -68,6 +68,7 @@ Los recursos de la API son:
     - `dataset` **(requerido)**: ID del dataset.
     - `distribution` **(requerido)**: ID de la distribucion.
     - `name` **(requerido)**: Nombre del archivo.
+    - `force`: Cuando está presente, permite establecer un nuevo nombre de archivo para una distribución que ya cuenta con un archivo.
 - Body: Contenido del archivo sin procesar **(requerido)**.
 
 Ejemplo:
@@ -96,6 +97,15 @@ curl -X POST https://infra.datos.gob.ar/api/upload-file?catalog=1&dataset=10&dis
 }
 ```
 
+**Response: 403 Unauthorized**
+```json
+{
+	"error": {
+		"code": 1001,
+		"message": "No se cuenta con los permisos necesarios para crear el archivo."
+	}
+}
+```
 
 ## Cargar catálogos
 
@@ -125,7 +135,7 @@ De esta manera, el sistema genera un versionado de los archivos cargados anterio
 
 El mismo usuario y contraseña nominal que permiten acceder por interfaz web y cargar un archivo, permiten cargar un archivo en la ruta `/data-{iso_date}.json` y `/catalog-{iso_date}.xlsx` por FTP.
 
-**En ningún caso, un usuario puede cargar o pisar un catálogo al cual no esté asociado y tenga persmisos**.
+**En ningún caso, un usuario puede cargar o pisar un catálogo al cual no esté asociado y tenga permisos**.
 
 ### API
 
@@ -150,13 +160,16 @@ curl -X POST https://infra.datos.gob.ar/api/upload-catalog?format=xlsx \
 **Response: 200 OK**
 ```json
 {
-    "url_json": "https://infra.datos.gob.ar/catalog/1/data.json",
-    "url_xslx": "https://infra.datos.gob.ar/catalog/1/catalog.xlsx",
+	"urls": {
+		"json": "https://infra.datos.gob.ar/catalog/1/data.json",
+		"xlsx": "https://infra.datos.gob.ar/catalog/1/catalog.xlsx"
+	},
 	"replaced": false
 }
 ```
 
 **Response: 400 Bad Request**
+Error de validación:
 ```json
 {
 	"error": {
@@ -165,6 +178,26 @@ curl -X POST https://infra.datos.gob.ar/api/upload-catalog?format=xlsx \
 		"failed_validations": [
 			...
 		]
+	}
+}
+```
+
+Error de formato/interpretación del archivo:
+```json
+{
+	"error": {
+		"code": 1001,
+		"message": "No se pudo leer los contenidos del archivo."
+	}
+}
+```
+
+**Response: 403 Unauthorized**
+```json
+{
+	"error": {
+		"code": 1002,
+		"message": "No se cuenta con los permisos necesarios para crear el archivo."
 	}
 }
 ```
