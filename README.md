@@ -63,6 +63,8 @@ Los recursos de la API son:
 **Request:**
 - URL: https://infra.datos.gob.ar/api/upload-file
 - Método: **POST**
+- Headers:
+    - `Authorization`: Debe tomar el valor "Bearer " seguido del token.
 - Parámetros (Querystring):
     - `catalog` **(requerido)**: ID del catálogo.
     - `dataset` **(requerido)**: ID del dataset.
@@ -145,6 +147,8 @@ Los recursos de la API correspondientes a catálogos son:
 **Request:**
 - URL: https://infra.datos.gob.ar/api/upload-catalog
 - Método: **POST**
+- Headers:
+    - `Authorization`: Debe tomar el valor "Bearer " seguido del token.
 - Parámetros (Querystring):
     - `format` **(requerido)**: Formato del catálogo (`xlsx` o `json`).
 - Body: Contenido del archivo del catálogo sin procesar **(requerido)**.
