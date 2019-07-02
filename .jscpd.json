@@ -1,0 +1,10 @@
+{
+    "threshold": 0.0,
+    "reporters": ["html", "consoleFull"],
+    "format": ["python", "markup"],
+    "blame": true,
+    "gitignore": true,
+    "ignore": [
+        "**/migrations/*"
+    ]
+}

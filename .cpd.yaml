@@ -1,0 +1,8 @@
+languages:
+  - python
+files:
+  - "infra/**/*"
+exclude:
+  - ".idea/*"
+  - "**/migrations/*"
+limit: 5

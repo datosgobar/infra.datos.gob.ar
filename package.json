@@ -1,0 +1,17 @@
+{
+  "name": "django2-sample",
+  "version": "1.0.0",
+  "description": "## Setup",
+  "main": "index.js",
+  "scripts": {
+    "jscpd": "jscpd .",
+    "eslint": "eslint infra/**/*.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^4.15.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "jscpd": "^2.0.15"
+  }
+}

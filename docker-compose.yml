@@ -1,0 +1,40 @@
+version: "3.4"
+
+
+x-django-app:
+  &default-django-app
+  build:
+    context: .
+    args:
+      requirements: requirements/local.txt # Use local requirements!
+  environment:
+    DATABASE_URL: postgres://development:development@db:5432/development_db
+    DJANGO_SETTINGS_MODULE: conf.settings.local
+    PYTHONDONTWRITEBYTECODE: 1
+    MEDIA_ROOT: /app/media
+    STATIC_ROOT: /app/static
+    DEBUG: 1
+  depends_on:
+    - db
+  volumes:
+    - ./:/app/code/
+    - media:/app/media
+    - static:/app/static
+
+services:
+  django:
+    << : *default-django-app
+    ports:
+      - "8000:8000"
+  db:
+    image: postgres:10-alpine
+    environment:
+      POSTGRES_PASSWORD: development
+      POSTGRES_USER: development
+      POSTGRES_DB: development_db
+    ports:
+      - "5432:5432"
+
+volumes:
+  media:
+  static:

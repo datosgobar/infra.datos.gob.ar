@@ -1,3 +1,14 @@
+
+env/
+.idea/
+.vagrant/
+*.retry
+*.sublime-*
+.python-version
+vault_password.txt
+vault_pass.txt
+wks.*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -7,6 +18,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+.nvmrc
 .Python
 build/
 develop-eggs/
@@ -47,6 +59,10 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 
+
+coverage-reports/
+xunit-reports/
+
 # Translations
 *.mo
 *.pot
@@ -55,6 +71,9 @@ coverage.xml
 *.log
 local_settings.py
 db.sqlite3
+.static_storage/
+.media/
+local_settings.py
 
 # Flask stuff:
 instance/
@@ -84,6 +103,7 @@ celerybeat-schedule
 # Environments
 .env
 .venv
+
 env/
 venv/
 ENV/
@@ -102,3 +122,13 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+*.sqlite3
+node_modules/
+*.db
+.pytest_cache/
+.scannerwork/
+sonar/
+
+coverage-reports/
+report/
+.in
