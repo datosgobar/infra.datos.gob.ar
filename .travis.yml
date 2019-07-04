@@ -16,8 +16,8 @@ before_install:
 - docker-compose up -d
 
 install:
-- nvm install v7.4.0
-- nvm use v7.4.0
+- nvm install v10.16.0
+- nvm use v10.16.0
 - npm install
 
 script:
