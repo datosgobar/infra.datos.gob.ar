@@ -1,0 +1,27 @@
+sudo: required
+dist: xenial
+
+services:
+- docker
+
+language: python
+python:
+- "3.6"
+
+env:
+- DJANGO_SETTINGS_MODULE=conf.settings.testing
+
+before_install:
+- docker-compose build
+- docker-compose up -d
+
+install:
+- nvm install v7.4.0
+- nvm use v7.4.0
+- npm install
+
+script:
+- scripts/jscpd.sh
+- scripts/tests.sh
+- scripts/pylint.sh
+- scripts/flake8.sh

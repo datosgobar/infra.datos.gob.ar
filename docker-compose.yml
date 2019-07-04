@@ -9,7 +9,7 @@ x-django-app:
       requirements: requirements/local.txt # Use local requirements!
   environment:
     DATABASE_URL: postgres://development:development@db:5432/development_db
-    DJANGO_SETTINGS_MODULE: conf.settings.local
+    DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE:-conf.settings.local}
     PYTHONDONTWRITEBYTECODE: 1
     MEDIA_ROOT: /app/media
     STATIC_ROOT: /app/static
