@@ -15,8 +15,11 @@ import environ
 
 env = environ.Env(DEBUG=(bool, False),) # set default values and casting
 
+
 # SETTINGS_DIR = /conf/settings
 SETTINGS_DIR = environ.Path(__file__) - 1
+
+environ.Env.read_env(SETTINGS_DIR('.env'))
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # ROOT_DIR = /
@@ -39,7 +42,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'devartis_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -88,17 +90,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'conf.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR('db.sqlite3'),
-    }
-}
 
 
 # Password validation
