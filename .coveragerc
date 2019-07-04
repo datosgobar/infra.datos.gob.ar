@@ -1,0 +1,8 @@
+[run]
+omit =
+    */tests/*
+    */apps.py
+    */management/commands/*
+    */migrations/*
+    */__init__.py
+

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block title %}<title>Home</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Add additional CSS in static file -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+  <div>
+    <div>
+      <div>
+      {% block sidebar %}
+        <ul>
+          <li><a href="{% url 'home' %}">Home</a></li>
+        </ul>
+     {% endblock %}
+      </div>
+      <div>{% block content %}{% endblock %}</div>
+    </div>
+  </div>
+</body>
+</html>
