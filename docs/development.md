@@ -6,7 +6,9 @@
 
 El proyecto es principalmente una aplicación Django, en Python 3.7. Se recomienda usar `pyenv` para instalar Python 3.7.
 
-1. Usra [pyenv-installer](https://github.com/pyenv/pyenv-installer) para instalar `pyenv`
+1. Usar [pyenv-installer](https://github.com/pyenv/pyenv-installer) para instalar `pyenv`, y visitar 
+[esta documentación](https://github.com/pyenv/pyenv/wiki/Common-build-problems) para obtener información 
+sobre posibles errores.
 1. Instalar python 3.7: `pyenv install 3.7.3` (3.7 o mayor)
 
 
