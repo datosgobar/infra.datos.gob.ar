@@ -24,8 +24,9 @@ Docker y docker-compose son usados para levantar la base de datos.
 
 1. Crear nuevo entorno virtual: `pyenv virtualenv 3.7.3 infra`
 1. Crear el archivo`.python-version`: `echo "infra" > .python-version`
+1. Crear el archivo `conf/settings/.env`: `cp conf/settings/.env.example conf/settings/.env`
 1. Instalar dependencias: `pip install -r requirements/local.txt`
-1. Levantar servicios (db): `docker-compose up`
+1. Levantar servicios (db): `docker-compose up -d`
 1. Correr migraciones: `./manage.py migrate`
 1. Crear un superusuario de Django: `./manage.py createsuperuser`
 
