@@ -26,7 +26,7 @@ Docker y docker-compose son usados para levantar la base de datos.
 1. Crear el archivo`.python-version`: `echo "infra" > .python-version`
 1. Instalar dependencias: `pip install -r requirements/local.txt`
 1. Levantar servicios (db): `docker-compose up`
-1. Correr migraciones: `./manage.py mirgate`
+1. Correr migraciones: `./manage.py migrate`
 1. Crear un superusuario de Django: `./manage.py createsuperuser`
 
 
