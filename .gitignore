@@ -132,3 +132,7 @@ sonar/
 coverage-reports/
 report/
 .in
+
+# Deploy (CD) decrypted filesfiles
+scripts/deploy/files/
+scripts/deploy/files.tar.gz

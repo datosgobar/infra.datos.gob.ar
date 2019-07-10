@@ -26,3 +26,10 @@ script:
 - scripts/tests.sh
 - scripts/pylint.sh
 - scripts/flake8.sh
+
+deploy:
+  - skip_cleanup: true
+    provider: script
+    script: scripts/deploy/run_deploy.sh testing
+    on:
+      branch: master
