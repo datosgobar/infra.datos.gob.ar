@@ -1,6 +1,12 @@
 sudo: required
 dist: xenial
 
+addons:
+  apt:
+    packages:
+    - net-tools
+    - openvpn
+
 services:
 - docker
 
