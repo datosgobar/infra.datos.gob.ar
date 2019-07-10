@@ -29,7 +29,7 @@ chmod 600 /tmp/build\+infra@travis-ci.org
 if [ -n "$USE_VPN" ]; then
     echo "Conectando a la VPN";
     sudo cp "$environment_files/client.ovpn" "$OVPN_PATH"
-    sudo service openvpn restart
+    sudo systemctl restart openvpn@client
     echo "Esperando..."
     sleep 10
     echo "Verificando VPN..."
