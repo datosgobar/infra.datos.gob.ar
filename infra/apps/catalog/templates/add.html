@@ -1,5 +1,7 @@
 <h1>Agregar catálogo</h1>
 
+<a href="{% url 'catalogs' %}">Volver</a>
+
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
