@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load i18n static %}
 
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>
+{% endblock %}
+
 {% block content %}
 <div class="login">
     <div class="l-wrapper">

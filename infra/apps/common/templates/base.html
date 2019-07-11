@@ -8,12 +8,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/global.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/poncho.min.css' %}"/>
+    {% block styles %}{% endblock %}
 </head>
 
 <header>{% block header %}{% include 'header.html' %}{% endblock %}</header>
 
 <body>
+<div class="main-content">
 {% block content %}
 {% endblock %}
+</div>
 </body>
