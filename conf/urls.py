@@ -17,11 +17,13 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 from infra.apps.common import views as common_views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', common_views.home, name='home'),
     path('catalogs/', include('infra.apps.catalog.urls'))
+    path('ingresar/', auth_views.LoginView.as_view(), name='login'),
 ]
 
 if settings.DEBUG:
