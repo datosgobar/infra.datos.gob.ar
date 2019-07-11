@@ -72,7 +72,7 @@ xunit-reports/
 local_settings.py
 db.sqlite3
 .static_storage/
-.media/
+media/
 local_settings.py
 
 # Flask stuff:

@@ -57,6 +57,7 @@ VENDOR_APPS = [
 
 LOCAL_APPS = [
     'infra.apps.common',
+    'infra.apps.catalog',
 ]
 
 INSTALLED_APPS += VENDOR_APPS + LOCAL_APPS
