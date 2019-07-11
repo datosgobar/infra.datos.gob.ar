@@ -21,7 +21,7 @@ class CatalogForm(ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        format = cleaned_data.get('format')
+        form_format = cleaned_data.get('format')
         file = cleaned_data.get('file')
         url = cleaned_data.get('url')
 
@@ -32,5 +32,5 @@ class CatalogForm(ModelForm):
             raise ValidationError("No se pueden ingresar un archivo y un URL a la vez")
 
         file_format = (url or file.name).split('.')[-1]
-        if format != file_format:
+        if form_format != file_format:
             raise ValidationError("El formato ingresado no coincide con el del archivo")

@@ -47,8 +47,8 @@ class AddCatalogView(FormView):
             # Download the file contents from the specified URL
             try:
                 file_content = urllib_request.urlopen(form.cleaned_data['url']).read()
-            except HTTPError as e:
-                raise ConnectionError(f'No se pudo conectar a la URL ingresada: {e}')
+            except HTTPError as error:
+                raise ConnectionError(f'No se pudo conectar a la URL ingresada: {error}')
 
             identifier = DataJson(form.cleaned_data['url'])['identifier']
             if not identifier:
