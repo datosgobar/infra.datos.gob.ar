@@ -4,7 +4,8 @@ import os
 from django.core.files.storage import FileSystemStorage
 from django.db import models
 
-def catalog_file_path(instance, filename=None):
+
+def catalog_file_path(instance, _filename=None):
     return f'catalogs/{instance.identifier}/data.{instance.format}'
 
 
