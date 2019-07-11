@@ -3,3 +3,4 @@ django-environ==0.4.5
 django-extensions==2.1.9
 pydatajson==0.4.43
 requests==2.22.0
+django-des==2.4.1

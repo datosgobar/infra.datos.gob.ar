@@ -18,11 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 from infra.apps.common import views as common_views
 from django.contrib.auth import views as auth_views
+from des import urls as des_urls
+
+admin.site.login_template = 'registration/login.html'
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', common_views.home, name='home'),
     path('catalogs/', include('infra.apps.catalog.urls'))
+    path('django-des/', include(des_urls)),
     path('ingresar/', auth_views.LoginView.as_view(), name='login'),
 ]
 
@@ -35,3 +40,13 @@ if settings.DEBUG:
         # url(r'^__debug__/', include(debug_toolbar.urls)),
 
     ] + urlpatterns
+
+auth_urls = [
+    path('password_reset/', auth_views.PasswordResetView.as_view(), name='admin_password_reset'),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('password_reset/confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(),
+         name='password_reset_confirm'),
+    path('password_reset/complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+]
+
+urlpatterns += auth_urls
