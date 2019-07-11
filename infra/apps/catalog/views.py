@@ -32,12 +32,29 @@ class AddCatalogView(FormView):
             return self.form_valid(form)
         return self.render_to_response(self.get_context_data(form=form))
 
-    def generate_form_data(self, form):
-        file_format = form.cleaned_data['format']
+    def form_valid(self, form):
+        identifier, file_format, file_to_upload = CatalogDataValidator().get_and_validate_data(form.cleaned_data)
 
-        if form.cleaned_data['file']:
+        Catalog.objects.create(
+            identifier=identifier,
+            format=file_format,
+            file=file_to_upload
+        )
+
+        if not file_to_upload.closed:
+            file_to_upload.close()
+
+        return super().form_valid(form)
+
+
+class CatalogDataValidator:
+
+    def get_and_validate_data(self, cleaned_data):
+        file_format = cleaned_data['format']
+
+        if cleaned_data['file']:
             temp_file = NamedTemporaryFile(dir='/tmp', prefix=str(uuid.uuid4()))
-            file_to_upload = form.cleaned_data['file']
+            file_to_upload = cleaned_data['file']
             temp_file.write(file_to_upload.read())
             identifier = DataJson(temp_file.name).get('identifier')
             temp_file.close()
@@ -46,11 +63,11 @@ class AddCatalogView(FormView):
         else:
             # Download the file contents from the specified URL
             try:
-                file_content = urllib_request.urlopen(form.cleaned_data['url']).read()
+                file_content = urllib_request.urlopen(cleaned_data['url']).read()
             except HTTPError as error:
                 raise ConnectionError(f'No se pudo conectar a la URL ingresada: {error}')
 
-            identifier = DataJson(form.cleaned_data['url'])['identifier']
+            identifier = DataJson(cleaned_data['url'])['identifier']
             if not identifier:
                 raise ValidationError('El catálogo indicado no posee el campo "identifier"')
 
@@ -68,18 +85,3 @@ class AddCatalogView(FormView):
             file_to_upload = File(file=final_file)
 
         return identifier, file_format, file_to_upload
-
-    def form_valid(self, form):
-
-        identifier, file_format, file_to_upload = self.generate_form_data(form)
-
-        Catalog.objects.create(
-            identifier=identifier,
-            format=file_format,
-            file=file_to_upload
-        )
-
-        if not file_to_upload.closed:
-            file_to_upload.close()
-
-        return super().form_valid(form)
