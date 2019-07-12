@@ -1,17 +1,9 @@
-import errno
-import os
-import uuid
-from urllib import request as urllib_request
-from urllib.error import HTTPError
+# coding=utf-8
 
-from django.conf import settings
-from django.core.exceptions import ValidationError
-from django.core.files import File
-from django.core.files.temp import NamedTemporaryFile
 from django.views.generic import ListView
 from django.views.generic.edit import FormView
-from pydatajson import DataJson
 
+from infra.apps.catalog.catalog_data_validator import CatalogDataValidator
 from infra.apps.catalog.forms import CatalogForm
 from infra.apps.catalog.models import Catalog
 
@@ -33,55 +25,11 @@ class AddCatalogView(FormView):
         return self.render_to_response(self.get_context_data(form=form))
 
     def form_valid(self, form):
-        identifier, file_format, file_to_upload = CatalogDataValidator().get_and_validate_data(form.cleaned_data)
+        data = CatalogDataValidator().get_and_validate_data(form.cleaned_data)
 
-        Catalog.objects.create(
-            identifier=identifier,
-            format=file_format,
-            file=file_to_upload
-        )
+        Catalog.objects.create(**data)
 
-        if not file_to_upload.closed:
-            file_to_upload.close()
+        if not data.get('file').closed:
+            data.get('file').close()
 
         return super().form_valid(form)
-
-
-class CatalogDataValidator:
-
-    def get_and_validate_data(self, cleaned_data):
-        file_format = cleaned_data['format']
-
-        if cleaned_data['file']:
-            temp_file = NamedTemporaryFile(dir='/tmp', prefix=str(uuid.uuid4()))
-            file_to_upload = cleaned_data['file']
-            temp_file.write(file_to_upload.read())
-            identifier = DataJson(temp_file.name).get('identifier')
-            temp_file.close()
-            if not identifier:
-                raise ValidationError('El catálogo subido no posee el campo "identifier"')
-        else:
-            # Download the file contents from the specified URL
-            try:
-                file_content = urllib_request.urlopen(cleaned_data['url']).read()
-            except HTTPError as error:
-                raise ConnectionError(f'No se pudo conectar a la URL ingresada: {error}')
-
-            identifier = DataJson(cleaned_data['url'])['identifier']
-            if not identifier:
-                raise ValidationError('El catálogo indicado no posee el campo "identifier"')
-
-            path = f'{settings.MEDIA_ROOT}/catalogs/{identifier}/data.{file_format}'
-
-            if not os.path.exists(os.path.dirname(path)):
-                try:
-                    os.makedirs(os.path.dirname(path))
-                except OSError as exc:
-                    if exc.errno != errno.EEXIST:
-                        raise OSError("Hubo un problema con el guardado del archivo del catálogo.")
-
-            final_file = open(path, 'ab+')
-            final_file.write(file_content)
-            file_to_upload = File(file=final_file)
-
-        return identifier, file_format, file_to_upload
