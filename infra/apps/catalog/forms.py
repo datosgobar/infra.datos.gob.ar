@@ -5,7 +5,6 @@ from infra.apps.catalog.models import Catalog
 
 
 class CatalogForm(ModelForm):
-
     FORMAT_OPTIONS = [
         ('json', 'JSON'),
         ('xlsx', 'XLSX')

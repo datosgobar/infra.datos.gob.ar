@@ -1,5 +1,4 @@
-from urllib.error import HTTPError
-
+# coding=utf-8
 import requests
 from django.core.exceptions import ValidationError
 from django.core.files import File
@@ -7,7 +6,6 @@ from django.core.files.temp import NamedTemporaryFile
 
 
 class CatalogDataValidator:
-
     def get_and_validate_data(self, raw_data):
         file_handler = raw_data.get('file')
         file_format = raw_data.get('format')
@@ -28,6 +26,7 @@ class CatalogDataValidator:
         file_content = response.content
         lf = NamedTemporaryFile()
         lf.write(file_content)
+        lf.seek(0)
         return File(lf)
 
     def validate_file_and_url_fields(self, form_file, form_format, form_url):
