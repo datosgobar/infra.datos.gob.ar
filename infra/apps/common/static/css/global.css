@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap");
 * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -9,7 +8,6 @@ header {
   box-shadow: rgba(0, 0, 0, 0.5) 0 0 12px 0;
   box-sizing: content-box;
   color: rgb(0, 0, 0);
-  display: block;
   font-size: 16px;
   height: 75px;
   margin-left: 0;
@@ -20,12 +18,26 @@ header {
   top: 0;
   width: 100%;
   z-index: 4;
-  background: white;}
+  background: white;
+}
 
-header img {
+
+header .header-container {
+  width: 95%;
+  align-content: center;
+  display: flex;
+}
+
+header .header-container img {
   padding-left: 5%;
+}
+
+header .header-container .logout {
+  text-align: right;
+  flex: 1;
 }
 
 .main-content {
  padding-top: 80px;
 }
+
