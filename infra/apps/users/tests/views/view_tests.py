@@ -1,7 +1,7 @@
 import pytest
-from django.contrib.auth.models import User
 from django.test import Client
 
+from infra.apps.users.models import User
 
 CLIENT = Client()
 pytestmark = pytest.mark.django_db

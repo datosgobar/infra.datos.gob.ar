@@ -142,3 +142,5 @@ LOGIN_URL = 'login'
 
 EMAIL_BACKEND = 'des.backends.ConfiguredEmailBackend'
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='infra.datos.gob.ar@modernizacion.gob.ar')
+
+AUTH_USER_MODEL = 'users.User'
