@@ -1,8 +1,8 @@
 import pytest
 
-from infra.apps.users.models import User
+from django.contrib.auth import get_user_model
 
 
 @pytest.fixture
 def user():
-    return User.objects.create_user('test_user', 'test_P4ssw0rd123123')
+    return get_user_model().objects.create_user('test_user', 'test_P4ssw0rd123123')
