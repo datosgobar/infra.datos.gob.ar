@@ -57,7 +57,7 @@ VENDOR_APPS = [
 ]
 
 LOCAL_APPS = [
-    'infra.apps.common',
+    'infra.apps.users',
     'infra.apps.catalog',
 ]
 

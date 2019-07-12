@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class CommonConfig(AppConfig):
-    name = 'infra.apps.common'
+    name = 'infra.apps.users'
