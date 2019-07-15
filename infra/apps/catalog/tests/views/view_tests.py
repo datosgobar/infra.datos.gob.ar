@@ -1,7 +1,7 @@
 # coding=utf-8
 import requests_mock
 from django.core.exceptions import ValidationError
-from django.test import TestCase
+from django.test import TestCase, Client
 from requests import HTTPError
 
 from infra.apps.catalog.catalog_data_validator import CatalogDataValidator
@@ -9,6 +9,7 @@ from infra.apps.catalog.catalog_data_validator import CatalogDataValidator
 
 class TestCatalogValidations(TestCase):
     validator = CatalogDataValidator()
+    client = Client()
 
     def test_submit_fails_when_url_and_file_are_empty(self):
         data_dict = {}
@@ -41,3 +42,17 @@ class TestCatalogValidations(TestCase):
             data_dict = {'format': 'json', 'identifier': 'test', 'file': local_file}
             data = self.validator.get_and_validate_data(data_dict)
             assert data['file'].read() == '{"identifier": "test"}'
+
+    def test_catalogs_page_renders_catalogs_index_template(self):
+        response = self.client.get('/catalogs/')
+        response_templates_names = [template.name for template in response.templates]
+        self.assertIn('index.html', response_templates_names)
+
+    def test_form_submit_with_valid_data_redirects_to_catalogs_index(self):
+        with open('infra/apps/catalog/tests/samples/simple.json', 'r+') as local_file:
+            form_data = {'format':'json','identifier':'test','file':local_file}
+            response = self.client.post('/catalogs/add', form_data, follow=True)
+            self.assertEqual(response.redirect_chain[-1], ('/catalogs/', 302))
+
+            response_templates_names = [template.name for template in response.templates]
+            self.assertIn('index.html', response_templates_names)
