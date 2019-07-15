@@ -50,7 +50,7 @@ class TestCatalogValidations(TestCase):
 
     def test_form_submit_with_valid_data_redirects_to_catalogs_index(self):
         with open('infra/apps/catalog/tests/samples/simple.json', 'r+') as local_file:
-            form_data = {'format':'json','identifier':'test','file':local_file}
+            form_data = {'format': 'json', 'identifier': 'test', 'file': local_file}
             response = self.client.post('/catalogs/add', form_data, follow=True)
             self.assertEqual(response.redirect_chain[-1], ('/catalogs/', 302))
 
