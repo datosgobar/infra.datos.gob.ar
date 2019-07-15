@@ -5,6 +5,7 @@ from django.test import TestCase, Client
 from requests import HTTPError
 
 from infra.apps.catalog.catalog_data_validator import CatalogDataValidator
+from infra.apps.catalog.models import Catalog
 
 
 class TestCatalogValidations(TestCase):
@@ -56,3 +57,9 @@ class TestCatalogValidations(TestCase):
 
             response_templates_names = [template.name for template in response.templates]
             self.assertIn('index.html', response_templates_names)
+
+    def test_catalog_is_created_when_submitted_form_is_valid(self):
+        with open('infra/apps/catalog/tests/samples/simple.json', 'r+') as local_file:
+            form_data = {'format': 'json', 'identifier': 'test', 'file': local_file}
+            self.client.post('/catalogs/add', form_data)
+            self.assertEqual(1, Catalog.objects.count())
