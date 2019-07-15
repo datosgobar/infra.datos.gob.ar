@@ -5,7 +5,7 @@ from django.db import IntegrityError
 from infra.apps.catalog.models import Catalog
 from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
 
-PYTESTMARK = pytest.mark.django_db
+pytestmark = pytest.mark.django_db
 
 
 def test_catalog_saves_to_identifier_path():
