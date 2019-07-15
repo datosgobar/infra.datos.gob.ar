@@ -1,7 +1,6 @@
 # coding=utf-8
 import os
 
-from django.core.exceptions import ValidationError
 from django.core.files.storage import FileSystemStorage
 from django.db import models
 
@@ -25,10 +24,3 @@ class Catalog(models.Model):
 
     def __str__(self):
         return self.identifier
-
-    def clean(self):
-        if self.format not in ["xlsx", "json"]:
-            raise ValidationError("El formato del archivo debe ser 'xlsx' o 'json'.")
-        file_format = self.file.name.split('.')[-1]
-        if self.format != file_format:
-            raise ValidationError("El formato ingresado no coincide con el del archivo.")
