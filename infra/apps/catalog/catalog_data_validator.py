@@ -24,10 +24,10 @@ class CatalogDataValidator:
         response = requests.get(url)
         response.raise_for_status()
         file_content = response.content
-        lf = NamedTemporaryFile()
-        lf.write(file_content)
-        lf.seek(0)
-        return File(lf)
+        temp_file = NamedTemporaryFile()
+        temp_file.write(file_content)
+        temp_file.seek(0)
+        return File(temp_file)
 
     def validate_file_and_url_fields(self, form_file, form_format, form_url):
         if not form_file and not form_url:
