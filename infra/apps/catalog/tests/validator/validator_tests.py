@@ -5,6 +5,7 @@ from django.test import TestCase
 from requests import HTTPError
 
 from infra.apps.catalog.catalog_data_validator import CatalogDataValidator
+from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
 
 
 class TestCatalogValidations(TestCase):
@@ -37,7 +38,7 @@ class TestCatalogValidations(TestCase):
         assert data['file'].read() == b"Testing text"
 
     def test_returns_correct_data_when_uploading_file(self):
-        with open('infra/apps/catalog/tests/samples/simple.json', 'r+') as local_file:
-            data_dict = {'format': 'json', 'identifier': 'test', 'file': local_file}
+        with open_catalog('simple.json') as sample:
+            data_dict = {'format': 'json', 'identifier': 'test', 'file': sample}
             data = self.validator.get_and_validate_data(data_dict)
             assert data['file'].read() == '{"identifier": "test"}'
