@@ -21,7 +21,7 @@ from infra.apps.common import views as common_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', common_views.home, name='home'),
-    re_path(r'^catalogs/', include('infra.apps.catalog.urls'))
+    path('catalogs/', include('infra.apps.catalog.urls'))
 ]
 
 if settings.DEBUG:
