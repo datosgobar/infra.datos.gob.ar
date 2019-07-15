@@ -6,7 +6,7 @@ from django.db import models
 
 
 def catalog_file_path(instance, _filename=None):
-    return f'catalogs/{instance.identifier}/data.{instance.format}'
+    return f'catalog/{instance.identifier}/data.{instance.format}'
 
 
 class CustomCatalogStorage(FileSystemStorage):
