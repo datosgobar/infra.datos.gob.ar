@@ -1,0 +1,8 @@
+<h1>Catálogos</h1>
+
+<a href="{% url 'add_catalog' %}">Agregar catálogo</a>
+
+{% for catalog in object_list %}
+    <p>Catálogo: {{ catalog }} </p>
+
+{% endfor %}

@@ -4,6 +4,8 @@ import os
 from django.core.files.storage import FileSystemStorage
 from django.db import models
 
+from infra.apps.catalog.catalog_data_validator import CatalogDataValidator
+
 
 def catalog_file_path(instance, _filename=None):
     return f'catalog/{instance.identifier}/data.{instance.format}'
@@ -17,10 +19,33 @@ class CustomCatalogStorage(FileSystemStorage):
 
 
 class Catalog(models.Model):
+
+    FORMAT_JSON = 'json'
+    FORMAT_XLSX = 'xlsx'
+    FORMAT_OPTIONS = [
+        (FORMAT_JSON, 'JSON'),
+        (FORMAT_XLSX, 'XLSX'),
+    ]
+
     identifier = models.CharField(default='', max_length=20, unique=True)
-    format = models.CharField(max_length=4, blank=False, null=False)
+    format = models.CharField(max_length=4, blank=False, null=False, choices=FORMAT_OPTIONS)
     file = models.FileField(upload_to=catalog_file_path, blank=True, null=True,
                             storage=CustomCatalogStorage())
 
     def __str__(self):
         return self.identifier
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        self.full_clean()
+        super(Catalog, self).save(force_insert, force_update, using, update_fields)
+
+    @classmethod
+    def create_from_url_or_file(cls, raw_data):
+        data = CatalogDataValidator().get_and_validate_data(raw_data)
+        catalog = cls.objects.create(**data)
+
+        if not data.get('file').closed:
+            data.get('file').close()
+
+        return catalog
