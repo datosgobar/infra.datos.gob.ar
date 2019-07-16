@@ -26,7 +26,7 @@ admin.site.login_template = 'registration/login.html'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('catalogs/', include('infra.apps.catalog.urls')),
+    path('upload/', include('infra.apps.catalog.urls')),
     path('django-des/', include(des_urls)),
     path('ingresar/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.logout_then_login, name='logout')

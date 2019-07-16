@@ -1,6 +1,7 @@
 # coding=utf-8
 from django.contrib import messages
 from django.core.exceptions import ValidationError
+from django.urls import reverse_lazy
 from django.views.generic import ListView
 from django.views.generic.edit import FormView
 
@@ -16,7 +17,7 @@ class CatalogView(ListView):
 class AddCatalogView(FormView):
     template_name = "add.html"
     form_class = CatalogForm
-    success_url = '/catalogs/'
+    success_url = reverse_lazy('catalog:list')
 
     def post(self, request, *args, **kwargs):
         form = CatalogForm(request.POST, request.FILES)
