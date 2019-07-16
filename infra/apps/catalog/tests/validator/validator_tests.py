@@ -2,7 +2,6 @@
 import requests_mock
 from django.core.exceptions import ValidationError
 from django.test import TestCase
-from requests import HTTPError
 
 from infra.apps.catalog.catalog_data_validator import CatalogDataValidator
 from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
@@ -26,7 +25,7 @@ class TestCatalogValidations(TestCase):
         mock.get('https://fakeurl.com/data.json', text="Testing text", status_code=404)
         data_dict = {'format': 'json', 'identifier': 'test',
                      'url': 'https://fakeurl.com/data.json'}
-        with self.assertRaises(HTTPError):
+        with self.assertRaises(ValidationError):
             self.validator.get_and_validate_data(data_dict)
 
     @requests_mock.mock()

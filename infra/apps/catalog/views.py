@@ -1,5 +1,6 @@
 # coding=utf-8
-
+from django.contrib import messages
+from django.core.exceptions import ValidationError
 from django.views.generic import ListView
 from django.views.generic.edit import FormView
 
@@ -20,16 +21,22 @@ class AddCatalogView(FormView):
 
     def post(self, request, *args, **kwargs):
         form = CatalogForm(request.POST, request.FILES)
-        if form.is_valid():
-            return self.form_valid(form)
-        return self.render_to_response(self.get_context_data(form=form), status=400)
+        if not form.is_valid():
+            return self.form_invalid(form)
 
-    def form_valid(self, form):
-        data = CatalogDataValidator().get_and_validate_data(form.cleaned_data)
+        try:
+            data = CatalogDataValidator().get_and_validate_data(form.cleaned_data)
+        except ValidationError as e:
+            messages.error(request, e)
+            return self.form_invalid(form)
 
         Catalog.objects.create(**data)
 
         if not data.get('file').closed:
             data.get('file').close()
+        return self.form_valid(form)
 
-        return super().form_valid(form)
+    def form_invalid(self, form):
+        response = super().form_invalid(form)
+        response.status_code = 400
+        return response
