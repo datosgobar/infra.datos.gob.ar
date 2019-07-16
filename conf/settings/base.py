@@ -53,10 +53,11 @@ INSTALLED_APPS = [
 
 VENDOR_APPS = [
     'django_extensions',
+    'des'
 ]
 
 LOCAL_APPS = [
-    'infra.apps.common',
+    'infra.apps.users',
     'infra.apps.catalog',
 ]
 
@@ -135,3 +136,11 @@ STATIC_ROOT = BASE_DIR('static')
 STATIC_URL = '/static/'
 
 SITE_ID = 1
+
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'
+
+EMAIL_BACKEND = 'des.backends.ConfiguredEmailBackend'
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='infra.datos.gob.ar@modernizacion.gob.ar')
+
+AUTH_USER_MODEL = 'users.User'
