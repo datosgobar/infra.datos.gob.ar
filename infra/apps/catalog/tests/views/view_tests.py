@@ -16,7 +16,7 @@ class TestCatalogViews(TestCase):
     def test_form_submit_with_valid_data_redirects_to_catalogs_index(self):
         with open_catalog('simple.json') as sample:
             form_data = {'format': 'json', 'identifier': 'test', 'file': sample}
-            response = self.client.post('/catalogs/add', form_data, follow=True)
+            response = self.client.post('/catalogs/add/', form_data, follow=True)
             self.assertEqual(response.redirect_chain[-1], ('/catalogs/', 302))
 
             response_templates_names = [template.name for template in response.templates]
@@ -25,5 +25,5 @@ class TestCatalogViews(TestCase):
     def test_catalog_is_created_when_submitted_form_is_valid(self):
         with open_catalog('simple.json') as sample:
             form_data = {'format': 'json', 'identifier': 'test', 'file': sample}
-            self.client.post('/catalogs/add', form_data)
+            self.client.post('/catalogs/add/', form_data)
             self.assertEqual(1, Catalog.objects.count())

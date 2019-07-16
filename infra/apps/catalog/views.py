@@ -22,7 +22,7 @@ class AddCatalogView(FormView):
         form = CatalogForm(request.POST, request.FILES)
         if form.is_valid():
             return self.form_valid(form)
-        return self.render_to_response(self.get_context_data(form=form))
+        return self.render_to_response(self.get_context_data(form=form), status=400)
 
     def form_valid(self, form):
         data = CatalogDataValidator().get_and_validate_data(form.cleaned_data)
