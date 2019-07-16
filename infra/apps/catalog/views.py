@@ -25,15 +25,11 @@ class AddCatalogView(FormView):
             return self.form_invalid(form)
 
         try:
-            data = CatalogDataValidator().get_and_validate_data(form.cleaned_data)
+            Catalog.create_from_url_or_file(form.cleaned_data)
         except ValidationError as e:
             messages.error(request, e)
             return self.form_invalid(form)
 
-        Catalog.objects.create(**data)
-
-        if not data.get('file').closed:
-            data.get('file').close()
         return self.form_valid(form)
 
     def form_invalid(self, form):

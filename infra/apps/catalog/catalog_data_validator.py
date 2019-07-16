@@ -19,7 +19,7 @@ class CatalogDataValidator:
             # Download the file contents from the specified URL
             file_handler = self.download_file_from_url(url)
 
-        return {'identifier': identifier, 'format': file_format, 'file': file_handler}
+        return {'identifier': identifier, 'format': file_format, 'file': File(file_handler)}
 
     def download_file_from_url(self, url):
         try:
@@ -29,10 +29,10 @@ class CatalogDataValidator:
             raise ValidationError('Error descargando el catálogo de la URL especificada')
 
         file_content = response.content
-        temp_file = NamedTemporaryFile()
-        temp_file.write(file_content)
-        temp_file.seek(0)
-        return File(temp_file)
+        fd = NamedTemporaryFile()
+        fd.write(file_content)
+        fd.seek(0)
+        return fd
 
     def validate_file_and_url_fields(self, form_file, form_format, form_url):
         if not form_file and not form_url:

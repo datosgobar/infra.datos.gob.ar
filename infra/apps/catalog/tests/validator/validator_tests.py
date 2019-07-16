@@ -41,7 +41,7 @@ class TestCatalogValidations(TestCase):
         with open_catalog('simple.json') as sample:
             data_dict = {'format': 'json', 'identifier': 'test', 'file': sample}
             data = self.validator.get_and_validate_data(data_dict)
-            assert data['file'].read() == '{"identifier": "test"}'
+            assert data['file'].read() == b'{"identifier": "test"}'
 
     @requests_mock.mock()
     def test_invalid_url(self, mock):

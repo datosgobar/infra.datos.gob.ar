@@ -4,6 +4,8 @@ import os
 from django.core.files.storage import FileSystemStorage
 from django.db import models
 
+from infra.apps.catalog.catalog_data_validator import CatalogDataValidator
+
 
 def catalog_file_path(instance, _filename=None):
     return f'catalogs/{instance.identifier}/data.{instance.format}'
@@ -37,3 +39,13 @@ class Catalog(models.Model):
              update_fields=None):
         self.full_clean()
         super(Catalog, self).save(force_insert, force_update, using, update_fields)
+
+    @classmethod
+    def create_from_url_or_file(cls, raw_data):
+        data = CatalogDataValidator().get_and_validate_data(raw_data)
+        catalog = cls.objects.create(**data)
+
+        if not data.get('file').closed:
+            data.get('file').close()
+
+        return catalog

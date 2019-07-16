@@ -29,3 +29,10 @@ def test_catalog_can_only_have_valid_formats():
     with pytest.raises(ValidationError):
         catalog = Catalog(identifier='sspm', format='inva')
         catalog.save()
+
+
+def test_create_from_url_or_file():
+    with open_catalog('simple.json') as sample:
+        data_dict = {'format': 'json', 'identifier': 'test', 'file': sample}
+        catalog = Catalog.create_from_url_or_file(data_dict)
+        assert catalog.file.read() == b'{"identifier": "test"}'
