@@ -319,6 +319,7 @@ good-names=i,
            j,
            k,
            e,
+           fd,
            Run,
            _,
            pytestmark

@@ -4,7 +4,6 @@ from django.core.exceptions import ValidationError
 from django.views.generic import ListView
 from django.views.generic.edit import FormView
 
-from infra.apps.catalog.catalog_data_validator import CatalogDataValidator
 from infra.apps.catalog.forms import CatalogForm
 from infra.apps.catalog.models import Catalog
 
