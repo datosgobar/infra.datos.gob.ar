@@ -1,6 +1,6 @@
 # coding=utf-8
 import requests
-from requests import HTTPError
+from requests import RequestException
 from django.core.exceptions import ValidationError
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
@@ -22,11 +22,11 @@ class CatalogDataValidator:
         return {'identifier': identifier, 'format': file_format, 'file': file_handler}
 
     def download_file_from_url(self, url):
-        response = requests.get(url)
         try:
+            response = requests.get(url)
             response.raise_for_status()
-        except HTTPError:
-            raise ValidationError('URL no encontrada (404)')
+        except RequestException:
+            raise ValidationError('Error descargando el catálogo de la URL especificada')
 
         file_content = response.content
         temp_file = NamedTemporaryFile()

@@ -2,6 +2,7 @@
 import requests_mock
 from django.core.exceptions import ValidationError
 from django.test import TestCase
+from requests import RequestException
 
 from infra.apps.catalog.catalog_data_validator import CatalogDataValidator
 from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
@@ -41,3 +42,11 @@ class TestCatalogValidations(TestCase):
             data_dict = {'format': 'json', 'identifier': 'test', 'file': sample}
             data = self.validator.get_and_validate_data(data_dict)
             assert data['file'].read() == '{"identifier": "test"}'
+
+    @requests_mock.mock()
+    def test_invalid_url(self, mock):
+        mock.get('https://fakeurl.com/data.json', exc=RequestException)
+        data_dict = {'format': 'json', 'identifier': 'test',
+                     'url': 'https://fakeurl.com/data.json'}
+        with self.assertRaises(ValidationError):
+            self.validator.get_and_validate_data(data_dict)
