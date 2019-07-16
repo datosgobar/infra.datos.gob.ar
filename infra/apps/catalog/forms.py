@@ -10,16 +10,22 @@ FORMAT_OPTIONS = [
     ]
 
 
-def clean_catalog(cleaned_data):
-    form_file = cleaned_data.get('file')
-    form_url = cleaned_data.get('url')
-    form_format = cleaned_data.get('format')
+class AbstractCatalogForm(ModelForm):
+    class Meta:
+        model = Catalog
+        fields = ['format', 'file', 'identifier']
 
-    validator = CatalogDataValidator()
-    validator.validate_file_and_url_fields(form_file, form_format, form_url)
+    def clean(self):
+        cleaned_data = super().clean()
+        form_file = cleaned_data.get('file')
+        form_url = cleaned_data.get('url')
+        form_format = cleaned_data.get('format')
+
+        validator = CatalogDataValidator()
+        validator.validate_file_and_url_fields(form_file, form_format, form_url)
 
 
-class CatalogForm(ModelForm):
+class CatalogForm(AbstractCatalogForm):
     class Meta:
         model = Catalog
         fields = ['format', 'file', 'identifier']
@@ -27,16 +33,10 @@ class CatalogForm(ModelForm):
     format = CharField(label='Formato', widget=Select(choices=FORMAT_OPTIONS))
     url = URLField(required=False)
 
-    def clean(self):
-        clean_catalog(super().clean())
 
-
-class AdminCatalogForm(ModelForm):
+class AdminCatalogForm(AbstractCatalogForm):
     class Meta:
         model = Catalog
         fields = ['format', 'file', 'identifier']
 
     format = CharField(widget=Select(choices=FORMAT_OPTIONS))
-
-    def clean(self):
-        clean_catalog(super().clean())
