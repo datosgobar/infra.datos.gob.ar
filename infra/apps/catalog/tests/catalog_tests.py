@@ -15,7 +15,7 @@ def test_catalog_saves_to_identifier_path():
         catalog.file = File(f)
         catalog.save()
 
-    assert 'catalogs/sspm/data.json' in Catalog.objects.first().file.name
+    assert 'catalog/sspm/data.json' in Catalog.objects.first().file.name
 
 
 def test_catalog_identifiers_unique():
