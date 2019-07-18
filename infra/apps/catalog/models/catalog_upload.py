@@ -29,7 +29,7 @@ class CatalogUpload(models.Model):
 
     identifier = models.CharField(default='', max_length=20, unique=True)
     format = models.CharField(max_length=4, blank=False, null=False, choices=FORMAT_OPTIONS)
-    file = models.FileField(upload_to=catalog_file_path, blank=True, null=True,
+    file = models.FileField(upload_to=catalog_file_path,
                             storage=CustomCatalogStorage())
 
     def __str__(self):
