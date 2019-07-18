@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='catalogupload',
             name='file',
-            field=models.FileField(default=(b'#!/usr/bin/env python\n', b'import os\n', b'import sys\n', b'\n', b'if __name__ == "__main__":\n', b'    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "conf.settings.local")\n', b'    try:\n', b'        from django.core.management import execute_from_command_line\n', b'    except ImportError as exc:\n', b'        raise ImportError(\n', b'            "Couldn\'t import Django. Are you sure it\'s installed and "\n', b'            "available on your PYTHONPATH environment variable? Did you "\n', b'            "forget to activate a virtual environment?"\n', b'        ) from exc\n', b'    execute_from_command_line(sys.argv)\n'), storage=infra.apps.catalog.models.catalog_upload.CustomCatalogStorage(), upload_to=infra.apps.catalog.models.catalog_upload.catalog_file_path),
+            field=models.FileField(default=(b'#'), storage=infra.apps.catalog.models.catalog_upload.CustomCatalogStorage(), upload_to=infra.apps.catalog.models.catalog_upload.catalog_file_path),
             preserve_default=False,
         ),
     ]

@@ -10,16 +10,14 @@ class CatalogDataValidator:
     def get_and_validate_data(self, raw_data):
         file_handler = raw_data.get('file')
         file_format = raw_data.get('format')
-        identifier = raw_data.get('identifier')
         url = raw_data.get('url')
 
         self.validate_file_and_url_fields(file_handler, file_format, url)
 
         if url:
-            # Download the file contents from the specified URL
             file_handler = self.download_file_from_url(url)
 
-        return {'identifier': identifier, 'format': file_format, 'file': File(file_handler)}
+        return {'node': raw_data['node'], 'format': file_format, 'file': File(file_handler)}
 
     def download_file_from_url(self, url):
         try:

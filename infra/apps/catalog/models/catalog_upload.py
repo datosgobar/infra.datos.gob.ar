@@ -5,10 +5,11 @@ from django.core.files.storage import FileSystemStorage
 from django.db import models
 
 from infra.apps.catalog.catalog_data_validator import CatalogDataValidator
+from infra.apps.catalog.models.node import Node
 
 
 def catalog_file_path(instance, _filename=None):
-    return f'catalog/{instance.identifier}/data.{instance.format}'
+    return f'catalog/{instance.node.identifier}/data.{instance.format}'
 
 
 class CustomCatalogStorage(FileSystemStorage):
@@ -27,13 +28,13 @@ class CatalogUpload(models.Model):
         (FORMAT_XLSX, 'XLSX'),
     ]
 
-    identifier = models.CharField(default='', max_length=20, unique=True)
+    node = models.ForeignKey(to=Node, on_delete=models.CASCADE)
     format = models.CharField(max_length=4, blank=False, null=False, choices=FORMAT_OPTIONS)
     file = models.FileField(upload_to=catalog_file_path,
                             storage=CustomCatalogStorage())
 
     def __str__(self):
-        return self.identifier
+        return self.node.identifier
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):

@@ -1,5 +1,5 @@
 # coding=utf-8
-from django.forms import ModelForm, URLField, CharField, Select
+from django import forms
 
 from infra.apps.catalog.models import CatalogUpload
 
@@ -9,24 +9,11 @@ FORMAT_OPTIONS = [
     ]
 
 
-class AbstractCatalogForm(ModelForm):
+class CatalogForm(forms.ModelForm):
     class Meta:
         model = CatalogUpload
-        fields = ['format', 'file', 'identifier']
+        fields = ['format', 'file', 'node']
 
-
-class CatalogForm(AbstractCatalogForm):
-    class Meta:
-        model = CatalogUpload
-        fields = ['format', 'file', 'identifier']
-
-    format = CharField(label='Formato', widget=Select(choices=FORMAT_OPTIONS))
-    url = URLField(required=False)
-
-
-class AdminCatalogForm(AbstractCatalogForm):
-    class Meta:
-        model = CatalogUpload
-        fields = ['format', 'file', 'identifier']
-
-    format = CharField(widget=Select(choices=FORMAT_OPTIONS))
+    file = forms.FileField(required=False)
+    format = forms.CharField(label='Formato', widget=forms.Select(choices=FORMAT_OPTIONS))
+    url = forms.URLField(required=False)
