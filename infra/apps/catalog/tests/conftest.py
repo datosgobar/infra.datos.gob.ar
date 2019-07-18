@@ -1,7 +1,7 @@
 import pytest
 from django.core.files import File
 
-from infra.apps.catalog.models import CatalogUpload
+from infra.apps.catalog.models import CatalogUpload, Node
 from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
 
 
@@ -14,3 +14,8 @@ def catalog():
         model.save()
 
     return model
+
+
+@pytest.fixture
+def node():
+    return Node.objects.create(identifier='test_id')
