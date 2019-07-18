@@ -1,5 +1,5 @@
-from .catalog import Catalog
+from .catalog_upload import CatalogUpload
 
 __all__ = [
-    'Catalog',
+    'CatalogUpload',
 ]

@@ -1,7 +1,7 @@
 # coding=utf-8
 from django.forms import ModelForm, URLField, CharField, Select
 
-from infra.apps.catalog.models import Catalog
+from infra.apps.catalog.models import CatalogUpload
 
 FORMAT_OPTIONS = [
         ('json', 'JSON'),
@@ -11,13 +11,13 @@ FORMAT_OPTIONS = [
 
 class AbstractCatalogForm(ModelForm):
     class Meta:
-        model = Catalog
+        model = CatalogUpload
         fields = ['format', 'file', 'identifier']
 
 
 class CatalogForm(AbstractCatalogForm):
     class Meta:
-        model = Catalog
+        model = CatalogUpload
         fields = ['format', 'file', 'identifier']
 
     format = CharField(label='Formato', widget=Select(choices=FORMAT_OPTIONS))
@@ -26,7 +26,7 @@ class CatalogForm(AbstractCatalogForm):
 
 class AdminCatalogForm(AbstractCatalogForm):
     class Meta:
-        model = Catalog
+        model = CatalogUpload
         fields = ['format', 'file', 'identifier']
 
     format = CharField(widget=Select(choices=FORMAT_OPTIONS))

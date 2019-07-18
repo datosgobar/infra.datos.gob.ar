@@ -18,7 +18,7 @@ class CustomCatalogStorage(FileSystemStorage):
         return name
 
 
-class Catalog(models.Model):
+class CatalogUpload(models.Model):
 
     FORMAT_JSON = 'json'
     FORMAT_XLSX = 'xlsx'
@@ -38,7 +38,7 @@ class Catalog(models.Model):
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         self.full_clean()
-        super(Catalog, self).save(force_insert, force_update, using, update_fields)
+        super(CatalogUpload, self).save(force_insert, force_update, using, update_fields)
 
     @classmethod
     def create_from_url_or_file(cls, raw_data):

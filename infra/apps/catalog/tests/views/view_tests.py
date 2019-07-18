@@ -3,7 +3,7 @@ import requests_mock
 from django.test import TestCase, Client
 from django.urls import reverse
 
-from infra.apps.catalog.models import Catalog
+from infra.apps.catalog.models import CatalogUpload
 from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
 
 
@@ -28,7 +28,7 @@ class TestCatalogViews(TestCase):
         with open_catalog('simple.json') as sample:
             form_data = {'format': 'json', 'identifier': 'test', 'file': sample}
             self.client.post(reverse('catalog:add'), form_data)
-            self.assertEqual(1, Catalog.objects.count())
+            self.assertEqual(1, CatalogUpload.objects.count())
 
     @requests_mock.mock()
     def test_returns_400_if_catalog_url_not_found(self, mock):

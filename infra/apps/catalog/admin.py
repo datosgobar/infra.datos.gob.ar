@@ -10,4 +10,4 @@ class CatalogAdmin(admin.ModelAdmin):
     form = AdminCatalogForm
 
 
-admin.site.register(models.Catalog, CatalogAdmin)
+admin.site.register(models.CatalogUpload, CatalogAdmin)
