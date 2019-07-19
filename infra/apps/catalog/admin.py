@@ -3,11 +3,10 @@
 from django.contrib import admin
 
 from infra.apps.catalog import models
-from infra.apps.catalog.forms import CatalogForm
 
 
 class CatalogAdmin(admin.ModelAdmin):
-    form = CatalogForm
+    pass
 
 
 @admin.register(models.Node)
