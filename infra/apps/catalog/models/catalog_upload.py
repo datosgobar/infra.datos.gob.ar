@@ -9,7 +9,7 @@ from infra.apps.catalog.models.node import Node
 
 
 def catalog_file_path(instance, _filename=None):
-    return f'catalog/{instance.node.identifier}/data.{instance.format}'
+    return f'catalog/{instance.node.identifier}/data-{instance.uploaded_at}.{instance.format}'
 
 
 class CustomCatalogStorage(FileSystemStorage):
@@ -30,10 +30,9 @@ class CatalogUpload(models.Model):
 
     node = models.ForeignKey(to=Node, on_delete=models.CASCADE)
     format = models.CharField(max_length=4, blank=False, null=False, choices=FORMAT_OPTIONS)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
     file = models.FileField(upload_to=catalog_file_path,
                             storage=CustomCatalogStorage())
-
-    uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.node.identifier

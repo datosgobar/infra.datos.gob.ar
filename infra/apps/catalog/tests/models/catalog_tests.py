@@ -9,8 +9,17 @@ pytestmark = pytest.mark.django_db
 
 
 def test_catalog_saves_to_identifier_path(catalog):
-    path = f'catalog/{catalog.node.identifier}/data.json'
+    path = f'catalog/{catalog.node.identifier}/data'
     assert path in CatalogUpload.objects.first().file.name
+
+
+def test_catalog_format_saved_in_file(catalog):
+    assert catalog.format in CatalogUpload.objects.first().file.name
+
+
+@pytest.mark.freeze_time('2019-01-01')
+def test_upload_date_saved_in_catalog_file(catalog):
+    assert str(catalog.uploaded_at.date()) in CatalogUpload.objects.first().file.name
 
 
 def test_catalog_identifiers_unique(catalog):
