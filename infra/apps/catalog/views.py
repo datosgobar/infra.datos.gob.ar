@@ -6,11 +6,11 @@ from django.views.generic import ListView
 from django.views.generic.edit import FormView
 
 from infra.apps.catalog.forms import CatalogForm
-from infra.apps.catalog.models import Catalog
+from infra.apps.catalog.models import CatalogUpload
 
 
 class CatalogView(ListView):
-    model = Catalog
+    model = CatalogUpload
     template_name = "index.html"
 
 
@@ -25,7 +25,7 @@ class AddCatalogView(FormView):
             return self.form_invalid(form)
 
         try:
-            Catalog.create_from_url_or_file(form.cleaned_data)
+            CatalogUpload.create_from_url_or_file(form.cleaned_data)
         except ValidationError as e:
             messages.error(request, e)
             return self.form_invalid(form)
