@@ -27,7 +27,6 @@ class AddCatalogView(FormView):
             return self.form_invalid(form)
 
         try:
-            CatalogUpload.create_from_url_or_file(form.cleaned_data)
             catalog = CatalogUpload.create_from_url_or_file(form.cleaned_data)
         except ValidationError as e:
             messages.error(request, e)
@@ -40,7 +39,7 @@ class AddCatalogView(FormView):
         response.status_code = 400
         return response
 
-    def validate_catalog(self, request, form, catalog):
+    def validate_catalog(self, request,  form, catalog):
         catalog_file_path = settings.MEDIA_ROOT + '/' + catalog.file.name
 
         try:
