@@ -33,6 +33,8 @@ class CatalogUpload(models.Model):
     file = models.FileField(upload_to=catalog_file_path,
                             storage=CustomCatalogStorage())
 
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return self.node.identifier
 
