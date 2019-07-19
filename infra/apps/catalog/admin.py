@@ -10,4 +10,9 @@ class CatalogAdmin(admin.ModelAdmin):
     form = CatalogForm
 
 
+@admin.register(models.Node)
+class NodeAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(models.CatalogUpload, CatalogAdmin)
