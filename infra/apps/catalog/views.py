@@ -32,13 +32,14 @@ class AddCatalogView(FormView):
             messages.error(request, e)
             return self.form_invalid(form)
 
+        return self.validate_catalog(request, form, catalog)
+
     def form_invalid(self, form):
         response = super().form_invalid(form)
         response.status_code = 400
         return response
 
     def validate_catalog(self, request,  form, catalog):
-
         catalog_file_path = settings.MEDIA_ROOT + '/' + catalog.file.name
 
         try:
