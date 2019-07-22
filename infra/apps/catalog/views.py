@@ -57,8 +57,9 @@ class AddCatalogView(FormView):
             for dataset in error_report['error']['dataset']:
                 errors += dataset['errors']
 
-            error_messages = '. '.join([error['message'] for error in errors])
-            messages.error(request, "El catálogo ingresado no es valido: " + error_messages)
+            error_messages = [error['message'] for error in errors]
+            for error_message in error_messages:
+                messages.error(request, error_message)
             return self.form_invalid(form)
 
         return self.form_valid(form)
