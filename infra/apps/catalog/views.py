@@ -1,4 +1,6 @@
 # coding=utf-8
+import os
+
 from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import ValidationError
@@ -40,7 +42,7 @@ class AddCatalogView(FormView):
         return response
 
     def validate_catalog(self, request, form, catalog):
-        catalog_file_path = settings.MEDIA_ROOT + '/' + catalog.file.name
+        catalog_file_path = os.path.join(settings.MEDIA_ROOT, catalog.file.name)
 
         try:
             data_json = DataJson(catalog_file_path)
