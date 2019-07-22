@@ -39,19 +39,19 @@ class AddCatalogView(FormView):
         response.status_code = 400
         return response
 
-    def validate_catalog(self, request,  form, catalog):
+    def validate_catalog(self, request, form, catalog):
         catalog_file_path = settings.MEDIA_ROOT + '/' + catalog.file.name
 
         try:
-            dj = DataJson(catalog_file_path)
+            data_json = DataJson(catalog_file_path)
         except KeyError:
             catalog.delete()
             messages.error(request, "No se puede validar el catálogo ingresado")
             return self.form_invalid(form)
 
-        if not dj.is_valid_catalog():
+        if not data_json.is_valid_catalog():
             catalog.delete()
-            error_report = dj.validate_catalog()
+            error_report = data_json.validate_catalog()
             errors = error_report['error']['catalog']['errors']
 
             for dataset in error_report['error']['dataset']:

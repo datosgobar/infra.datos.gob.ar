@@ -20,7 +20,7 @@ class TestCatalogViews(TestCase):
         self.assertIn('index.html', response_templates_names)
 
     def test_form_submit_with_valid_data_redirects_to_catalogs_index(self):
-        with open_catalog('simple.json') as sample:
+        with open_catalog('valid_data.json') as sample:
             form_data = {'format': 'json', 'node': self.node.id, 'file': sample}
             response = self.client.post(reverse('catalog:add'), form_data)
             self.assertEqual(response.status_code, 302)
@@ -28,7 +28,7 @@ class TestCatalogViews(TestCase):
             self.assertEqual(response.url, reverse('catalog:list'))
 
     def test_catalog_is_created_when_submitted_form_is_valid(self):
-        with open_catalog('simple.json') as sample:
+        with open_catalog('valid_data.json') as sample:
             form_data = {'format': 'json', 'node': self.node.id, 'file': sample}
             self.client.post(reverse('catalog:add'), form_data)
             self.assertEqual(1, CatalogUpload.objects.count())
