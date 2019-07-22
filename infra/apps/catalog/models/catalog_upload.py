@@ -14,7 +14,7 @@ def catalog_file_path(instance, _filename=None):
 
     return os.path.join(CATALOG_ROOT,
                         instance.node.identifier,
-                        f'{file_name}-{instance.uploaded_at.date()}.{instance.format}')
+                        f'{file_name}-{instance.uploaded_at}.{instance.format}')
 
 
 def _file_name_for_format(catalog):
@@ -45,6 +45,10 @@ class CustomCatalogStorage(FileSystemStorage):
 
 
 class CatalogUpload(models.Model):
+    class Meta:
+        unique_together = (
+            ('node', 'uploaded_at')
+        )
 
     FORMAT_JSON = 'json'
     FORMAT_XLSX = 'xlsx'
@@ -53,9 +57,9 @@ class CatalogUpload(models.Model):
         (FORMAT_XLSX, 'XLSX'),
     ]
 
-    node = models.ForeignKey(to=Node, on_delete=models.CASCADE)
+    node = models.ForeignKey(to=Node, on_delete=models.CASCADE, unique_for_date='uploaded_at')
     format = models.CharField(max_length=4, blank=False, null=False, choices=FORMAT_OPTIONS)
-    uploaded_at = models.DateTimeField(auto_now_add=True)
+    uploaded_at = models.DateField(auto_now_add=True)
     file = models.FileField(upload_to=catalog_file_path,
                             storage=CustomCatalogStorage())
 
@@ -71,6 +75,7 @@ class CatalogUpload(models.Model):
     @classmethod
     def create_from_url_or_file(cls, raw_data):
         data = CatalogDataValidator().get_and_validate_data(raw_data)
+
         catalog = cls.objects.create(**data)
 
         if not data.get('file').closed:

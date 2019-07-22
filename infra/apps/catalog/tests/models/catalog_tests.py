@@ -3,6 +3,8 @@ import os
 import pytest
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.core.files import File
+from django.db import IntegrityError
 from django.utils import timezone
 
 from infra.apps.catalog.models import CatalogUpload
@@ -22,7 +24,7 @@ def test_catalog_format_saved_in_file(catalog):
 
 @pytest.mark.freeze_time('2019-01-01')
 def test_upload_date_saved_in_catalog_file(catalog):
-    assert str(catalog.uploaded_at.date()) in CatalogUpload.objects.first().file.name
+    assert str(catalog.uploaded_at) in CatalogUpload.objects.first().file.name
 
 
 def test_catalog_identifiers_unique(catalog):
@@ -46,7 +48,7 @@ def test_create_from_url_or_file(node):
 
 @pytest.mark.freeze_time('2019-01-01')
 def test_catalog_uploaded_at(catalog):
-    assert catalog.uploaded_at.date() == timezone.now().date()
+    assert catalog.uploaded_at == timezone.now().date()
 
 
 def test_xlsx_format_file_name(xlsx_catalog):
@@ -71,5 +73,9 @@ def test_latest_catalog_saved(catalog):
                                        'data.json'))
 
 
-def test_catalog_only_uses_date_in_path(catalog):
-    assert str(catalog.uploaded_at) not in catalog.file.name
+def test_catalog_unique_by_date_and_node(catalog):
+    with open_catalog('simple.json') as sample:
+        with pytest.raises(IntegrityError):
+            CatalogUpload.objects.create(node=catalog.node,
+                                         format=CatalogUpload.FORMAT_JSON,
+                                         file=File(sample))
