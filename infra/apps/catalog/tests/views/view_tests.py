@@ -40,3 +40,31 @@ class TestCatalogViews(TestCase):
                      'url': 'https://fakeurl.com/data.json'}
         response = self.client.post(reverse('catalog:add'), data_dict, follow=True)
         self.assertEqual(response.status_code, 400)
+
+    def test_returns_400_if_catalog_is_not_valid(self):
+        with open_catalog('data.json') as sample:
+            form_data = {'format': 'json', 'node': self.node.id, 'file': sample}
+            response = self.client.post(reverse('catalog:add'), form_data)
+            self.assertEqual(response.status_code, 400)
+
+    def test_error_messages_in_view_if_catalog_is_not_valid(self):
+        with open_catalog('data.json') as sample:
+            form_data = {'format': 'json', 'node': self.node.id, 'file': sample}
+            response = self.client.post(reverse('catalog:add'), form_data)
+            self.assertIsNotNone(response.context['messages'])
+
+    def test_view_messages_includes_error_messages_from_validator(self):
+        error_messages = [
+            "'title' is a required property",
+            "'description' is a required property",
+            "'publisher' is a required property",
+            "'superThemeTaxonomy' is a required property",
+            "'Índice-precios-internos-basicos-al-por-mayor-desagregado-base-1993-anual.csv' "
+            "is not valid under any of the given schemas",
+        ]
+        with open_catalog('data.json') as sample:
+            form_data = {'format': 'json', 'node': self.node.id, 'file': sample}
+            response = self.client.post(reverse('catalog:add'), form_data)
+
+            messages = [str(message) for message in list(response.context['messages'])]
+            self.assertCountEqual(error_messages, messages)
