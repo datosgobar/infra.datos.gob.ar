@@ -14,7 +14,7 @@ def catalog_file_path(instance, _filename=None):
 
     return os.path.join(CATALOG_ROOT,
                         instance.node.identifier,
-                        f'{file_name}-{instance.uploaded_at}.{instance.format}')
+                        f'{file_name}-{instance.uploaded_at.date()}.{instance.format}')
 
 
 def _file_name_for_format(catalog):

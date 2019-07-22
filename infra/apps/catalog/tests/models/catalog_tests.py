@@ -69,3 +69,7 @@ def test_latest_catalog_saved(catalog):
                                        'catalog',
                                        catalog.node.identifier,
                                        'data.json'))
+
+
+def test_catalog_only_uses_date_in_path(catalog):
+    assert str(catalog.uploaded_at) not in catalog.file.name
