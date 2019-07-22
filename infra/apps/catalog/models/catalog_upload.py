@@ -2,7 +2,8 @@
 import os
 
 from django.core.files.storage import FileSystemStorage
-from django.db import models
+from django.db import models, transaction
+from django.utils import timezone
 
 from infra.apps.catalog.catalog_data_validator import CatalogDataValidator
 from infra.apps.catalog.models.node import Node
@@ -75,8 +76,9 @@ class CatalogUpload(models.Model):
     @classmethod
     def create_from_url_or_file(cls, raw_data):
         data = CatalogDataValidator().get_and_validate_data(raw_data)
-
-        catalog = cls.objects.create(**data)
+        with transaction.atomic():
+            cls.objects.filter(node=data['node'], uploaded_at=timezone.now().date()).delete()
+            catalog = cls.objects.create(**data)
 
         if not data.get('file').closed:
             data.get('file').close()

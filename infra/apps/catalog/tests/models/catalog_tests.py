@@ -79,3 +79,15 @@ def test_catalog_unique_by_date_and_node(catalog):
             CatalogUpload.objects.create(node=catalog.node,
                                          format=CatalogUpload.FORMAT_JSON,
                                          file=File(sample))
+
+
+def test_same_day_multiple_catalog_uploads(node):
+    with open_catalog('simple.json') as sample:
+        data_dict = {'format': 'json', 'node': node, 'file': sample}
+        CatalogUpload.create_from_url_or_file(data_dict)
+
+    with open_catalog('simple.json') as sample:
+        data_dict = {'format': 'json', 'node': node, 'file': sample}
+        CatalogUpload.create_from_url_or_file(data_dict)
+
+    assert CatalogUpload.objects.count() == 1
