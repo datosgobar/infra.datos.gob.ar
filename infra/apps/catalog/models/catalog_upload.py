@@ -10,16 +10,20 @@ from infra.apps.catalog.constants import CATALOG_ROOT
 
 
 def catalog_file_path(instance, _filename=None):
-    file_name_for_format = {
-        CatalogUpload.FORMAT_JSON: 'data',
-        CatalogUpload.FORMAT_XLSX: 'catalog'
-    }
-
-    file_name = file_name_for_format[instance.format]
+    file_name = _file_name_for_format(instance)
 
     return os.path.join(CATALOG_ROOT,
                         instance.node.identifier,
                         f'{file_name}-{instance.uploaded_at}.{instance.format}')
+
+
+def _file_name_for_format(catalog):
+    names = {
+        CatalogUpload.FORMAT_JSON: 'data',
+        CatalogUpload.FORMAT_XLSX: 'catalog'
+    }
+    file_name = names[catalog.format]
+    return file_name
 
 
 class CustomCatalogStorage(FileSystemStorage):
@@ -27,6 +31,17 @@ class CustomCatalogStorage(FileSystemStorage):
         if self.exists(name):
             os.remove(os.path.join(self.location, name))
         return name
+
+    def save_as_latest(self, instance):
+        path = self._latest_file_path(instance)
+        self.save(path, instance.file)
+        instance.file.seek(0)
+
+    def _latest_file_path(self, instance):
+        name = _file_name_for_format(instance)
+        return os.path.join(CATALOG_ROOT,
+                            instance.node.identifier,
+                            f'{name}.{instance.format}')
 
 
 class CatalogUpload(models.Model):
@@ -51,6 +66,7 @@ class CatalogUpload(models.Model):
              update_fields=None):
         self.full_clean()
         super(CatalogUpload, self).save(force_insert, force_update, using, update_fields)
+        self.file.storage.save_as_latest(self)
 
     @classmethod
     def create_from_url_or_file(cls, raw_data):

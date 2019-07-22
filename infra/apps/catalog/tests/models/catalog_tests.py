@@ -1,4 +1,7 @@
+import os
+
 import pytest
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
@@ -59,3 +62,10 @@ def test_json_format_file_name(catalog):
 def test_xlsx_format_file_name_no_data(xlsx_catalog):
     name = xlsx_catalog.file.name.split('/')[-1]
     assert 'data' not in name
+
+
+def test_latest_catalog_saved(catalog):
+    assert os.path.exists(os.path.join(settings.MEDIA_ROOT,
+                                       'catalog',
+                                       catalog.node.identifier,
+                                       'data.json'))

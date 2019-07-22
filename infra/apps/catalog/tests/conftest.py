@@ -1,5 +1,8 @@
+import os
+
 import pytest
 import requests_mock
+from django.conf import settings
 from django.core.files import File
 
 from infra.apps.catalog.models import CatalogUpload, Node
@@ -40,3 +43,12 @@ def mock_request():
 
 def _node():
     return Node.objects.create(identifier='test_id')
+
+
+@pytest.fixture(scope='session', autouse=True)
+def media_root():
+    yield
+    # Will be executed after the last test
+    import shutil
+    shutil.rmtree(settings.MEDIA_ROOT)
+    os.mkdir(settings.MEDIA_ROOT)
