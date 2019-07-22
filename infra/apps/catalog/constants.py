@@ -1,0 +1,2 @@
+
+CATALOG_ROOT = 'catalog'

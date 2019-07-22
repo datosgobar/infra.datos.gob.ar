@@ -18,6 +18,17 @@ def catalog():
 
 
 @pytest.fixture
+def xlsx_catalog():
+    with open_catalog('catalogo-justicia.xlsx') as catalog_fd:
+        model = CatalogUpload(format=CatalogUpload.FORMAT_XLSX,
+                              file=File(catalog_fd),
+                              node=_node())
+        model.save()
+
+    return model
+
+
+@pytest.fixture
 def node():
     return _node()
 

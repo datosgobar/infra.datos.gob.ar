@@ -6,10 +6,20 @@ from django.db import models
 
 from infra.apps.catalog.catalog_data_validator import CatalogDataValidator
 from infra.apps.catalog.models.node import Node
+from infra.apps.catalog.constants import CATALOG_ROOT
 
 
 def catalog_file_path(instance, _filename=None):
-    return f'catalog/{instance.node.identifier}/data-{instance.uploaded_at}.{instance.format}'
+    file_name_for_format = {
+        CatalogUpload.FORMAT_JSON: 'data',
+        CatalogUpload.FORMAT_XLSX: 'catalog'
+    }
+
+    file_name = file_name_for_format[instance.format]
+
+    return os.path.join(CATALOG_ROOT,
+                        instance.node.identifier,
+                        f'{file_name}-{instance.uploaded_at}.{instance.format}')
 
 
 class CustomCatalogStorage(FileSystemStorage):

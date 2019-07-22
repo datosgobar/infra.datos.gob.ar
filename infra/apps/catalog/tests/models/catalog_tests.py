@@ -44,3 +44,18 @@ def test_create_from_url_or_file(node):
 @pytest.mark.freeze_time('2019-01-01')
 def test_catalog_uploaded_at(catalog):
     assert catalog.uploaded_at.date() == timezone.now().date()
+
+
+def test_xlsx_format_file_name(xlsx_catalog):
+    name = xlsx_catalog.file.name.split('/')[-1]
+    assert 'catalog' in name
+
+
+def test_json_format_file_name(catalog):
+    name = catalog.file.name.split('/')[-1]
+    assert 'data' in name
+
+
+def test_xlsx_format_file_name_no_data(xlsx_catalog):
+    name = xlsx_catalog.file.name.split('/')[-1]
+    assert 'data' not in name
