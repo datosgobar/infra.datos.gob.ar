@@ -5,7 +5,7 @@ import requests_mock
 from django.conf import settings
 from django.core.files import File
 
-from infra.apps.catalog.models import CatalogUpload, Node
+from infra.apps.catalog.models import CatalogUpload, Node, Distribution
 from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
 
 
@@ -52,3 +52,15 @@ def media_root():
     import shutil
     shutil.rmtree(settings.MEDIA_ROOT)
     os.mkdir(settings.MEDIA_ROOT)
+
+
+@pytest.fixture
+def distribution():
+    with open_catalog('test_data.csv') as distribution_fd:
+        model = Distribution(file=File(distribution_fd),
+                             node=_node(),
+                             identifier="125.1",
+                             dataset_identifier="125")
+        model.save()
+
+    return model

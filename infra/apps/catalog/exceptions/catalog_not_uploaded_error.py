@@ -1,0 +1,2 @@
+class CatalogNotUploadedError(RuntimeError):
+    pass

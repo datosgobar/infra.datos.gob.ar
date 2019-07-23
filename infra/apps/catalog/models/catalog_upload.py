@@ -2,49 +2,23 @@
 import os
 
 from django.conf import settings
-from django.core.files.storage import FileSystemStorage
 from django.db import models, transaction
 from django.utils import timezone
 from pydatajson import DataJson
 
-from infra.apps.catalog.catalog_data_validator import CatalogDataValidator
+from infra.apps.catalog.validator.catalog_data_validator import CatalogDataValidator
+from infra.apps.catalog.helpers.file_name_for_format import file_name_for_format
+from infra.apps.catalog.storage.catalog_storage import CustomCatalogStorage
 from infra.apps.catalog.constants import CATALOG_ROOT
 from infra.apps.catalog.models.node import Node
 
 
 def catalog_file_path(instance, _filename=None):
-    file_name = _file_name_for_format(instance)
+    file_name = file_name_for_format(instance)
 
     return os.path.join(CATALOG_ROOT,
                         instance.node.identifier,
                         f'{file_name}-{instance.uploaded_at}.{instance.format}')
-
-
-def _file_name_for_format(catalog):
-    names = {
-        CatalogUpload.FORMAT_JSON: 'data',
-        CatalogUpload.FORMAT_XLSX: 'catalog'
-    }
-    file_name = names[catalog.format]
-    return file_name
-
-
-class CustomCatalogStorage(FileSystemStorage):
-    def get_available_name(self, name, max_length=None):
-        if self.exists(name):
-            os.remove(os.path.join(self.location, name))
-        return name
-
-    def save_as_latest(self, instance):
-        path = self._latest_file_path(instance)
-        self.save(path, instance.file)
-        instance.file.seek(0)
-
-    def _latest_file_path(self, instance):
-        name = _file_name_for_format(instance)
-        return os.path.join(CATALOG_ROOT,
-                            instance.node.identifier,
-                            f'{name}.{instance.format}')
 
 
 class CatalogUpload(models.Model):
@@ -66,6 +40,17 @@ class CatalogUpload(models.Model):
     file = models.FileField(upload_to=catalog_file_path,
                             storage=CustomCatalogStorage())
 
+    def __init__(self, *args, **kwargs):
+        super(CatalogUpload, self).__init__(*args, **kwargs)
+        self._datajson = None
+
+    @property
+    def datajson(self):
+        if not self._datajson:
+            self._datajson = DataJson(self.file.file.name)
+
+        return self._datajson
+
     def __str__(self):
         return self.node.identifier
 
@@ -86,6 +71,9 @@ class CatalogUpload(models.Model):
             data.get('file').close()
 
         return catalog
+
+    def get_datasets(self):
+        return self.datajson.get_datasets()
 
     def validate(self):
         error_messages = []

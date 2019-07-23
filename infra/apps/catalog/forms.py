@@ -17,3 +17,17 @@ class CatalogForm(forms.ModelForm):
     file = forms.FileField(required=False)
     format = forms.CharField(label='Formato', widget=forms.Select(choices=FORMAT_OPTIONS))
     url = forms.URLField(required=False)
+
+
+class DistributionForm(forms.Form):
+
+    file = forms.FileField(required=False)
+    url = forms.URLField(required=False)
+    distribution_identifier = forms.CharField()
+
+    def __init__(self, *args, **kwargs):
+        node = kwargs.pop('node')
+        super(DistributionForm, self).__init__(*args, **kwargs)
+        latest = node.get_latest_catalog_upload()
+        datasets = [(x['identifier'], x['identifier']) for x in latest.get_datasets()]
+        self.fields['dataset_identifier'] = forms.ChoiceField(choices=datasets)

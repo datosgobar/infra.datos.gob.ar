@@ -93,6 +93,12 @@ def test_same_day_multiple_catalog_uploads(node):
     assert CatalogUpload.objects.count() == 1
 
 
+def test_catalog_get_datasets(catalog):
+    ids = [x['identifier'] for x in catalog.get_datasets()]
+
+    assert ["125"] == ids
+
+
 def test_valiate_returns_error_message_if_catalog_is_not_valid(node):
     error_messages = [
         "'publisher' is a required property",
