@@ -91,3 +91,9 @@ def test_same_day_multiple_catalog_uploads(node):
         CatalogUpload.create_from_url_or_file(data_dict)
 
     assert CatalogUpload.objects.count() == 1
+
+
+def test_catalog_get_datasets(catalog):
+    ids = [x['identifier'] for x in catalog.get_datasets()]
+
+    assert ["125"] == ids

@@ -4,6 +4,7 @@ import os
 from django.core.files.storage import FileSystemStorage
 from django.db import models, transaction
 from django.utils import timezone
+from pydatajson import DataJson
 
 from infra.apps.catalog.catalog_data_validator import CatalogDataValidator
 from infra.apps.catalog.models.node import Node
@@ -64,6 +65,17 @@ class CatalogUpload(models.Model):
     file = models.FileField(upload_to=catalog_file_path,
                             storage=CustomCatalogStorage())
 
+    def __init__(self, *args, **kwargs):
+        super(CatalogUpload, self).__init__(*args, **kwargs)
+        self._datajson = None
+
+    @property
+    def datajson(self):
+        if not self._datajson:
+            self._datajson = DataJson(self.file.file.name)
+
+        return self._datajson
+
     def __str__(self):
         return self.node.identifier
 
@@ -84,3 +96,6 @@ class CatalogUpload(models.Model):
             data.get('file').close()
 
         return catalog
+
+    def get_datasets(self):
+        return self.datajson.get_datasets()
