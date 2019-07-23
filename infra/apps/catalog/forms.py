@@ -23,9 +23,11 @@ class DistributionForm(forms.Form):
 
     file = forms.FileField(required=False)
     url = forms.URLField(required=False)
+    distribution_identifier = forms.CharField()
 
-    def __init__(self, node):
-        super(DistributionForm, self).__init__()
+    def __init__(self, *args, **kwargs):
+        node = kwargs.pop('node')
+        super(DistributionForm, self).__init__(*args, **kwargs)
         latest = node.get_latest_catalog_upload()
         datasets = [(x['identifier'], x['identifier']) for x in latest.get_datasets()]
         self.fields['dataset'] = forms.ChoiceField(choices=datasets)

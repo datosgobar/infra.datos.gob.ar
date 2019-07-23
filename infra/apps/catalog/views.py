@@ -1,8 +1,8 @@
 # coding=utf-8
 from django.contrib import messages
 from django.core.exceptions import ValidationError
-from django.http import Http404
-from django.urls import reverse_lazy
+from django.http import Http404, HttpResponseRedirect
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import FormView
 
@@ -46,16 +46,32 @@ class AddDistribution(TemplateView):
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         status = 200
-        try:
-            node = Node.objects.get(id=kwargs['node'])
-        except Node.DoesNotExist:
-            raise Http404
+        node = self._get_node(kwargs['node'])
 
         try:
-            context['form'] = DistributionForm(node)
+            context['form'] = DistributionForm(node=node)
         except CatalogNotUploadedError:
             status = 400
             msg = f'No se encontraron catálogos subidos para el nodo: {node.identifier}'
             messages.error(request, msg)
 
         return self.render_to_response(context, status=status)
+
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        node = self._get_node(kwargs['node'])
+        form = DistributionForm(request.POST, request.FILES, node=node)
+        context['form'] = form
+        if not form.is_valid():
+            return self.post_error(context)
+
+        return HttpResponseRedirect(reverse('catalog:list'))
+
+    def post_error(self, context):
+        return self.render_to_response(context, status=400)
+
+    def _get_node(self, node_id):
+        try:
+            return Node.objects.get(id=node_id)
+        except Node.DoesNotExist:
+            raise Http404
