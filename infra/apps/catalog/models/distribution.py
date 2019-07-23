@@ -2,7 +2,7 @@ import os
 
 from django.db import models
 
-from infra.apps.catalog.models import Node
+from infra.apps.catalog.models.node import Node
 from infra.apps.catalog.storage.distribution_storage import \
     DistributionStorage, distribution_directory
 
@@ -21,3 +21,8 @@ class Distribution(models.Model):
     identifier = models.CharField(max_length=64)
     file = models.FileField(upload_to=distribution_file_path,
                             storage=DistributionStorage())
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        self.node.get_latest_catalog_upload()  # Validación de que hay un upload
+        super(Distribution, self).save(force_insert, force_update, using, update_fields)
