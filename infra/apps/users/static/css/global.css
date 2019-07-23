@@ -41,3 +41,11 @@ header .header-container .logout {
  padding-top: 80px;
 }
 
+a.catalogs {
+    display: block;
+  width: fit-content;
+}
+
+div.container {
+  margin: 10px 0;
+}
