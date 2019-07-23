@@ -109,3 +109,17 @@ class AddDistribution(TemplateView):
                                     dataset_identifier=form.cleaned_data['dataset_identifier'],
                                     identifier=form.cleaned_data['distribution_identifier'])
         return HttpResponseRedirect(reverse('catalog:list'))
+
+
+class ListDistributions(ListView):
+    model = Distribution
+    template_name = "list_distributions.html"
+
+    def get_queryset(self):
+        node = self.kwargs['node']
+        return self.model.objects.filter(node=node)
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ListDistributions, self).get_context_data(object_list=object_list, **kwargs)
+        context['node'] = Node.objects.get(id=self.kwargs['node'])
+        return context

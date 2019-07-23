@@ -36,3 +36,6 @@ class Distribution(models.Model):
                                   node=node,
                                   dataset_identifier=dataset_id,
                                   identifier=identifier)
+
+    def __str__(self):
+        return self.identifier

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Distribuciones para {{ node }}</h1>
+
+<a href="{% url 'catalog:add_distribution' node=node.id %}">Agregar distribución</a>
+
+{% for distribution in object_list %}
+    <p>Distribución: {{ distribution }} </p>
+
+{% endfor %}
+{% endblock %}
