@@ -6,3 +6,6 @@ class Node(models.Model):
 
     def __str__(self):
         return self.identifier
+
+    def get_latest_catalog_upload(self):
+        return self.catalogupload_set.order_by('uploaded_at').last()
