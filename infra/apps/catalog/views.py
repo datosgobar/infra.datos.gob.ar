@@ -1,13 +1,10 @@
 # coding=utf-8
-import os
 
-from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.urls import reverse_lazy
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import FormView
-from pydatajson import DataJson
 
 from infra.apps.catalog.forms import CatalogForm
 from infra.apps.catalog.models import CatalogUpload
@@ -21,7 +18,7 @@ class CatalogView(ListView):
 class AddCatalogView(FormView):
     template_name = "add.html"
     form_class = CatalogForm
-    success_url = reverse_lazy('catalog:list')
+    success_url = reverse_lazy('catalog:upload_success')
 
     def post(self, request, *args, **kwargs):
         form = CatalogForm(request.POST, request.FILES)
@@ -34,34 +31,16 @@ class AddCatalogView(FormView):
             messages.error(request, e)
             return self.form_invalid(form)
 
-        return self.validate_catalog(request, form, catalog)
+        validation_error_messages = catalog.validate()
+        for error_message in validation_error_messages:
+            messages.info(request, error_message)
+        return self.form_valid(form)
 
     def form_invalid(self, form):
         response = super().form_invalid(form)
         response.status_code = 400
         return response
 
-    def validate_catalog(self, request, form, catalog):
-        catalog_file_path = os.path.join(settings.MEDIA_ROOT, catalog.file.name)
 
-        try:
-            data_json = DataJson(catalog_file_path)
-        except KeyError:
-            catalog.delete()
-            messages.error(request, "No se puede validar el catálogo ingresado")
-            return self.form_invalid(form)
-
-        if not data_json.is_valid_catalog():
-            catalog.delete()
-            error_report = data_json.validate_catalog()
-            errors = error_report['error']['catalog']['errors']
-
-            for dataset in error_report['error']['dataset']:
-                errors += dataset['errors']
-
-            error_messages = [error['message'] for error in errors]
-            for error_message in error_messages:
-                messages.error(request, error_message)
-            return self.form_invalid(form)
-
-        return self.form_valid(form)
+class CatalogUploadSuccess(TemplateView):
+    template_name = "catalog_success.html"

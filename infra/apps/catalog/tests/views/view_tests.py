@@ -25,7 +25,7 @@ class TestCatalogViews(TestCase):
             response = self.client.post(reverse('catalog:add'), form_data)
             self.assertEqual(response.status_code, 302)
 
-            self.assertEqual(response.url, reverse('catalog:list'))
+            self.assertEqual(response.url, reverse('catalog:upload_success'))
 
     def test_catalog_is_created_when_submitted_form_is_valid(self):
         with open_catalog('valid_data.json') as sample:
@@ -41,16 +41,17 @@ class TestCatalogViews(TestCase):
         response = self.client.post(reverse('catalog:add'), data_dict, follow=True)
         self.assertEqual(response.status_code, 400)
 
-    def test_returns_400_if_catalog_is_not_valid(self):
+    def test_redirects_even_if_catalog_is_not_valid(self):
         with open_catalog('data.json') as sample:
             form_data = {'format': 'json', 'node': self.node.id, 'file': sample}
             response = self.client.post(reverse('catalog:add'), form_data)
-            self.assertEqual(response.status_code, 400)
+            self.assertEqual(response.status_code, 302)
 
     def test_error_messages_in_view_if_catalog_is_not_valid(self):
         with open_catalog('data.json') as sample:
             form_data = {'format': 'json', 'node': self.node.id, 'file': sample}
-            response = self.client.post(reverse('catalog:add'), form_data)
+            response = self.client.post(reverse('catalog:add'), form_data, follow=True)
+            print(response)
             self.assertIsNotNone(response.context['messages'])
 
     def test_view_messages_includes_error_messages_from_validator(self):
@@ -64,7 +65,7 @@ class TestCatalogViews(TestCase):
         ]
         with open_catalog('data.json') as sample:
             form_data = {'format': 'json', 'node': self.node.id, 'file': sample}
-            response = self.client.post(reverse('catalog:add'), form_data)
+            response = self.client.post(reverse('catalog:add'), form_data, follow=True)
 
             messages = [str(message) for message in list(response.context['messages'])]
             self.assertCountEqual(error_messages, messages)
