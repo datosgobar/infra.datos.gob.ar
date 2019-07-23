@@ -3,10 +3,16 @@
 {% block content %}
 <h1>Catálogos</h1>
 
+<div class="container">
+    <a class="catalogs" href="{% url 'home' %}">Volver</a>
+</div>
+
 <a href="{% url 'catalog:add' %}">Agregar catálogo</a>
 
-{% for catalog in object_list %}
-    <p>Catálogo: {{ catalog }} </p>
+<div class="container">
+    {% for catalog in object_list %}
+        <p>Catálogo: {{ catalog }} </p>
+    {% endfor %}
+</div>
 
-{% endfor %}
 {% endblock %}

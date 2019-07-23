@@ -1,4 +1,5 @@
 from django.urls import path
+
 from infra.apps.catalog import views as catalog_views
 
 app_name = 'catalog'
@@ -10,5 +11,7 @@ urlpatterns = [
     path('<int:node>/distributions/',
          catalog_views.ListDistributions.as_view(),
          name='list_distributions'),
+    path('nodes/', catalog_views.NodeListView.as_view(), name='nodes'),
+    path('nodes/<int:id>/', catalog_views.NodeUploadsView.as_view(), name='node_catalogs'),
     path('success/', catalog_views.CatalogUploadSuccess.as_view(), name='upload_success')
 ]

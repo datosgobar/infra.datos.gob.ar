@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Nodos</h1>
+
+<div class="container">
+    <a class="catalogs" href="{% url 'home' %}">Volver</a>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <ul>
+                <li>
+                    {% for node in object_list %}
+                        <a class="catalogs" href="{% url 'catalog:node_catalogs' id=node.id %}">Nodo: {{ node }} </a>
+                    {% endfor %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
