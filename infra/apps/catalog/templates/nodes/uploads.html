@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Catálogos del nodo {{ node_name }}</h1>
+
+<h3>Archivos actuales</h3>
+<a href="catalog/Test/data-2019-07-22.json">json, si existe</a>
+<a>xlsx, si existe</a>
+
+<h3>Versiones anteriores</h3>
+{% for catalog in object_list %}
+    <p>Catálogo: {{ catalog.node }} </p>
+{% endfor %}
+
+{% endblock %}

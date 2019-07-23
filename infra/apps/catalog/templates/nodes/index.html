@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Nodos</h1>
+
+{% for node in object_list %}
+    <p>Nodo: {{ node }} </p>
+{% endfor %}
+
+{% endblock %}
