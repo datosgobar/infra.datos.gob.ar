@@ -55,6 +55,7 @@ class AddDistribution(TemplateView):
             context['form'] = DistributionForm(node)
         except CatalogNotUploadedError:
             status = 400
-            messages.error(request, f'No se encontraron catálogos subidos para el nodo: {node.identifier}')
+            msg = f'No se encontraron catálogos subidos para el nodo: {node.identifier}'
+            messages.error(request, msg)
 
         return self.render_to_response(context, status=status)
