@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <h1>Distribuciones para {{ node }}</h1>
-
-<a href="{% url 'catalog:add_distribution' node=node.id %}">Agregar distribución</a>
-
+<div class="content">
+<a class="catalogs" href="{% url 'catalog:node_catalogs' id=node.id%}">Volver</a>
+<a class="catalogs" href="{% url 'catalog:add_distribution' node=node.id %}">Agregar distribución</a>
+    </div>
+    <br/>
 {% for distribution in object_list %}
-    <p>Distribución: {{ distribution }} </p>
-
+    <a class="catalogs" href="{% get_media_prefix  %}{{ distribution.file.name }}">Distribución: {{ distribution }} </a>
 {% endfor %}
 {% endblock %}

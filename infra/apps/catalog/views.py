@@ -1,7 +1,7 @@
 # coding=utf-8
+import os
 from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse
-import os
 
 from django.conf import settings
 from django.contrib import messages
@@ -109,14 +109,18 @@ class AddDistribution(TemplateView):
             messages.error(request, 'Error descargando la distribución desde la URL especificada')
             return self.post_error(context)
 
-        return HttpResponseRedirect(reverse('catalog:list'))
+        return self.success_url(node)
 
     def create_from_file(self, node, form):
         Distribution.objects.create(node=node,
                                     file=form.cleaned_data['file'],
                                     dataset_identifier=form.cleaned_data['dataset_identifier'],
                                     identifier=form.cleaned_data['distribution_identifier'])
-        return HttpResponseRedirect(reverse('catalog:list'))
+
+        return self.success_url(node)
+
+    def success_url(self, node):
+        return HttpResponseRedirect(reverse('catalog:node_catalogs', kwargs={'id': node.id}))
 
 
 class ListDistributions(ListView):
@@ -153,6 +157,7 @@ class NodeUploadsView(ListView):
         base_url = settings.CATALOG_SERVING_URL
         has_xlsx = os.path.isfile(os.path.join(base_url, node_name, 'catalog.xlsx')[1:])
         params_dict = {
+            'node_id': node_id,
             'base_url': base_url,
             'node_name': node_name,
             'has_xlsx': has_xlsx,
