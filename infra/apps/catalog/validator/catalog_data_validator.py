@@ -1,9 +1,10 @@
 # coding=utf-8
-import requests
 from requests import RequestException
 from django.core.exceptions import ValidationError
 from django.core.files import File
-from django.core.files.temp import NamedTemporaryFile
+
+from infra.apps.catalog.helpers.temp_file_from_url import temp_file_from_url
+from infra.apps.catalog.validator.url_or_file import URLOrFileValidator
 
 
 class CatalogDataValidator:
@@ -12,7 +13,7 @@ class CatalogDataValidator:
         file_format = raw_data.get('format')
         url = raw_data.get('url')
 
-        self.validate_file_and_url_fields(file_handler, url)
+        URLOrFileValidator(file_handler, url).validate()
         self.validate_format(url, file_handler, file_format)
 
         if url:
@@ -28,19 +29,6 @@ class CatalogDataValidator:
 
     def download_file_from_url(self, url):
         try:
-            response = requests.get(url)
-            response.raise_for_status()
+            return temp_file_from_url(url)
         except RequestException:
             raise ValidationError('Error descargando el catálogo de la URL especificada')
-
-        file_content = response.content
-        fd = NamedTemporaryFile()
-        fd.write(file_content)
-        fd.seek(0)
-        return fd
-
-    def validate_file_and_url_fields(self, form_file, form_url):
-        if not form_file and not form_url:
-            raise ValidationError("Se tiene que ingresar por lo menos un archivo o una URL válida.")
-        if form_file and form_url:
-            raise ValidationError("No se pueden ingresar un archivo y una URL a la vez.")

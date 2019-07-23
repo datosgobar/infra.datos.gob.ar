@@ -5,7 +5,7 @@ from django.db import models, transaction
 from django.utils import timezone
 from pydatajson import DataJson
 
-from infra.apps.catalog.catalog_data_validator import CatalogDataValidator
+from infra.apps.catalog.validator.catalog_data_validator import CatalogDataValidator
 from infra.apps.catalog.helpers.file_name_for_format import file_name_for_format
 from infra.apps.catalog.models.node import Node
 from infra.apps.catalog.constants import CATALOG_ROOT

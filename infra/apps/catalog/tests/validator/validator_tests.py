@@ -3,7 +3,7 @@ import pytest
 from django.core.exceptions import ValidationError
 from requests import RequestException
 
-from infra.apps.catalog.catalog_data_validator import CatalogDataValidator
+from infra.apps.catalog.validator.catalog_data_validator import CatalogDataValidator
 from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
 
 pytestmark = pytest.mark.django_db

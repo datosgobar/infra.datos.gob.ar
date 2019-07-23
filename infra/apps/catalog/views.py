@@ -9,6 +9,7 @@ from django.views.generic.edit import FormView
 from infra.apps.catalog.exceptions.catalog_not_uploaded_error import CatalogNotUploadedError
 from infra.apps.catalog.forms import CatalogForm, DistributionForm
 from infra.apps.catalog.models import CatalogUpload, Node
+from infra.apps.catalog.validator.url_or_file import URLOrFileValidator
 
 
 class CatalogView(ListView):
@@ -62,7 +63,7 @@ class AddDistribution(TemplateView):
         node = self._get_node(kwargs['node'])
         form = DistributionForm(request.POST, request.FILES, node=node)
         context['form'] = form
-        if not form.is_valid():
+        if not self._valid_form(form):
             return self.post_error(context)
 
         return HttpResponseRedirect(reverse('catalog:list'))
@@ -75,3 +76,13 @@ class AddDistribution(TemplateView):
             return Node.objects.get(id=node_id)
         except Node.DoesNotExist:
             raise Http404
+
+    def _valid_form(self, form):
+        if not form.is_valid():
+            return False
+        try:
+            URLOrFileValidator(form.cleaned_data['url'], form.cleaned_data['file']).validate()
+        except ValidationError:
+            return False
+
+        return True
