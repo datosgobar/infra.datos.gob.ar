@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Agregar distribución</h1>
+
+<a href="{% url 'catalog:list' %}">Volver</a>
+
+{% if messages %}
+<div class="errors">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-danger error">
+        {{ message|safe }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <input type="submit" value="Agregar">
+</form>
+{% endblock %}

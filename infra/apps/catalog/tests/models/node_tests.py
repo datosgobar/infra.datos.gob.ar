@@ -20,7 +20,7 @@ def test_node_representation_has_identifier(node):
 
 def get_latest_catalog(node):
     node.catalogupload_set.create(format=CatalogUpload.FORMAT_JSON,
-                                            file=File(NamedTemporaryFile()))
+                                  file=File(NamedTemporaryFile()))
     catalog = node.catalogupload_set.create(format=CatalogUpload.FORMAT_JSON,
                                             file=File(NamedTemporaryFile()))
 

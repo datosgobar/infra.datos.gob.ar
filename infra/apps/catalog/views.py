@@ -1,12 +1,13 @@
 # coding=utf-8
 from django.contrib import messages
 from django.core.exceptions import ValidationError
+from django.http import Http404
 from django.urls import reverse_lazy
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import FormView
 
-from infra.apps.catalog.forms import CatalogForm
-from infra.apps.catalog.models import CatalogUpload
+from infra.apps.catalog.forms import CatalogForm, DistributionForm
+from infra.apps.catalog.models import CatalogUpload, Node
 
 
 class CatalogView(ListView):
@@ -36,3 +37,23 @@ class AddCatalogView(FormView):
         response = super().form_invalid(form)
         response.status_code = 400
         return response
+
+
+class AddDistribution(TemplateView):
+    template_name = 'add_distribution.html'
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        status = 200
+        try:
+            node = Node.objects.get(id=kwargs['node'])
+        except Node.DoesNotExist:
+            raise Http404
+
+        try:
+            context['form'] = DistributionForm(node)
+        except Exception:
+            status = 400
+            messages.error(request, 'No se encontraron catálogos subidos para este nodo')
+
+        return self.render_to_response(context, status=status)

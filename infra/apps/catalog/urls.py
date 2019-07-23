@@ -5,5 +5,6 @@ app_name = 'catalog'
 
 urlpatterns = [
     path('', catalog_views.CatalogView.as_view(), name='list'),
-    path('add/', catalog_views.AddCatalogView.as_view(), name='add')
+    path('add/', catalog_views.AddCatalogView.as_view(), name='add'),
+    path('add/<int:node>/', catalog_views.AddDistribution.as_view(), name='add_distribution'),
 ]
