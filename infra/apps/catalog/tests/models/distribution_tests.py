@@ -25,3 +25,12 @@ def test_upload_distribution_to_node_without_catalogs_uploaded_fails(node):
                                         dataset_identifier='125',
                                         identifier='125.1',
                                         file=File(distribution))
+
+
+def test_read_from_url(catalog, requests_mock):
+    url = 'https://fakeurl.com/data.csv'
+    requests_mock.get(url,
+                      text='test_content')
+
+    distribution = Distribution.create_from_url(url, catalog.node, "125", "125.1")
+    assert distribution.file.read() == b'test_content'
