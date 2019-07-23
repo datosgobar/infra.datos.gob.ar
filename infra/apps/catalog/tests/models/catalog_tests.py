@@ -97,3 +97,22 @@ def test_catalog_get_datasets(catalog):
     ids = [x['identifier'] for x in catalog.get_datasets()]
 
     assert ["125"] == ids
+
+
+def test_valiate_returns_error_message_if_catalog_is_not_valid(node):
+    error_messages = [
+        "'publisher' is a required property",
+        "'title' is a required property",
+        "'superThemeTaxonomy' is a required property",
+        "'description' is a required property",
+        "'Índice-precios-internos-basicos-al-por-mayor-desagregado-base-1993-anual.csv' "
+        "is not valid under any of the given schemas",
+    ]
+
+    with open_catalog('data.json') as sample:
+        data_dict = {'format': 'json', 'node': node, 'file': sample}
+        catalog_upload = CatalogUpload.create_from_url_or_file(data_dict)
+        validation_result = catalog_upload.validate()
+
+    for error_message in error_messages:
+        assert error_message in validation_result

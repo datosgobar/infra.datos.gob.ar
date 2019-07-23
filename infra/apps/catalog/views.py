@@ -21,7 +21,7 @@ class CatalogView(ListView):
 class AddCatalogView(FormView):
     template_name = "add.html"
     form_class = CatalogForm
-    success_url = reverse_lazy('catalog:list')
+    success_url = reverse_lazy('catalog:upload_success')
 
     def post(self, request, *args, **kwargs):
         form = CatalogForm(request.POST, request.FILES)
@@ -29,11 +29,14 @@ class AddCatalogView(FormView):
             return self.form_invalid(form)
 
         try:
-            CatalogUpload.create_from_url_or_file(form.cleaned_data)
+            catalog = CatalogUpload.create_from_url_or_file(form.cleaned_data)
         except ValidationError as e:
             messages.error(request, e)
             return self.form_invalid(form)
 
+        validation_error_messages = catalog.validate()
+        for error_message in validation_error_messages:
+            messages.info(request, error_message)
         return self.form_valid(form)
 
     def form_invalid(self, form):
@@ -123,3 +126,7 @@ class ListDistributions(ListView):
         context = super(ListDistributions, self).get_context_data(object_list=object_list, **kwargs)
         context['node'] = Node.objects.get(id=self.kwargs['node'])
         return context
+
+
+class CatalogUploadSuccess(TemplateView):
+    template_name = "catalog_success.html"

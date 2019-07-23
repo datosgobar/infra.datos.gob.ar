@@ -1,15 +1,16 @@
 # coding=utf-8
 import os
 
+from django.conf import settings
 from django.db import models, transaction
 from django.utils import timezone
 from pydatajson import DataJson
 
 from infra.apps.catalog.validator.catalog_data_validator import CatalogDataValidator
 from infra.apps.catalog.helpers.file_name_for_format import file_name_for_format
-from infra.apps.catalog.models.node import Node
-from infra.apps.catalog.constants import CATALOG_ROOT
 from infra.apps.catalog.storage.catalog_storage import CustomCatalogStorage
+from infra.apps.catalog.constants import CATALOG_ROOT
+from infra.apps.catalog.models.node import Node
 
 
 def catalog_file_path(instance, _filename=None):
@@ -73,3 +74,23 @@ class CatalogUpload(models.Model):
 
     def get_datasets(self):
         return self.datajson.get_datasets()
+
+    def validate(self):
+        error_messages = []
+        file_path = os.path.join(settings.MEDIA_ROOT, self.file.name)
+
+        try:
+            data_json = DataJson(file_path)
+        except KeyError:
+            return ["No se puede validar el catálogo ingresado"]
+
+        if not data_json.is_valid_catalog():
+            error_report = data_json.validate_catalog()
+            errors = error_report['error']['catalog']['errors']
+
+            for dataset in error_report['error']['dataset']:
+                errors += dataset['errors']
+
+            error_messages = [error['message'] for error in errors]
+
+        return error_messages

@@ -9,5 +9,6 @@ urlpatterns = [
     path('add/<int:node>/', catalog_views.AddDistribution.as_view(), name='add_distribution'),
     path('<int:node>/distributions/',
          catalog_views.ListDistributions.as_view(),
-         name='list_distributions')
+         name='list_distributions'),
+    path('success/', catalog_views.CatalogUploadSuccess.as_view(), name='upload_success')
 ]
