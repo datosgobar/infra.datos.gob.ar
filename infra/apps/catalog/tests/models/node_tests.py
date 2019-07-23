@@ -4,6 +4,7 @@ import pytest
 from django.core.files import File
 from django.db import IntegrityError
 
+from infra.apps.catalog.exceptions.catalog_not_uploaded_error import CatalogNotUploadedError
 from infra.apps.catalog.models import Node, CatalogUpload
 
 pytestmark = pytest.mark.django_db
@@ -25,3 +26,8 @@ def get_latest_catalog(node):
                                             file=File(NamedTemporaryFile()))
 
     assert node.get_latest_catalog_upload().id == catalog.id
+
+
+def test_get_latest_catalog_fails_if_no_catalogs(node):
+    with pytest.raises(CatalogNotUploadedError):
+        node.get_latest_catalog_upload()

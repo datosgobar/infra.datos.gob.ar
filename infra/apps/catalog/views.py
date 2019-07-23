@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import FormView
 
+from infra.apps.catalog.exceptions.catalog_not_uploaded_error import CatalogNotUploadedError
 from infra.apps.catalog.forms import CatalogForm, DistributionForm
 from infra.apps.catalog.models import CatalogUpload, Node
 
@@ -52,8 +53,8 @@ class AddDistribution(TemplateView):
 
         try:
             context['form'] = DistributionForm(node)
-        except Exception:
+        except CatalogNotUploadedError:
             status = 400
-            messages.error(request, 'No se encontraron catálogos subidos para este nodo')
+            messages.error(request, f'No se encontraron catálogos subidos para el nodo: {node.identifier}')
 
         return self.render_to_response(context, status=status)
