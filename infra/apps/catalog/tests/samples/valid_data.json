@@ -1,0 +1,1768 @@
+{
+    "version":            "1.1",
+    "identifier":         "salud",
+    "title":              "Datos Secretar\u00eda de Gobierno de Salud",
+    "description":        "Ponemos a tu alcance datos p\u00fablicos de salud en formatos abiertos para que puedas usarlos, modificarlos y compartirlos. Estos datos son tuyos. Pod\u00e9s crear visualizaciones, aplicaciones y grandes herramientas con ellos.",
+    "superThemeTaxonomy": "http://datos.gob.ar/superThemeTaxonomy.json",
+    "publisher":          {"mbox": "soporte@dinami.gov.ar", "name": "Secretar\u00eda de Gobierno de Salud"},
+    "modified":           "2019-05-03T12:12:13.305379",
+    "language":           ["spa"],
+    "license":            "notspecified",
+    "homepage":           "http://datos.salud.gob.ar/",
+    "spatial":            ["ARG"],
+    "themeTaxonomy":      [{"label": "Alimentos", "id": "alimentos", "description": "Alimentos"}, {"label": "Donaci\u00f3n de \u00f3rganos y tejidos", "id": "donacion-de-organos-y-tejidos", "description": "Donaci\u00f3n de \u00f3rganos y tejidos"}, {"label": "Encuestas en Salud", "id": "encuestas-en-salud", "description": "Encuestas en Salud"}, {"label": "Estad\u00edsticas de Servicios", "id": "estadisticas-de-servicios", "description": "Estad\u00edsticas de Servicios"}, {"label": "Estad\u00edsticas Vitales", "id": "estadisticas-vitales", "description": "Estad\u00edsticas Vitales"}, {"label": "Gesti\u00f3n en Salud", "id": "gestion-en-salud", "description": "Gesti\u00f3n en Salud"}, {"label": "Legislaci\u00f3n en Salud", "id": "legislacion-en-salud", "description": "Legislaci\u00f3n en Salud"}, {"label": "Profesionales de la Salud", "id": "profesionales-salud", "description": "Profesionales de la Salud"}, {"label": "Registros, Padrones  y/o Listados Nacionales en Salud", "id": "registros-padrones-listados-nacionales-en-salud", "description": "Registros, Padrones  y/o Listados Nacionales en Salud"}, {"label": "Vademecum y Medicamentos", "id": "vademecum-y-medicamentos", "description": "Vademecum y Medicamentos"}, {"label": "Vigilancia y/o Notificaci\u00f3n de Enfermedades", "id": "vigilancia-notificacion-de-enfermedades", "description": "Vigilancia y/o Notificaci\u00f3n de Enfermedades"}],
+    "dataset":
+        [
+            {
+                "title":           "Consultas medicamentos esenciales",
+                "description":           "Total de consultas m\u00e9dicas y odontol\u00f3gicas realizadas en el mes informado en cada Centro de Salud del Primer Nivel, se hayan o no prescripto medicamentos de la coordinaci\u00f3n de medicamentos esenciales. No se suman consultas de enfermer\u00eda, kinesiolog\u00eda, psicolog\u00eda, etc. (Porque no se prescriben medicamentos)",
+                "modified":           "2019-04-16T09:40:53.582789",
+                "issued":             "2018-06-12T13:36:00.885502",
+                "landingPage":        "http://msal.gov.ar/medicamentos/",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "evaluacion@medicamentos.msal.gob.ar", "name": "Secretar\u00eda de Gobierno de Salud. \u00c1rea de Seguimiento y Evaluaci\u00f3n"},
+                "source":             "Secretar\u00eda de Gobierno de Salud. \u00c1rea de Seguimiento y Evaluaci\u00f3n",
+                "contactPoint":       {"hasEmail": "evaluacion@medicamentos.msal.gob.ar", "fn": "Secretar\u00eda de Gobierno de Salud. \u00c1rea de Seguimiento y Evaluaci\u00f3n"},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Consultas medicamentos esenciales 2003-2007",
+                            "description":       "Total de consultas m\u00e9dicas y odontol\u00f3gicas realizadas en el mes informado en cada Centro de Salud del Primer Nivel, se hayan o no prescripto medicamentos de la coordinaci\u00f3n de medicamentos esenciales.",
+                            "fileName":     "consultas-medicamentos-esenciales.csv",
+                            "type":         "file",
+                            "issued":       "2018-06-12T13:37:20.125612",
+                            "modified":     "2019-07-22T10:25:09.039093",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/5fcacd04-58eb-4b43-89a0-55231c58f1b4/resource/ed9e418f-9858-44df-8ce7-a74fde738684",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/5fcacd04-58eb-4b43-89a0-55231c58f1b4/resource/ed9e418f-9858-44df-8ce7-a74fde738684/download/consultas-medicamentos-esenciales.csv",
+                            "identifier":       "ed9e418f-9858-44df-8ce7-a74fde738684"
+                        } ,
+                    
+                        {
+                            "format":       "XLS",
+                            "title":       "Serie hist\u00f3rica de cantidad de consultas de medicamentos esenciales 2003-2018",
+                            "description":       "Total de consultas m\u00e9dicas y odontol\u00f3gicas realizadas en el mes informado en cada Centro de Salud del Primer Nivel, se hayan o no prescripto medicamentos de la coordinaci\u00f3n de medicamentos esenciales.",
+                            "fileName":     "serie-historica-de-cantidad-de-consultas-de-medicamentos-esenciales-2003-2018.xls",
+                            "issued":       "2019-01-11T10:11:05.561885",
+                            "modified":     "2019-01-11T10:11:05.460931",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/5fcacd04-58eb-4b43-89a0-55231c58f1b4/resource/2e1c2f44-4082-4449-955d-95d921ac61d9",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/5fcacd04-58eb-4b43-89a0-55231c58f1b4/resource/2e1c2f44-4082-4449-955d-95d921ac61d9/download/serie-historica-de-cantidad-de-consultas-de-medicamentos-esenciales-2003-2018.xls",
+                            "identifier":       "2e1c2f44-4082-4449-955d-95d921ac61d9"
+                        } ,
+                    
+                        {
+                            "format":       "CSV",
+                            "title":       "Serie hist\u00f3rica de cantidad de consultas de medicamentos esenciales 2003-2018",
+                            "description":       "Total de consultas m\u00e9dicas y odontol\u00f3gicas realizadas en el mes informado en cada Centro de Salud del Primer Nivel, se hayan o no prescripto medicamentos de la coordinaci\u00f3n de medicamentos esenciales.",
+                            "fileName":     "serie-historica-de-cantidad-de-consultas-de-medicamentos-esenciales-2003-2018.csv",
+                            "issued":       "2019-01-11T10:12:01.792620",
+                            "modified":     "2019-01-11T10:12:01.737000",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/5fcacd04-58eb-4b43-89a0-55231c58f1b4/resource/a39e25b6-dc69-4c7e-858e-3caf2f4f610a",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/5fcacd04-58eb-4b43-89a0-55231c58f1b4/resource/a39e25b6-dc69-4c7e-858e-3caf2f4f610a/download/serie-historica-de-cantidad-de-consultas-de-medicamentos-esenciales-2003-2018.csv",
+                            "identifier":       "a39e25b6-dc69-4c7e-858e-3caf2f4f610a"
+                        } ,
+                    
+                        {
+                            "format":       "CSV",
+                            "title":       "Consultas medicamentos esenciales",
+                            "description":       "Total de consultas m\u00e9dicas y odontol\u00f3gicas realizadas en cada Centro de Salud del Primer Nivel, se hayan o no prescripto medicamentos de la coordinaci\u00f3n de medicamentos esenciales. Per\u00edodo 2003-2019.",
+                            "fileName":     "consultas-medicamentos-esenciales-2003-2019.csv",
+                            "type":         "file.upload",
+                            "issued":       "2019-07-22T10:23:31.284690",
+                            "modified":     "2019-07-22T10:49:27.802194",
+                            "license":      "CC-BY-4.0",
+                            "field":       [{"description": "Per\u00edodo de tiempo analizado", "specialTypeDetail": "R/P1Y", "title": "indice_tiempo", "specialType": "time_index", "type": "date", "id": "salud_consultas_cus_0001"}, {"units": "cantidad", "id": "cus_cons_02", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Ciudad de Buenos Aires ", "title": "caba_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_06", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de Buenos Aires", "title": "buenos_aires_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_10", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de Catamarca", "title": "catamarca_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_14", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de C\u00f3rdoba", "title": "cordoba_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_18", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de Corrientes", "title": "corrientes_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_22", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de Chaco", "title": "chaco_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_26", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de Chubut", "title": "chubut_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_30", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de Entre R\u00edos", "title": "entre_rios_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_34", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de Formosa", "title": "formosa_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_38", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de Jujuy", "title": "jujuy_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_42", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de La Pampa", "title": "la_pampa_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_46", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de La Rioja", "title": "la_rioja_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_50", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de Mendoza", "title": "mendoza_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_54", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de Misiones", "title": "misiones_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_58", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de Neuquen", "title": "neuquen_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_62", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de R\u00edo Negro", "title": "rio_negro_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_66", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de Salta", "title": "salta_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_70", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de San Juan", "title": "san_juan_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_74", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de San Luis", "title": "san_luis_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_78", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de Santa Cruz", "title": "santa_cruz_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_82", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de Santa Fe", "title": "santa_fe_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_86", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de Santiago del Estero", "title": "santiago_del_estero_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_90", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de Tucum\u00e1n", "title": "tucuman_consultas_medicas_odonto"}, {"units": "cantidad", "id": "cus_cons_94", "type": "integer", "description": "CUS. Cantidad de consultas medicas y ontol\u00f3gicas para la Jurisdicci\u00f3n de Tierra del Fuego", "title": "tdf_consultas_medicas_odonto"}],
+                            "accessURL": "http://datos.salud.gob.ar/dataset/5fcacd04-58eb-4b43-89a0-55231c58f1b4/resource/0914967e-8597-4839-b30e-82a423315523",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/5fcacd04-58eb-4b43-89a0-55231c58f1b4/resource/0914967e-8597-4839-b30e-82a423315523/download/consultas-medicamentos-esenciales-2003-2019.csv",
+                            "identifier":       "0914967e-8597-4839-b30e-82a423315523"
+                        } ,
+                    
+                        {
+                            "format":       "XLS",
+                            "title":       "Consultas medicamentos esenciales",
+                            "description":       "Total de consultas m\u00e9dicas y odontol\u00f3gicas realizadas en cada Centro de Salud del Primer Nivel, se hayan o no prescripto medicamentos de la coordinaci\u00f3n de medicamentos esenciales. Per\u00edodo 2003-2019.",
+                            "fileName":     "consultas-medicamentos-esenciales-2003-2019.xls",
+                            "type":         "file.upload",
+                            "issued":       "2019-07-22T10:51:56.321970",
+                            "modified":     "2019-07-22T10:51:56.321970",
+                            "license":      "CC-BY-4.0",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/5fcacd04-58eb-4b43-89a0-55231c58f1b4/resource/ca51cb59-be6a-41cb-9cf1-bf6d77191031",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/5fcacd04-58eb-4b43-89a0-55231c58f1b4/resource/ca51cb59-be6a-41cb-9cf1-bf6d77191031/download/consultas-medicamentos-esenciales-2003-2019.xls",
+                            "identifier":       "ca51cb59-be6a-41cb-9cf1-bf6d77191031"
+                        } ,
+                    
+                        {
+                            "format":       "JSON",
+                            "title":       "Consultas medicamentos esenciales",
+                            "description":       "Total de consultas m\u00e9dicas y odontol\u00f3gicas realizadas en cada Centro de Salud del Primer Nivel, se hayan o no prescripto medicamentos de la coordinaci\u00f3n de medicamentos esenciales. Per\u00edodo 2003-2019.",
+                            "fileName":     "consultas-medicamentos-escenciales-2003-2019.json",
+                            "type":         "file.upload",
+                            "issued":       "2019-07-22T10:53:42.538928",
+                            "modified":     "2019-07-22T10:53:42.538928",
+                            "license":      "CC-BY-4.0",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/5fcacd04-58eb-4b43-89a0-55231c58f1b4/resource/84d585ab-c340-4879-af7a-476951000047",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/5fcacd04-58eb-4b43-89a0-55231c58f1b4/resource/84d585ab-c340-4879-af7a-476951000047/download/consultas-medicamentos-escenciales-2003-2019.json",
+                            "identifier":       "84d585ab-c340-4879-af7a-476951000047"
+                        } 
+                    
+                    ],
+                "keyword":        ["CUS", "consultas", "medicas"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["vademecum-y-medicamentos"],
+                "accrualPeriodicity": "R/P6M",
+                "temporal":      "2003-01-01T03:00:00.000Z/2017-12-31T03:00:00.000Z",
+                "identifier":           "5fcacd04-58eb-4b43-89a0-55231c58f1b4"
+            } ,
+            {
+                "title":           "Consultas M\u00e9dicas Ambulatorias. Rep\u00fablica Argentina.",
+                "description":           "Cantidad de Consultas M\u00e9dicas Ambulatorias por Unidad Operativa del Subsector Oficial. Rep\u00fablica Argentina.\r\n",
+                "modified":           "2019-07-18T12:56:16.325945",
+                "issued":             "2018-06-26T11:10:50.876050",
+                "landingPage":        "http://www.deis.msal.gov.ar/wp-content/uploads/2018/07/Serie11Nro16.pdf",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "informaciondeis@gmail.com", "name": "Secretar\u00eda de Gobierno de Salud. Direcci\u00f3n de Estad\u00edstica e Informaci\u00f3n en Salud (DEIS)"},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Direcci\u00f3n de Estad\u00edstica e Informaci\u00f3n en Salud (DEIS)",
+                "contactPoint":       {"hasEmail": "informaciondeis@gmail.com", "fn": "Lic. Carlos G. Guevel "},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Consultas Medicas Ambulatorias por Unidad Operativa del Subsector Oficial. A\u00f1os 2013-2014",
+                            "description":       "Cantidad de Consultas M\u00e9dicas Ambulatorias por Unidad Operativa del Subsector Oficial. A\u00f1os 2013-2014 ,Rep\u00fablica Argentina.",
+                            "fileName":     "cantidad-consultas-medicas-ambulatorias-subsector-oficial-argentina-anos-2013-2014.csv",
+                            "type":         "file",
+                            "issued":       "2018-06-26T11:12:14.432975",
+                            "modified":     "2019-07-18T12:54:32.972294",
+                            "license":      "cc-by",
+                            "field":       [{"type": "integer", "description": "C\u00f3digo de servicios y/o unidades operativas que se encuentran en el Bolet\u00edn de la serie 1 -  Numero 23 de la Direcci\u00f3n de Estad\u00edsticas e Informaci\u00f3n en Salud. Ministerio de Salud a\u00f1o 2007", "title": "unidad_operativa_id"}, {"type": "string", "description": "Descripci\u00f3n del c\u00f3digo de servicios y/o unidades operativas que se encuentran en el Bolet\u00edn de la serie 1 -  Numero 23 de la Direcci\u00f3n de Estad\u00edsticas e Informaci\u00f3n en Salud. Ministerio de Salud a\u00f1o 2007", "title": "unidad_operativa"}, {"type": "integer", "description": "Cantidad total de consultas anuales realizadas en el a\u00f1o 2013  en la Rep\u00fablica Argentina, en las distintas unidades operativas descriptas en las columnas anteriores.", "title": "a\u00f1o_2013"}, {"type": "integer", "description": "Cantidad total de consultas anuales realizadas en el a\u00f1o 2014 en la Rep\u00fablica Argentina, en las distintas unidades operativas descriptas en las columnas anteriores.", "title": "a\u00f1o_2014"}],
+                            "accessURL": "http://datos.salud.gob.ar/dataset/0c3cb8db-bc39-466d-a02e-dbb868124d3a/resource/69de22b3-04b9-43ff-a945-a042d206997e",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/0c3cb8db-bc39-466d-a02e-dbb868124d3a/resource/69de22b3-04b9-43ff-a945-a042d206997e/download/cantidad-consultas-medicas-ambulatorias-subsector-oficial-argentina-anos-2013-2014.csv",
+                            "identifier":       "69de22b3-04b9-43ff-a945-a042d206997e"
+                        } ,
+                    
+                        {
+                            "format":       "XLS",
+                            "title":       "Consultas Medicas Ambulatorias por Unidad Operativa del Subsector Oficial. A\u00f1os 2013-2015 y 2017",
+                            "description":       "Cantidad de Consultas M\u00e9dicas Ambulatorias por Unidad Operativa del Subsector Oficial. A\u00f1os 2013-2015 y 2017,Rep\u00fablica Argentina.",
+                            "fileName":     "cantidad-consultas-medicas-ambulatorias-subsector-oficial-argentina-anos-2013-al-2015-2017.xls",
+                            "type":         "file.upload",
+                            "issued":       "2019-07-18T12:42:49.565722",
+                            "modified":     "2019-07-22T09:18:45.097745",
+                            "license":      "CC-BY-4.0",
+                            "field":       [{"type": "integer", "description": "Codigo Unidad Operativa", "title": "unidad_operativa_id"}, {"type": "string", "description": "Nombre de Unidad Operativa", "title": "unidad-operativa"}, {"type": "string", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2013", "title": "anio-2013"}, {"type": "string", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2014", "title": "anio-2014"}, {"type": "string", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2015", "title": "anio-2015"}, {"type": "string", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2017", "title": "anio-2017"}],
+                            "accessURL": "http://datos.salud.gob.ar/dataset/0c3cb8db-bc39-466d-a02e-dbb868124d3a/resource/d8f4d12c-2dff-4107-bc4f-2b092c7e9cfc",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/0c3cb8db-bc39-466d-a02e-dbb868124d3a/resource/d8f4d12c-2dff-4107-bc4f-2b092c7e9cfc/download/cantidad-consultas-medicas-ambulatorias-subsector-oficial-argentina-anos-2013-al-2015-2017.xls",
+                            "identifier":       "d8f4d12c-2dff-4107-bc4f-2b092c7e9cfc"
+                        } ,
+                    
+                        {
+                            "format":       "CSV",
+                            "title":       "Consultas Medicas Ambulatorias por Unidad Operativa del Subsector Oficial. A\u00f1os 2013-2015 y 2017",
+                            "description":       "Cantidad de Consultas M\u00e9dicas Ambulatorias por Unidad Operativa del Subsector Oficial. A\u00f1os 2013-2015 y 2017,Rep\u00fablica Argentina.",
+                            "fileName":     "cantidad-consultas-medicas-ambulatorias-subsector-oficial-argentina-anos-2013-al-2015-2017.csv",
+                            "type":         "file.upload",
+                            "issued":       "2019-07-18T12:46:28.039971",
+                            "modified":     "2019-07-22T09:17:50.979559",
+                            "license":      "CC-BY-4.0",
+                            "field":       [{"type": "integer", "description": "C\u00f3digo Unidad Operativa", "title": "unidad_operativa_id "}, {"type": "string", "description": "Nombre de Unidad Operativa", "title": "unidad-operativa "}, {"type": "string", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2013 ", "title": "anio-2013 "}, {"type": "string", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2014 ", "title": "anio-2014 "}, {"type": "string", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2015 ", "title": "anio-2015 "}, {"type": "string", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2017 ", "title": "anio-2017 "}],
+                            "accessURL": "http://datos.salud.gob.ar/dataset/0c3cb8db-bc39-466d-a02e-dbb868124d3a/resource/563bbaf7-ce89-4b99-860c-23b093e6b44c",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/0c3cb8db-bc39-466d-a02e-dbb868124d3a/resource/563bbaf7-ce89-4b99-860c-23b093e6b44c/download/cantidad-consultas-medicas-ambulatorias-subsector-oficial-argentina-anos-2013-al-2015-2017.csv",
+                            "identifier":       "563bbaf7-ce89-4b99-860c-23b093e6b44c"
+                        } ,
+                    
+                        {
+                            "format":       "JSON",
+                            "title":       "Consultas Medicas Ambulatorias por Unidad Operativa del Subsector Oficial. A\u00f1os 2013-2015 y 2017",
+                            "description":       "Cantidad de Consultas M\u00e9dicas Ambulatorias por Unidad Operativa del Subsector Oficial. A\u00f1os 2013-2015 y 2017,Rep\u00fablica Argentina.",
+                            "fileName":     "cantidad-consultas-medicas-ambulatorias-subsector-oficial-argentina-anos-2013-al-2015-2017.json",
+                            "type":         "file.upload",
+                            "issued":       "2019-07-18T12:49:09.921861",
+                            "modified":     "2019-07-22T09:18:21.024703",
+                            "license":      "CC-BY-4.0",
+                            "field":       [{"type": "integer", "description": "Codigo Unidad Operativa ", "title": "unidad_operativa_id "}, {"type": "string", "description": "Nombre de Unidad Operativa ", "title": "unidad-operativa "}, {"type": "string", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2013 ", "title": "anio-2013 "}, {"type": "string", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2014 ", "title": "anio-2014 "}, {"type": "string", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2015 ", "title": "anio-2015 "}, {"type": "string", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2017", "title": "anio-2017 "}],
+                            "accessURL": "http://datos.salud.gob.ar/dataset/0c3cb8db-bc39-466d-a02e-dbb868124d3a/resource/4c51a8a6-57b6-4db9-8670-603edd79c4f0",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/0c3cb8db-bc39-466d-a02e-dbb868124d3a/resource/4c51a8a6-57b6-4db9-8670-603edd79c4f0/download/cantidad-consultas-medicas-ambulatorias-subsector-oficial-argentina-anos-2013-al-2015-2017.json",
+                            "identifier":       "4c51a8a6-57b6-4db9-8670-603edd79c4f0"
+                        } ,
+                    
+                        {
+                            "format":       "XLS",
+                            "title":       "Consultas Medicas Ambulatorias por Jurisdicci\u00f3n. Per\u00edodo 2010-2017",
+                            "description":       "Cantidad de Consultas M\u00e9dicas Ambulatorias por Jurisdicci\u00f3n. Per\u00edodo 2010-2017, Rep\u00fablica Argentina.",
+                            "fileName":     "cantidad-total-consultas-medicas-ambulatorias-periodo-2010-2017.xls",
+                            "type":         "file.upload",
+                            "issued":       "2019-07-18T13:01:12.444628",
+                            "modified":     "2019-07-18T13:18:38.220985",
+                            "license":      "CC-BY-4.0",
+                            "field":       [{"type": "integer", "description": "C\u00f3digo de Jurisdicci\u00f3n  \n", "title": "jurisdiccion_id "}, {"type": "integer", "description": "Nombre de Jurisdicci\u00f3n  ", "title": "jurisdiccion_nombre "}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2010\n", "title": "anio_2010"}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2011\n", "title": "anio_2011"}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2012", "title": "anio_2012"}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2013", "title": "anio_2013"}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2014", "title": "anio_2014"}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2015", "title": "anio_2015"}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2016", "title": "anio_2016"}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2017", "title": "anio_2017"}],
+                            "accessURL": "http://datos.salud.gob.ar/dataset/0c3cb8db-bc39-466d-a02e-dbb868124d3a/resource/c123342d-6257-46d1-ac33-089edb3236bc",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/0c3cb8db-bc39-466d-a02e-dbb868124d3a/resource/c123342d-6257-46d1-ac33-089edb3236bc/download/cantidad-total-consultas-medicas-ambulatorias-periodo-2010-2017.xls",
+                            "identifier":       "c123342d-6257-46d1-ac33-089edb3236bc"
+                        } ,
+                    
+                        {
+                            "format":       "CSV",
+                            "title":       "Consultas Medicas Ambulatorias por Jurisdicci\u00f3n. Per\u00edodo 2010-2017",
+                            "description":       "Cantidad de Consultas M\u00e9dicas Ambulatorias por Jurisdicci\u00f3n. Per\u00edodo 2010-2017, Rep\u00fablica Argentina.",
+                            "fileName":     "cantidad-total-consultas-medicas-ambulatorias-periodo-2010-2017.csv",
+                            "type":         "file.upload",
+                            "issued":       "2019-07-18T13:09:48.743784",
+                            "modified":     "2019-07-18T13:09:48.743784",
+                            "license":      "CC-BY-4.0",
+                            "field":       [{"type": "integer", "description": "C\u00f3digo de Jurisdicci\u00f3n \n", "title": "jurisdiccion_id"}, {"type": "integer", "description": "Nombre de Jurisdicci\u00f3n ", "title": "jurisdiccion_nombre"}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2010", "title": "anio_2010 "}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2011", "title": "anio_2011 "}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2012", "title": "anio_2012 "}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2013", "title": "anio_2013 "}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2013", "title": "anio_2014 "}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2015", "title": "anio_2015 "}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2016", "title": "anio_2016"}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2017", "title": "anio_2017"}],
+                            "accessURL": "http://datos.salud.gob.ar/dataset/0c3cb8db-bc39-466d-a02e-dbb868124d3a/resource/3e9b02ef-7bd8-4ca2-818a-291596a6fd0b",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/0c3cb8db-bc39-466d-a02e-dbb868124d3a/resource/3e9b02ef-7bd8-4ca2-818a-291596a6fd0b/download/cantidad-total-consultas-medicas-ambulatorias-periodo-2010-2017.csv",
+                            "identifier":       "3e9b02ef-7bd8-4ca2-818a-291596a6fd0b"
+                        } ,
+                    
+                        {
+                            "format":       "JSON",
+                            "title":       "Consultas Medicas Ambulatorias por Jurisdicci\u00f3n. Per\u00edodo 2010-2017",
+                            "description":       "Cantidad de Consultas M\u00e9dicas Ambulatorias por Jurisdicci\u00f3n. Per\u00edodo 2010-2017, Rep\u00fablica Argentina.",
+                            "fileName":     "cantidad-total-consultas-medicas-ambulatorias-periodo-2010-2017.json",
+                            "type":         "file.upload",
+                            "issued":       "2019-07-18T13:15:07.840001",
+                            "modified":     "2019-07-18T13:17:39.045747",
+                            "license":      "CC-BY-4.0",
+                            "field":       [{"type": "integer", "description": "C\u00f3digo de Jurisdicci\u00f3n", "title": "jurisdiccion_id"}, {"type": "string", "description": "Nombre de Jurisdicci\u00f3n", "title": "jurisdiccion_nombre"}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2010", "title": "anio_2010 "}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2011", "title": "anio_2011"}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2012", "title": "anio_2012"}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2013", "title": "anio_2013"}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2014", "title": "anio_2014"}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2015", "title": "anio_2015"}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2016", "title": "anio_2016"}, {"type": "integer", "description": "Cantidad Consultas Medicas Ambulatorias correspondientes al a\u00f1o 2017", "title": "anio_2017"}],
+                            "accessURL": "http://datos.salud.gob.ar/dataset/0c3cb8db-bc39-466d-a02e-dbb868124d3a/resource/04b1aebc-f407-4603-a2d3-5166133bf2f4",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/0c3cb8db-bc39-466d-a02e-dbb868124d3a/resource/04b1aebc-f407-4603-a2d3-5166133bf2f4/download/cantidad-total-consultas-medicas-ambulatorias-periodo-2010-2017.json",
+                            "identifier":       "04b1aebc-f407-4603-a2d3-5166133bf2f4"
+                        } 
+                    
+                    ],
+                "keyword":        ["DEIS", "ambulatoria", "consulta", "jurisdiccion", "medica"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["estadisticas-de-servicios"],
+                "accrualPeriodicity": "R/P1Y",
+                "temporal":      "2013-01-01T03:00:00.000Z/2014-12-31T03:00:00.000Z",
+                "identifier":           "0c3cb8db-bc39-466d-a02e-dbb868124d3a"
+            } ,
+            {
+                "title":           "Vigilancia de Infecciones respiratorias agudas",
+                "description":           "\u201cDatos correspondientes a Infecciones respiratorias agudas seg\u00fan Registro Sistema Nacional de Vigilancia de la Salud 2.0\r\n",
+                "modified":           "2019-04-16T09:45:37.055877",
+                "issued":             "2018-07-26T09:57:09.496223",
+                "landingPage":        "https://www.argentina.gob.ar/salud/epidemiologia/boletinesepidemiologicos",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "areavigilanciamsal@gmail.com", "name": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Promoci\u00f3n de la Salud, Prevenci\u00f3n y Control de Riesgos. Subsecretar\u00eda de Prevenci\u00f3n y Control de Enfermedades Comunicables e Inmunoprevenibles. Direcci\u00f3n Nacional de Epidemiolog\u00eda y An\u00e1lisis de la Situaci\u00f3n de Salud. \u00c1rea de Vigilancia."},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Promoci\u00f3n de la Salud, Prevenci\u00f3n y Control de Riesgos. Subsecretar\u00eda de Prevenci\u00f3n y Control de Enfermedades Comunicables e Inmunoprevenibles. Direcci\u00f3n Nacional de Epidemiolog\u00eda y An\u00e1lisis de la Situaci\u00f3n de Salud. \u00c1rea de Vigilancia.",
+                "contactPoint":       {"hasEmail": "areavigilanciamsal@gmail.com", "fn": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Promoci\u00f3n de la Salud, Prevenci\u00f3n y Control de Riesgos. Subsecretar\u00eda de Prevenci\u00f3n y Control de Enfermedades Comunicables e Inmunoprevenibles. Direcci\u00f3n Nacional de Epidemiolog\u00eda y An\u00e1lisis de la Situaci\u00f3n de Salud. \u00c1rea de Vigilancia."},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Vigilancia de Infecciones respiratorias agudas de enero a junio 2018",
+                            "description":       "Casos de Infecciones respiratorias agudas por localidad para el periodo Julio 2018",
+                            "fileName":     "informacion-publica-respiratorias-nacional-hasta-20180626.csv",
+                            "type":         "file",
+                            "issued":       "2018-07-26T09:58:07.319804",
+                            "modified":     "2019-04-15T12:24:10.970992",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/c553d917-36f4-4063-ac02-1686a9120e1c/resource/9a62f016-ba4e-4366-a883-22e9dc785d39",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/c553d917-36f4-4063-ac02-1686a9120e1c/resource/9a62f016-ba4e-4366-a883-22e9dc785d39/download/informacion-publica-respiratorias-nacional-hasta-20180626.csv",
+                            "identifier":       "9a62f016-ba4e-4366-a883-22e9dc785d39"
+                        } ,
+                    
+                        {
+                            "format":       "XLS",
+                            "title":       "Vigilancia de Infecciones respiratorias agudas a diciembre 2018",
+                            "description":       "Casos de Infecciones respiratorias agudas por localidad para el periodo Diciembre 2018",
+                            "fileName":     "vigilancia-de-dengue-y-zika-201812.xls",
+                            "type":         "file.upload",
+                            "issued":       "2019-01-08T09:17:57.071325",
+                            "modified":     "2019-04-15T12:51:37.404178",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/c553d917-36f4-4063-ac02-1686a9120e1c/resource/65843a31-498c-4525-bd7b-9a08f7d985b6",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/c553d917-36f4-4063-ac02-1686a9120e1c/resource/65843a31-498c-4525-bd7b-9a08f7d985b6/download/vigilancia-de-dengue-y-zika-201812.xls",
+                            "identifier":       "65843a31-498c-4525-bd7b-9a08f7d985b6"
+                        } ,
+                    
+                        {
+                            "format":       "CSV",
+                            "title":       "Vigilancia de Infecciones respiratorias agudas a diciembre 2018",
+                            "description":       "Casos de Infecciones respiratorias agudas por localidad para el periodo Diciembre 2018",
+                            "fileName":     "vigilancia-de-infecciones-respiratorias-agudas-20181228.csv",
+                            "type":         "file.upload",
+                            "issued":       "2019-04-15T12:38:10.118073",
+                            "modified":     "2019-04-15T12:38:10.118073",
+                            "license":      "CC-BY-4.0",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/c553d917-36f4-4063-ac02-1686a9120e1c/resource/0c29cc75-d81e-4f87-9257-4c30c24bfe55",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/c553d917-36f4-4063-ac02-1686a9120e1c/resource/0c29cc75-d81e-4f87-9257-4c30c24bfe55/download/vigilancia-de-infecciones-respiratorias-agudas-20181228.csv",
+                            "identifier":       "0c29cc75-d81e-4f87-9257-4c30c24bfe55"
+                        } ,
+                    
+                        {
+                            "format":       "CSV",
+                            "title":       "Vigilancia de Infecciones respiratorias agudas a julio 2019",
+                            "description":       "Casos de Infecciones respiratorias agudas por localidad para el periodo julio 2019\r\n\r\n",
+                            "fileName":     "vigilancia-de-infecciones-respiratorias-agudas.csv",
+                            "type":         "file.upload",
+                            "issued":       "2019-07-10T12:04:35.586775",
+                            "modified":     "2019-07-10T12:04:35.586775",
+                            "license":      "CC-BY-4.0",
+                            "field":       [{"type": "integer", "description": "C\u00f3digo de departamento", "title": "departamento_id"}, {"type": "string", "description": "Nombre de Departamento", "title": "departamento_nombre"}, {"type": "integer", "description": "C\u00f3digo de Provincia", "title": "provincia_id"}, {"type": "string", "description": "Nombre de Provincia", "title": "provincia_nombre"}, {"type": "string", "description": "A\u00f1o de ocurrencia", "title": "anio"}, {"type": "integer", "description": "Semanas epidemiologicas", "title": "semanas_epidemiologicas"}, {"type": "string", "description": "Nombre del evento", "title": "evento_nombre"}, {"type": "integer", "description": "Grupo de edades ", "title": "grupo_edad_id"}, {"type": "string", "description": "Grupos etarios ", "title": "grupo_edad_desc"}, {"type": "integer", "description": "Cantidad de casos ", "title": "cantidad_casos"}],
+                            "accessURL": "http://datos.salud.gob.ar/dataset/c553d917-36f4-4063-ac02-1686a9120e1c/resource/1270980e-df00-4734-a382-3c8f40dec8e9",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/c553d917-36f4-4063-ac02-1686a9120e1c/resource/1270980e-df00-4734-a382-3c8f40dec8e9/download/vigilancia-de-infecciones-respiratorias-agudas.csv",
+                            "identifier":       "1270980e-df00-4734-a382-3c8f40dec8e9"
+                        } ,
+                    
+                        {
+                            "format":       "XLS",
+                            "title":       "Vigilancia de Infecciones respiratorias agudas a julio 2019",
+                            "description":       "Casos de Infecciones respiratorias agudas por localidad para el periodo julio 2019",
+                            "fileName":     "vigilancia-de-infecciones-respiratorias-agudas.xls",
+                            "type":         "file.upload",
+                            "issued":       "2019-07-10T12:09:28.326390",
+                            "modified":     "2019-07-10T12:09:28.326390",
+                            "license":      "CC-BY-4.0",
+                            "field":       [{"type": "integer", "description": "C\u00f3digo de departamento", "title": "departamento_id"}, {"type": "string", "description": "Nombre de Departamento", "title": "departamento_nombre"}, {"type": "integer", "description": "C\u00f3digo de Provincia", "title": "provincia_id"}, {"type": "string", "description": "Nombre de Provincia", "title": "provincia_nombre"}, {"type": "string", "description": "A\u00f1o de ocurrencia", "title": "anio"}, {"type": "integer", "description": "Semanas epidemiologicas", "title": "semanas_epidemiologicas"}, {"type": "string", "description": "Nombre del evento", "title": "evento_nombre"}, {"type": "integer", "description": "Grupo de edades", "title": "grupo_edad_id"}, {"type": "string", "description": "Grupos etarios", "title": "grupo_edad_desc"}, {"type": "integer", "description": "Cantidad de casos", "title": "cantidad_casos"}],
+                            "accessURL": "http://datos.salud.gob.ar/dataset/c553d917-36f4-4063-ac02-1686a9120e1c/resource/9b08c77f-5e83-484b-907a-53168a2c3f7e",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/c553d917-36f4-4063-ac02-1686a9120e1c/resource/9b08c77f-5e83-484b-907a-53168a2c3f7e/download/vigilancia-de-infecciones-respiratorias-agudas.xls",
+                            "identifier":       "9b08c77f-5e83-484b-907a-53168a2c3f7e"
+                        } ,
+                    
+                        {
+                            "format":       "JSON",
+                            "title":       "Vigilancia de Infecciones respiratorias agudas a julio 2019",
+                            "description":       "Casos de Infecciones respiratorias agudas por localidad para el periodo julio 2019",
+                            "fileName":     "vigilancia-de-infecciones-respiratorias-agudas.json",
+                            "type":         "file.upload",
+                            "issued":       "2019-07-10T12:19:00.834683",
+                            "modified":     "2019-07-10T12:19:00.834683",
+                            "license":      "CC-BY-4.0",
+                            "field":       [{"type": "integer", "description": "C\u00f3digo de departamento", "title": "departamento_id"}, {"type": "string", "description": "Nombre de Departamento", "title": "departamento_nombre"}, {"type": "integer", "description": "C\u00f3digo de Provincia", "title": "provincia_id"}, {"type": "string", "description": "Nombre de Provincia", "title": "provincia_nombre"}, {"type": "string", "description": "A\u00f1o de ocurrencia", "title": "anio"}, {"type": "integer", "description": "Semanas epidemiologicas", "title": "semanas_epidemiologicas"}, {"type": "string", "description": "Nombre del evento", "title": "evento_nombre"}, {"type": "integer", "description": "Grupo de edades ", "title": "grupo_edad_id"}, {"type": "string", "description": "Grupos etarios ", "title": "grupo_edad_desc"}, {"type": "string", "description": "Cantidad de casos", "title": "cantidad_casos"}],
+                            "accessURL": "http://datos.salud.gob.ar/dataset/c553d917-36f4-4063-ac02-1686a9120e1c/resource/26c85a05-d4e3-4124-b7d2-e087a6cc5f24",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/c553d917-36f4-4063-ac02-1686a9120e1c/resource/26c85a05-d4e3-4124-b7d2-e087a6cc5f24/download/vigilancia-de-infecciones-respiratorias-agudas.json",
+                            "identifier":       "26c85a05-d4e3-4124-b7d2-e087a6cc5f24"
+                        } 
+                    
+                    ],
+                "keyword":        ["epidemiolog\u00eda", "infecciones respiratorias", "vigilancia"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["vigilancia-notificacion-de-enfermedades"],
+                "accrualPeriodicity": "R/P6M",
+                "temporal":      "2018-01-01T03:00:00.000Z/2018-06-28T03:00:00.000Z",
+                "identifier":           "c553d917-36f4-4063-ac02-1686a9120e1c"
+            } ,
+            {
+                "title":           "Vigilancia de las enfermedades por virus del Dengue y Zika",
+                "description":           "Casos confirmados  de Dengue y Zika  correspondientes al Registro del Sistema Nacional de Vigilancia de la Salud (versiones 1 y 2.0)\r\n",
+                "modified":           "2019-04-16T09:46:07.021312",
+                "issued":             "2018-09-13T10:01:47.139710",
+                "landingPage":        "https://www.argentina.gob.ar/salud/epidemiologia/boletinesepidemiologicos",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "areavigilanciamsal@gmail.com", "name": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Promoci\u00f3n de la Salud, Prevenci\u00f3n y Control de Riesgos. Subsecretar\u00eda de Prevenci\u00f3n y Control de Enfermedades Comunicables e Inmunoprevenibles. Direcci\u00f3n Nacional de Epidemiolog\u00eda y An\u00e1lisis de la Situaci\u00f3n de Salud. \u00c1rea de Vigilancia."},
+                "source":             "Prevenci\u00f3n y Control de Riesgos. Subsecretar\u00eda de Prevenci\u00f3n y Control de Enfermedades Comunicables e Inmunoprevenibles. Direcci\u00f3n Nacional de Epidemiolog\u00eda y An\u00e1lisis de la Situaci\u00f3n de Salud. \u00c1rea de Vigilancia.",
+                "contactPoint":       {"hasEmail": "areavigilanciamsal@gmail.com", "fn": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Promoci\u00f3n de la Salud, Prevenci\u00f3n y Control de Riesgos. Subsecretar\u00eda de Prevenci\u00f3n y Control de Enfermedades Comunicables e Inmunoprevenibles. Direcci\u00f3n Nacional de Epidemiolog\u00eda y An\u00e1lisis de la Situaci\u00f3n de Salud. \u00c1rea de Vigilancia."},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Vigilancia de Dengue y Zika - julio 2018",
+                            "description":       "Casos confirmados  de Dengue y Zika  correspondientes al Registro del Sistema Nacional de Vigilancia de la Salud (versiones 1 y 2.0) ) para el per\u00edodo de julio 2018\r\n",
+                            "fileName":     "dengue-zika-nacional-201807.csv",
+                            "type":         "file.upload",
+                            "issued":       "2018-09-13T10:02:47.904983",
+                            "modified":     "2019-04-15T13:06:30.302241",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/ceaa8e87-297e-4348-84b8-5c643e172500/resource/318834df-656d-4e71-9e87-195ebd96a0f8",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/ceaa8e87-297e-4348-84b8-5c643e172500/resource/318834df-656d-4e71-9e87-195ebd96a0f8/download/dengue-zika-nacional-201807.csv",
+                            "identifier":       "318834df-656d-4e71-9e87-195ebd96a0f8"
+                        } ,
+                    
+                        {
+                            "format":       "XLS",
+                            "title":       "Vigilancia de Dengue y Zika - diciembre 2018",
+                            "description":       "Casos confirmados de dengue y Zika correspondientes al Registro del Sistema Nacional de Vigilancia de la Salud (versiones 1 y 2.0) ) para el per\u00edodo de diciembre 2018",
+                            "fileName":     "vigilancia-de-dengue-y-zika-201812.xls",
+                            "type":         "file.upload",
+                            "issued":       "2018-12-28T11:59:54.952715",
+                            "modified":     "2019-04-15T12:55:27.959278",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/ceaa8e87-297e-4348-84b8-5c643e172500/resource/bdd4e662-42cf-47ee-b7b3-bc14f5acae2d",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/ceaa8e87-297e-4348-84b8-5c643e172500/resource/bdd4e662-42cf-47ee-b7b3-bc14f5acae2d/download/vigilancia-de-dengue-y-zika-201812.xls",
+                            "identifier":       "bdd4e662-42cf-47ee-b7b3-bc14f5acae2d"
+                        } ,
+                    
+                        {
+                            "format":       "CSV",
+                            "title":       "Vigilancia de Dengue y Zika - diciembre 2018",
+                            "description":       "Casos confirmados de dengue y Zika correspondientes al Registro del Sistema Nacional de Vigilancia de la Salud (versiones 1 y 2.0) ) para el per\u00edodo de diciembre 2018",
+                            "fileName":     "vigilancia-de-dengue-y-zika-201812.csv",
+                            "type":         "file.upload",
+                            "issued":       "2019-04-15T12:58:29.087748",
+                            "modified":     "2019-04-15T12:58:29.087748",
+                            "license":      "CC-BY-4.0",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/ceaa8e87-297e-4348-84b8-5c643e172500/resource/255440b0-d8b2-4247-87d2-91dfec29eb0f",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/ceaa8e87-297e-4348-84b8-5c643e172500/resource/255440b0-d8b2-4247-87d2-91dfec29eb0f/download/vigilancia-de-dengue-y-zika-201812.csv",
+                            "identifier":       "255440b0-d8b2-4247-87d2-91dfec29eb0f"
+                        } ,
+                    
+                        {
+                            "format":       "CSV",
+                            "title":       "Vigilancia de Dengue y Zika - julio 2019",
+                            "description":       "Casos confirmados de dengue y Zika correspondientes al Registro del Sistema Nacional de Vigilancia de la Salud (versiones 1 y 2.0) ) para el per\u00edodo de julio 2019",
+                            "fileName":     "vigilancia-de-dengue-y-zika.csv",
+                            "type":         "file.upload",
+                            "issued":       "2019-07-10T11:30:05.038630",
+                            "modified":     "2019-07-10T11:53:11.774528",
+                            "license":      "CC-BY-4.0",
+                            "field":       [{"type": "integer", "description": "C\u00f3digo del Departamento", "title": "departamento_id"}, {"type": "string", "description": "Nombre del Departamento", "title": "departamento_nombre"}, {"type": "integer", "description": "C\u00f3digo de la Provincia", "title": "provincia_id"}, {"type": "string", "description": "Nombre de la Provincia", "title": "provincia_nombre"}, {"type": "string", "description": "A\u00f1o de ocurrencia", "title": "anio"}, {"type": "integer", "description": "Semanas epidemiol\u00f3gicas ", "title": "semanas_epidemiologicas"}, {"type": "string", "description": "Nombre del evento", "title": "evento_nombre"}, {"type": "integer", "description": "Grupo de edades", "title": "grupo_edad_id"}, {"type": "string", "description": "Grupos etarios", "title": "grupo_edad_desc"}, {"type": "integer", "description": "Cantidad de casos", "title": "cantidad_casos"}],
+                            "accessURL": "http://datos.salud.gob.ar/dataset/ceaa8e87-297e-4348-84b8-5c643e172500/resource/344c7ab3-6207-4761-a628-87b863c64330",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/ceaa8e87-297e-4348-84b8-5c643e172500/resource/344c7ab3-6207-4761-a628-87b863c64330/download/vigilancia-de-dengue-y-zika.csv",
+                            "identifier":       "344c7ab3-6207-4761-a628-87b863c64330"
+                        } ,
+                    
+                        {
+                            "format":       "XLS",
+                            "title":       "Vigilancia de Dengue y Zika - julio 2019",
+                            "description":       "Casos confirmados de dengue y Zika correspondientes al Registro del Sistema Nacional de Vigilancia de la Salud (versiones 1 y 2.0) ) para el per\u00edodo de julio 2019",
+                            "fileName":     "vigilancia-de-dengue-y-zika.xls",
+                            "type":         "file.upload",
+                            "issued":       "2019-07-10T11:45:47.282115",
+                            "modified":     "2019-07-10T11:52:56.116684",
+                            "license":      "CC-BY-4.0",
+                            "field":       [{"type": "integer", "description": "C\u00f3digo del Departamento", "title": "departamento_id"}, {"type": "string", "description": "Nombre del Departamento", "title": "departamento_nombre"}, {"type": "integer", "description": "C\u00f3digo de la Provincia", "title": "provincia_id"}, {"type": "string", "description": "Nombre de la Provincia", "title": "provincia_nombre"}, {"type": "string", "description": "A\u00f1o de ocurrencia", "title": "anio"}, {"type": "integer", "description": "Semanas epidemiol\u00f3gicas ", "title": "semanas_epidemiologicas"}, {"type": "string", "description": "Nombre del evento", "title": "evento_nombre"}, {"type": "integer", "description": "Grupo de edades", "title": "grupo_edad_id"}, {"type": "string", "description": "Grupos etarios", "title": "grupo_edad_desc"}, {"type": "integer", "description": "Cantidad de casos", "title": "cantidad_casos"}],
+                            "accessURL": "http://datos.salud.gob.ar/dataset/ceaa8e87-297e-4348-84b8-5c643e172500/resource/ab93dc4b-4e6c-499b-9335-c548a701a870",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/ceaa8e87-297e-4348-84b8-5c643e172500/resource/ab93dc4b-4e6c-499b-9335-c548a701a870/download/vigilancia-de-dengue-y-zika.xls",
+                            "identifier":       "ab93dc4b-4e6c-499b-9335-c548a701a870"
+                        } ,
+                    
+                        {
+                            "format":       "JSON",
+                            "title":       "Vigilancia de Dengue y Zika - julio 2019",
+                            "description":       "Casos confirmados de dengue y Zika correspondientes al Registro del Sistema Nacional de Vigilancia de la Salud (versiones 1 y 2.0) ) para el per\u00edodo de julio 2019",
+                            "fileName":     "vigilancia-de-dengue-y-zika.json",
+                            "type":         "file.upload",
+                            "issued":       "2019-07-10T11:52:36.043798",
+                            "modified":     "2019-07-10T11:52:36.043798",
+                            "license":      "CC-BY-4.0",
+                            "field":       [{"type": "integer", "description": "C\u00f3digo del Departamento", "title": "departamento_id"}, {"type": "string", "description": "Nombre del Departamento", "title": "departamento_nombre"}, {"type": "integer", "description": "C\u00f3digo de la Provincia ", "title": "provincia_id"}, {"type": "string", "description": "Nombre de la Provincia", "title": "provincia_nombre "}, {"type": "string", "description": "A\u00f1o de ocurrencia ", "title": "anio"}, {"type": "integer", "description": "Semanas epidemiol\u00f3gicas  \n", "title": "semanas_epidemiologicas "}, {"type": "string", "description": "Nombre del evento ", "title": "evento_nombre "}, {"type": "integer", "description": "Grupo de edades", "title": "grupo_edad_id "}, {"type": "string", "description": "Grupos etarios", "title": "grupo_edad_desc"}, {"type": "integer", "description": "Cantidad de casos", "title": "cantidad_casos"}],
+                            "accessURL": "http://datos.salud.gob.ar/dataset/ceaa8e87-297e-4348-84b8-5c643e172500/resource/0414a95f-cddb-4193-80ed-1d884a72e6eb",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/ceaa8e87-297e-4348-84b8-5c643e172500/resource/0414a95f-cddb-4193-80ed-1d884a72e6eb/download/vigilancia-de-dengue-y-zika.json",
+                            "identifier":       "0414a95f-cddb-4193-80ed-1d884a72e6eb"
+                        } 
+                    
+                    ],
+                "keyword":        ["dengue", "epidemiolog\u00eda", "vigilancia", "zika"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["vigilancia-notificacion-de-enfermedades"],
+                "accrualPeriodicity": "R/P6M",
+                "temporal":      "2018-01-01T03:00:00.000Z/2018-08-21T03:00:00.000Z",
+                "identifier":           "ceaa8e87-297e-4348-84b8-5c643e172500"
+            } ,
+            {
+                "title":           "Alimentos Libres de Gluten",
+                "description":           "Datos correspondientes a los Alimentos Libres de Gluten aptos para consumo en el territorio de la Rep\u00fablica Argentina.\r\n",
+                "modified":           "2019-05-28T12:39:15.076603",
+                "issued":             "2018-07-26T09:43:42.812258",
+                "landingPage":        "https://extranet.anmat.gov.ar/ALG_Mobile/asp/wfAlimentos.aspx",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "alimentos.especiales.inal@gmail.com", "name": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Pol\u00edticas. Regulaci\u00f3n e Institutos. Administraci\u00f3n Nacional de Medicamentos. Alimentos y Tecnolog\u00eda M\u00e9dica (ANMAT). Direcci\u00f3n General de Informaci\u00f3n t\u00e9cnica"},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Pol\u00edticas. Regulaci\u00f3n e Institutos. Administraci\u00f3n Nacional de Medicamentos. Alimentos y Tecnolog\u00eda M\u00e9dica (ANMAT). Direcci\u00f3n General de Informaci\u00f3n t\u00e9cnica",
+                "contactPoint":       {"hasEmail": "alimentos.especiales.inal@gmail.com", "fn": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Pol\u00edticas. Regulaci\u00f3n e Institutos. Administraci\u00f3n Nacional de Medicamentos. Alimentos y Tecnolog\u00eda M\u00e9dica (ANMAT). Direcci\u00f3n General de Informaci\u00f3n t\u00e9cnica"},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Alimentos Libres de Gluten - julio 2018",
+                            "description":       "Datos correspondientes a los Alimentos Libres de Gluten aptos para consumo en el territorio de la Rep\u00fablica Argentina para el mes de julio 2018\r\n",
+                            "fileName":     "alg-a-junio-2018.csv",
+                            "type":         "file",
+                            "issued":       "2018-07-26T09:44:17.185838",
+                            "modified":     "2019-04-15T13:38:39.052207",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/2ebd602e-3138-40c0-847a-f3eb8f520887/resource/197b5905-016f-420a-8c30-89032787c71c",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/2ebd602e-3138-40c0-847a-f3eb8f520887/resource/197b5905-016f-420a-8c30-89032787c71c/download/alg-a-junio-2018.csv",
+                            "identifier":       "197b5905-016f-420a-8c30-89032787c71c"
+                        } ,
+                    
+                        {
+                            "format":       "CSV",
+                            "title":       "Alimentos Libres de Gluten - julio 2019",
+                            "description":       "Datos correspondientes a los Alimentos Libres de Gluten aptos para consumo en el territorio de la Rep\u00fablica Argentina para el mes de julio 2019",
+                            "fileName":     "alimentos-libres-de-gluten.csv",
+                            "type":         "file.upload",
+                            "issued":       "2019-07-10T11:08:41.890542",
+                            "modified":     "2019-07-10T11:08:41.890542",
+                            "license":      "CC-BY-4.0",
+                            "field":       [{"type": "string", "description": "Marca del producto comercial de los alimentos libres de gluten", "title": "marca"}, {"type": "string", "description": "Nombre de fantas\u00eda  de los alimentos libres de gluten", "title": "nombre_fantasia"}, {"type": "string", "description": "Alimentos libres de gluten", "title": "denominacion"}, {"type": "string", "description": "C\u00f3digo certificado de las autoridades sanitarias jurisdiccionales que otorgan a las empresas elaboradora de productos alimenticios.", "title": "RNPA"}],
+                            "accessURL": "http://datos.salud.gob.ar/dataset/2ebd602e-3138-40c0-847a-f3eb8f520887/resource/853d467c-5de5-46ae-bf04-5642c4960d1d",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/2ebd602e-3138-40c0-847a-f3eb8f520887/resource/853d467c-5de5-46ae-bf04-5642c4960d1d/download/alimentos-libres-de-gluten.csv",
+                            "identifier":       "853d467c-5de5-46ae-bf04-5642c4960d1d"
+                        } ,
+                    
+                        {
+                            "format":       "XLS",
+                            "title":       "Alimentos Libres de Gluten - julio 2019",
+                            "description":       "Datos correspondientes a los Alimentos Libres de Gluten aptos para consumo en el territorio de la Rep\u00fablica Argentina para el mes de julio 2019",
+                            "fileName":     "alimentos-libres-de-gluten.xls",
+                            "type":         "file.upload",
+                            "issued":       "2019-07-10T11:19:33.628963",
+                            "modified":     "2019-07-10T11:19:33.628963",
+                            "license":      "CC-BY-4.0",
+                            "field":       [{"type": "string", "description": "Marca del producto comercial de los alimentos libres de gluten ", "title": "marca"}, {"type": "string", "description": "Nombre de fantas\u00eda de los alimentos libres de gluten ", "title": "nombre_fantasia"}, {"type": "string", "description": "Alimentos libres de gluten ", "title": "denominacion"}, {"type": "string", "description": "C\u00f3digo certificado de las autoridades sanitarias jurisdiccionales que otorgan a las empresas elaboradora de productos alimenticios.", "title": "RNPA"}],
+                            "accessURL": "http://datos.salud.gob.ar/dataset/2ebd602e-3138-40c0-847a-f3eb8f520887/resource/7869f858-1475-4391-9286-b9109b83f840",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/2ebd602e-3138-40c0-847a-f3eb8f520887/resource/7869f858-1475-4391-9286-b9109b83f840/download/alimentos-libres-de-gluten.xls",
+                            "identifier":       "7869f858-1475-4391-9286-b9109b83f840"
+                        } ,
+                    
+                        {
+                            "format":       "JSON",
+                            "title":       "Alimentos Libres de Gluten - julio 2019",
+                            "description":       "Datos correspondientes a los Alimentos Libres de Gluten aptos para consumo en el territorio de la Rep\u00fablica Argentina para el mes de julio 2019",
+                            "fileName":     "alimentos-libres-de-gluten.json",
+                            "type":         "file.upload",
+                            "issued":       "2019-07-10T11:23:46.323601",
+                            "modified":     "2019-07-10T11:23:46.323601",
+                            "license":      "CC-BY-4.0",
+                            "field":       [{"type": "string", "description": "Marca del producto comercial de los alimentos libres de gluten", "title": "marca"}, {"type": "string", "description": "Nombre de fantas\u00eda de los alimentos libres de gluten ", "title": "nombre_fantasia"}, {"type": "string", "description": "Alimentos libres de gluten", "title": "denominacion"}, {"type": "string", "description": "C\u00f3digo certificado de las autoridades sanitarias jurisdiccionales que otorgan a las empresas elaboradora de productos alimenticios.", "title": "RNPA"}],
+                            "accessURL": "http://datos.salud.gob.ar/dataset/2ebd602e-3138-40c0-847a-f3eb8f520887/resource/328d2a1b-ce9e-420f-a4e5-da86151d96d1",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/2ebd602e-3138-40c0-847a-f3eb8f520887/resource/328d2a1b-ce9e-420f-a4e5-da86151d96d1/download/alimentos-libres-de-gluten.json",
+                            "identifier":       "328d2a1b-ce9e-420f-a4e5-da86151d96d1"
+                        } 
+                    
+                    ],
+                "keyword":        ["ANMAT", "alimentos", "gluten", "listados"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["alimentos"],
+                "accrualPeriodicity": "eventual",
+                "temporal":      "2017-07-20T03:00:00.000Z/2018-07-20T03:00:00.000Z",
+                "identifier":           "2ebd602e-3138-40c0-847a-f3eb8f520887"
+            } ,
+            {
+                "title":           "Tasa de Mortalidad Infantil",
+                "description":           "Tasa de Mortalidad Infantil por 1000 nacidos vivos por jurisdicci\u00f3n de residencia de la madre ocurridos en Argentina",
+                "modified":           "2019-04-16T09:44:06.814370",
+                "issued":             "2019-04-03T16:15:33.787131",
+                "landingPage":        "http://datos.salud.gob.ar/dataset/tasa-de-mortalidad-infantil",
+                "license":            "CC-BY-4.0",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "informaciondeis@gmail.com", "name": "Secretar\u00eda de Gobierno de Salud. Direcci\u00f3n de Estad\u00edstica e Informaci\u00f3n en Salud (DEIS) "},
+                "source":             "Direcci\u00f3n de Estad\u00edstica e Informaci\u00f3n en Salud (DEIS). Secretar\u00eda de Gobierno de Salud",
+                "contactPoint":       {"hasEmail": "informaciondeis@gmail.com", "fn": "Secretar\u00eda de Gobierno de Salud. Direcci\u00f3n de Estad\u00edstica e Informaci\u00f3n en Salud (DEIS) "},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Tasa de Mortalidad Infantil",
+                            "description":       "Tasa de Mortalidad Infantil por 1000 nacidos vivos por jurisdicci\u00f3n de residencia de la madre ocurridos en Argentina. Periodo 1990-2017",
+                            "fileName":     "tasa-mortalidad-infantil-deis.csv",
+                            "type":         "file.upload",
+                            "issued":       "2019-04-03T13:31:16.223070",
+                            "modified":     "2019-05-06T13:51:22.679189",
+                            "license":      "CC-BY-4.0",
+                            "field":       [{"description": "Periodo de tiempo analizado", "specialTypeDetail": "R/P1Y", "title": "indice_tiempo", "specialType": "time_index", "type": "date", "id": "salud_0001"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_arg", "type": "number", "description": "Tasa de Mortalidad Infantil de Argentina", "title": "mortalidad_infantil_argentina"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_02", "type": "number", "description": "Tasa de Mortalidad Infantil de Ciudad Aut\u00f3noma de Buenos Aires", "title": "mortalidad_infantil_caba"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_06", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de Buenos Aires", "title": "mortalidad_infantil_buenosaires"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_10", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de Catamarca", "title": "mortalidad_infantil_catamarca"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_14", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de C\u00f3rdoba", "title": "mortalidad_infantil_cordoba"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_18", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de Corrientes", "title": "mortalidad_infantil_corrientes"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_22", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de Chaco", "title": "mortalidad_infantil_chaco"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_26", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de Chubut", "title": "mortalidad_infantil_chubut"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_30", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de Entre R\u00edos", "title": "mortalidad_infantil_entrerios"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_34", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de Formosa", "title": "mortalidad_infantil_formosa"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_38", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de Jujuy", "title": "mortalidad_infantil_jujuy"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_42", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de La Pampa", "title": "mortalidad_infantil_lapampa"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_46", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de La Rioja", "title": "mortalidad_infantil_larioja"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_50", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de Mendoza", "title": "mortalidad_infantil_mendoza"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_54", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de Misiones", "title": "mortalidad_infantil_misiones"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_58", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de Neuquen", "title": "mortalidad_infantil_neuquen"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_62", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de R\u00edo Negro", "title": "mortalidad_infantil_rionegro"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_66", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de Salta", "title": "mortalidad_infantil_salta"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_70", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de San Juan", "title": "mortalidad_infantil_sanjuan"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_74", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de San Luis", "title": "mortalidad_infantil_sanluis"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_78", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de Santa Cruz", "title": "mortalidad_infantil_santacruz"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_82", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de Santa Fe", "title": "mortalidad_infantil_santafe"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_86", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de Santiago del Estero", "title": "mortalidad_infantil_santiagodelestero"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_90", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de Tucum\u00e1n", "title": "mortalidad_infantil_tucuman"}, {"units": "Ni\u00f1os menores de un a\u00f1o de edad fallecidos por cada mil nacidos vivos", "id": "tmi_94", "type": "number", "description": "Tasa de Mortalidad Infantil de la Provincia de Tierra del Fuego", "title": "mortalidad_infantil_tierradelfuego"}],
+                            "accessURL": "http://datos.salud.gob.ar/dataset/2eff770c-1c2b-4a22-9281-c3b5e9412086/resource/c1253897-d507-41f7-a3e1-6ed756e7243b",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/2eff770c-1c2b-4a22-9281-c3b5e9412086/resource/c1253897-d507-41f7-a3e1-6ed756e7243b/download/tasa-mortalidad-infantil-deis.csv",
+                            "identifier":       "c1253897-d507-41f7-a3e1-6ed756e7243b"
+                        } 
+                    
+                    ],
+                "keyword":        ["DEIS", "mortalidad infantil"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["estadisticas-vitales"],
+                "accrualPeriodicity": "R/P1Y",
+                "temporal":      "1990-01-01T02:00:00.000Z/2017-12-31T03:00:00.000Z",
+                "identifier":           "2eff770c-1c2b-4a22-9281-c3b5e9412086"
+            } ,
+            {
+                "title":           "Tasa de Natalidad",
+                "description":           "Tasa de Natalidad por 1000 habitantes registrada en la Rep\u00fablica Argentina",
+                "modified":           "2019-04-25T11:53:55.090694",
+                "issued":             "2019-04-23T16:26:15.191237",
+                "landingPage":        "http://datos.salud.gob.ar/dataset/tasa-de-natalidad",
+                "license":            "CC-BY-4.0",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "informaciondeis@gmail.com", "name": "Secretar\u00eda de Gobierno de Salud. Direcci\u00f3n de Estad\u00edstica e Informaci\u00f3n en Salud (DEIS) "},
+                "source":             "Direcci\u00f3n de Estad\u00edstica e Informaci\u00f3n en Salud (DEIS). Secretar\u00eda de Gobierno de Salud",
+                "contactPoint":       {"hasEmail": "informaciondeis@gmail.com", "fn": "Secretar\u00eda de Gobierno de Salud. Direcci\u00f3n de Estad\u00edstica e Informaci\u00f3n en Salud (DEIS) "},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Tasa de Natalidad",
+                            "description":       "Tasa de Natalidad por 1000 habitantes por jurisdicci\u00f3n ocurridos en la Rep\u00fablica Argentina. Periodo 2000-2017",
+                            "fileName":     "tasa-natalidad-jurisdiccion.csv",
+                            "type":         "file.upload",
+                            "issued":       "2019-04-23T13:49:52.217289",
+                            "modified":     "2019-05-06T10:54:28.705990",
+                            "license":      "CC-BY-4.0",
+                            "field":       [{"description": "Periodo de tiempo analizado", "specialTypeDetail": "R/P1Y", "title": "indice_tiempo", "specialType": "time_index", "type": "date", "id": "salud_0003"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_arg", "type": "number", "description": "Tasa de Natalidad de Argentina", "title": "natalidad_argentina"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_02", "type": "number", "description": "Tasa de Natalidad de Ciudad Aut\u00f3noma de Buenos Aires", "title": "natalidad_ciudad_autonoma_de_buenos_aires"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_06", "type": "number", "description": "Tasa de Natalidad de la Provincia de Buenos Aires", "title": "natalidad_buenos_aires"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_10", "type": "number", "description": "Tasa de Natalidad de la Provincia de Catamarca", "title": "natalidad_catamarca"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_14", "type": "number", "description": "Tasa de Natalidad de la Provincia de C\u00f3rdoba", "title": "natalidad_cordoba"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_18", "type": "number", "description": "Tasa de Natalidad de la Provincia de Corrientes", "title": "natalidad_corrientes"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_22", "type": "number", "description": "Tasa de Natalidad de la Provincia de Chaco", "title": "natalidad_chaco"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_26", "type": "number", "description": "Tasa de Natalidad de la Provincia de Chubut", "title": "natalidad_chubut"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_30", "type": "number", "description": "Tasa de Natalidad de la Provincia de Entre R\u00edos", "title": "natalidad_entre_rios"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_34", "type": "number", "description": "Tasa de Natalidad de la Provincia de Formosa", "title": "natalidad_formosa"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_38", "type": "number", "description": "Tasa de Natalidad de la Provincia de Jujuy", "title": "natalidad_jujuy"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_42", "type": "number", "description": "Tasa de Natalidad de la Provincia de La Pampa", "title": "natalidad_la_pampa"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_46", "type": "number", "description": "Tasa de Natalidad de la Provincia de La Rioja", "title": "natalidad_la_rioja"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_50", "type": "number", "description": "Tasa de Natalidad de la Provincia de Mendoza", "title": "natalidad_mendoza"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_54", "type": "number", "description": "Tasa de Natalidad de la Provincia de Misiones", "title": "natalidad_misiones"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_58", "type": "number", "description": "Tasa de Natalidad de la Provincia de Neuquen", "title": "natalidad_neuquen"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_62", "type": "number", "description": "Tasa de Natalidad de la Provincia de R\u00edo Negro", "title": "natalidad_rio_negro"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_66", "type": "number", "description": "Tasa de Natalidad de la Provincia de Salta", "title": "natalidad_salta"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_70", "type": "number", "description": "Tasa de Natalidad de la Provincia de San Juan", "title": "natalidad_san_juan"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_74", "type": "number", "description": "Tasa de Natalidad de la Provincia de San Luis", "title": "natalidad_san_luis"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_78", "type": "number", "description": "Tasa de Natalidad de la Provincia de Santa Cruz", "title": "natalidad_santa_cruz"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_82", "type": "number", "description": "Tasa de Natalidad de la Provincia de Santa Fe", "title": "natalidad_santa_fe"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_86", "type": "number", "description": "Tasa de Natalidad de la Provincia de Santiago del Estero", "title": "natalidad_santiago_del_estero"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_90", "type": "number", "description": "Tasa de Natalidad de la Provincia de Tucum\u00e1n", "title": "natalidad_tucuman"}, {"units": "Nacidos cada 1000 habitantes", "id": "tn_94", "type": "number", "description": "Tasa de Natalidad de la Provincia de Tierra del Fuego", "title": "natalidad_tierra_del_fuego"}],
+                            "accessURL": "http://datos.salud.gob.ar/dataset/314e08d7-70a1-4704-aa2f-e86ce03b359d/resource/0f68d5c6-e667-40ca-90fd-4784336e092e",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/314e08d7-70a1-4704-aa2f-e86ce03b359d/resource/0f68d5c6-e667-40ca-90fd-4784336e092e/download/tasa-natalidad-jurisdiccion.csv",
+                            "identifier":       "0f68d5c6-e667-40ca-90fd-4784336e092e"
+                        } 
+                    
+                    ],
+                "keyword":        ["natalidad", "tasas"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["estadisticas-vitales"],
+                "accrualPeriodicity": "R/P1Y",
+                "temporal":      "2000-01-01T03:00:00.000Z/2017-12-31T03:00:00.000Z",
+                "identifier":           "314e08d7-70a1-4704-aa2f-e86ce03b359d"
+            } ,
+            {
+                "title":           "Nacidos Vivos Registrados por Jurisdicci\u00f3n de Residencia de la Madre - Rep\u00fablica Argentina",
+                "description":           "Datos de nacidos vivos registrados en la Rep\u00fablica Argentina incluyendo jurisdicci\u00f3n de residencia de la madre, tipo de parto y otras variables de inter\u00e9s seleccionadas",
+                "modified":           "2019-04-30T12:45:53.793441",
+                "issued":             "2019-03-18T12:58:16.291484",
+                "landingPage":        "http://www.deis.msal.gov.ar/index.php/nacidos-vivos/",
+                "license":            "CC-BY-4.0",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "informaciondeis@gmail.com", "name": "Secretar\u00eda de Gobierno de Salud. Direcci\u00f3n de Estad\u00edstica e Informaci\u00f3n en Salud (DEIS)"},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Direcci\u00f3n de Estad\u00edstica e Informaci\u00f3n en Salud (DEIS)",
+                "contactPoint":       {"hasEmail": "informaciondeis@gmail.com", "fn": "Secretar\u00eda de Gobierno de Salud. Direcci\u00f3n de Estad\u00edstica e Informaci\u00f3n en Salud (DEIS)"},
+                "distribution":
+                    [
+                        {
+                            "format":       "XLS",
+                            "title":       "Nacidos vivos registrados en la Rep\u00fablica Argentina para el a\u00f1o 2017",
+                            "description":       "Datos de nacidos vivos registrados en la Rep\u00fablica Argentina incluyendo jurisdicci\u00f3n de residencia de la madre, tipo de parto y otras variables de inter\u00e9s seleccionadas para el a\u00f1o 2017",
+                            "fileName":     "estadisticas-vitales-nacidos-vivos-registrados-2017.xls",
+                            "type":         "file.upload",
+                            "issued":       "2019-03-18T10:02:14.919328",
+                            "modified":     "2019-04-15T11:33:27.123353",
+                            "license":      "CC-BY-4.0",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/d1350588-d8bb-4892-b21c-48738311e218/resource/9d3d84ea-8c5e-4ace-a67b-7ac1a6cf494a",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/d1350588-d8bb-4892-b21c-48738311e218/resource/9d3d84ea-8c5e-4ace-a67b-7ac1a6cf494a/download/estadisticas-vitales-nacidos-vivos-registrados-2017.xls",
+                            "identifier":       "9d3d84ea-8c5e-4ace-a67b-7ac1a6cf494a"
+                        } ,
+                    
+                        {
+                            "format":       "CSV",
+                            "title":       "Nacidos vivos registrados en la Rep\u00fablica Argentina para el a\u00f1o 2017",
+                            "description":       "Datos de nacidos vivos registrados en la Rep\u00fablica Argentina incluyendo jurisdicci\u00f3n de residencia de la madre, tipo de parto y otras variables de inter\u00e9s seleccionadas para el a\u00f1o 2017",
+                            "fileName":     "estadisticas-vitales-nacidos-vivos-registrados-2017.csv",
+                            "type":         "file.upload",
+                            "issued":       "2019-03-18T10:17:51.216777",
+                            "modified":     "2019-04-15T11:30:51.440237",
+                            "license":      "CC-BY-4.0",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/d1350588-d8bb-4892-b21c-48738311e218/resource/b04f2d74-ebbf-459d-a9a6-90b4985670ca",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/d1350588-d8bb-4892-b21c-48738311e218/resource/b04f2d74-ebbf-459d-a9a6-90b4985670ca/download/estadisticas-vitales-nacidos-vivos-registrados-2017.csv",
+                            "identifier":       "b04f2d74-ebbf-459d-a9a6-90b4985670ca"
+                        } ,
+                    
+                        {
+                            "title":       "Nacidos vivos registrados en la Rep\u00fablica Argentina entre los a\u00f1os 2005-2015",
+                            "description":       "Datos de nacidos vivos registrados en la Rep\u00fablica Argentina incluyendo jurisdicci\u00f3n de residencia de la madre, tipo de parto y otras variables de inter\u00e9s seleccionadas entre los a\u00f1os 2005-2015",
+                            "type":         "file",
+                            "issued":       "2019-04-05T12:20:06.487071",
+                            "modified":     "2019-04-11T12:28:03.233573",
+                            "license":      "CC-BY-4.0",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/d1350588-d8bb-4892-b21c-48738311e218/resource/3c891522-8448-4490-a7da-6deba78d3b32",
+                            "downloadURL": "http://www.deis.msal.gov.ar/index.php/nacidos-vivos/",
+                            "identifier":       "3c891522-8448-4490-a7da-6deba78d3b32"
+                        } 
+                    
+                    ],
+                "keyword":        ["DEIS", "jurisdiccion", "nacidos vivos", "nacional"],
+                "superTheme":         ["HEAL"],
+                "theme":          ["estadisticas-vitales"],
+                "accrualPeriodicity": "R/P1Y",
+                "temporal":      "2017-01-01T03:00:00.000Z/2017-12-31T03:00:00.000Z",
+                "identifier":           "d1350588-d8bb-4892-b21c-48738311e218"
+            } ,
+            {
+                "title":           "Total de beneficiarios inscriptos al Programa Sumar con Cobertura Efectiva B\u00e1sica (CEB)",
+                "description":           "Beneficiarios del Programa Sumar inscriptos y con Cobertura Efectiva B\u00e1sica (CEB) en el mes observado, desagregado por jurisdicci\u00f3n y por grupo etario: ni\u00f1os de 0 a 5 a\u00f1os, ni\u00f1os de 6 a 9 a\u00f1os, adolescentes de 10 a 19 a\u00f1os, mujeres de 20 a 64 a\u00f1os y hombres de 20 a 64 a\u00f1os.",
+                "modified":           "2019-04-16T13:38:46.473259",
+                "issued":             "2018-06-21T11:13:57.128426",
+                "landingPage":        "http://www.salud.gob.ar/sumar/",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "pe.sumaruec@gmail.com", "name": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Coberturas y Recursos de Salud. Subsecretar\u00eda de Coberturas P\u00fablicas Sanitarias"},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Coberturas y Recursos de Salud. Subsecretar\u00eda de Coberturas P\u00fablicas Sanitarias",
+                "contactPoint":       {"hasEmail": "sistemasuec@gmail.com", "fn": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Coberturas y Recursos de Salud. Subsecretar\u00eda de Coberturas P\u00fablicas Sanitarias"},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Total de beneficiarios inscriptos al Programa Sumar con Cobertura Efectiva B\u00e1sica (CEB). Periodo 2017-12",
+                            "description":       "Beneficiarios del Programa Sumar inscriptos y con Cobertura Efectiva B\u00e1sica (CEB), desagregado por grupo etario y por jurisdicci\u00f3n. Periodo 2017-12",
+                            "fileName":     "beneficiarios-inscriptos-programa-sumar-con-cobertura-efectiva-basica-20181218.csv",
+                            "type":         "file",
+                            "issued":       "2018-06-21T11:14:31.177793",
+                            "modified":     "2019-04-29T11:36:44.501793",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/29e8fcd4-2f27-4034-b869-f627620dd10f/resource/f9ae7085-b2aa-4c6e-9816-701f309ffee8",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/29e8fcd4-2f27-4034-b869-f627620dd10f/resource/f9ae7085-b2aa-4c6e-9816-701f309ffee8/download/beneficiarios-inscriptos-programa-sumar-con-cobertura-efectiva-basica-20181218.csv",
+                            "identifier":       "f9ae7085-b2aa-4c6e-9816-701f309ffee8"
+                        } ,
+                    
+                        {
+                            "format":       "CSV",
+                            "title":       "Total de beneficiarios inscriptos al Programa Sumar con Cobertura Efectiva B\u00e1sica (CEB). Periodo 2018-06",
+                            "description":       "Beneficiarios del Programa Sumar inscriptos y con Cobertura Efectiva B\u00e1sica (CEB), desagregado por grupo etario y por jurisdicci\u00f3n. Periodo 2018-06",
+                            "fileName":     "beneficiarios-inscriptos-sumar-ceb-201806.csv",
+                            "type":         "file.upload",
+                            "issued":       "2019-04-29T11:35:22.617098",
+                            "modified":     "2019-04-29T11:35:22.617098",
+                            "license":      "CC-BY-4.0",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/29e8fcd4-2f27-4034-b869-f627620dd10f/resource/fac025c5-ec75-4e5a-9bbb-994b4d9dc69b",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/29e8fcd4-2f27-4034-b869-f627620dd10f/resource/fac025c5-ec75-4e5a-9bbb-994b4d9dc69b/download/beneficiarios-inscriptos-sumar-ceb-201806.csv",
+                            "identifier":       "fac025c5-ec75-4e5a-9bbb-994b4d9dc69b"
+                        } 
+                    
+                    ],
+                "keyword":        ["Cobertura", "SUMAR", "beneficiarios", "inscipcion"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["estadisticas-de-servicios"],
+                "accrualPeriodicity": "R/P6M",
+                "temporal":      "2017-12-01T03:00:00.000Z/2017-12-31T03:00:00.000Z",
+                "identifier":           "29e8fcd4-2f27-4034-b869-f627620dd10f"
+            } ,
+            {
+                "title":           "Cantidad de prestaciones financiadas por el Programa Sumar y su monto, desagregado por jurisdicci\u00f3n",
+                "description":           "N\u00famero de prestaciones financiadas por los SPS del Programa Sumar y su monto (en pesos ARS), desagregado por jurisdicci\u00f3n y por grupo etario: ni\u00f1os de 0 a 5 a\u00f1os, ni\u00f1os de 6 a 9 a\u00f1os, adolescentes de 10 a 19 a\u00f1os, mujeres de 20 a 64 a\u00f1os y hombres de 20 a 64 a\u00f1os, en el per\u00edodo observado.",
+                "modified":           "2019-04-16T09:35:23.665474",
+                "issued":             "2018-06-21T11:09:46.438843",
+                "landingPage":        "http://www.datos.deis.msal.gov.ar/dataset/cantidad-de-prestaciones-financiadas-por-el-programa-sumar-y-su-monto-desagregado-por-jurisdiccion",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "pe.sumaruec@gmail.com", "name": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Coberturas y Recursos de Salud. Subsecretar\u00eda de Coberturas P\u00fablicas Sanitarias"},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Coberturas y Recursos de Salud. Subsecretar\u00eda de Coberturas P\u00fablicas Sanitarias",
+                "contactPoint":       {"hasEmail": "sistemasuec@gmail.com", "fn": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Coberturas y Recursos de Salud. Subsecretar\u00eda de Coberturas P\u00fablicas Sanitarias"},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Cantidad de prestaciones financiadas por el Programa Sumar y su monto, desagregado por jurisdicci\u00f3n y por grupo etario. Periodo 2017-12",
+                            "description":       "N\u00famero de prestaciones financiadas por los SPS del Programa Sumar y su monto (en pesos ARS). Periodo 2017-12",
+                            "fileName":     "cantidad-de-prestaciones-financiadas-por-el-programa-sumar-20181219.csv",
+                            "type":         "file",
+                            "issued":       "2018-06-21T11:11:02.952692",
+                            "modified":     "2019-04-29T11:23:17.278869",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/6d5fe887-62a2-4064-9259-d20e4ff2a064/resource/12317faf-98b1-4318-a4fa-43dd31d33f7d",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/6d5fe887-62a2-4064-9259-d20e4ff2a064/resource/12317faf-98b1-4318-a4fa-43dd31d33f7d/download/cantidad-de-prestaciones-financiadas-por-el-programa-sumar-20181219.csv",
+                            "identifier":       "12317faf-98b1-4318-a4fa-43dd31d33f7d"
+                        } ,
+                    
+                        {
+                            "format":       "CSV",
+                            "title":       "Cantidad de prestaciones financiadas por el Programa Sumar y su monto, desagregado por jurisdicci\u00f3n y por grupo etario,. Periodo 2018-06",
+                            "description":       "N\u00famero de prestaciones financiadas por los SPS del Programa Sumar y su monto (en pesos ARS), Periodo 2018-06",
+                            "fileName":     "prestaciones-financiadas-sumar-201806.csv",
+                            "type":         "file.upload",
+                            "issued":       "2019-04-29T11:22:11.573424",
+                            "modified":     "2019-04-29T11:23:30.934212",
+                            "license":      "CC-BY-4.0",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/6d5fe887-62a2-4064-9259-d20e4ff2a064/resource/4b8d7175-c1de-4851-ab47-25b047511aae",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/6d5fe887-62a2-4064-9259-d20e4ff2a064/resource/4b8d7175-c1de-4851-ab47-25b047511aae/download/prestaciones-financiadas-sumar-201806.csv",
+                            "identifier":       "4b8d7175-c1de-4851-ab47-25b047511aae"
+                        } 
+                    
+                    ],
+                "keyword":        ["SUMAR", "financiamiento", "jurisdicciones", "prestaciones"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["estadisticas-de-servicios"],
+                "accrualPeriodicity": "R/P6M",
+                "temporal":      "2017-01-01T03:00:00.000Z/2017-12-31T03:00:00.000Z",
+                "identifier":           "6d5fe887-62a2-4064-9259-d20e4ff2a064"
+            } ,
+            {
+                "title":           "Profesionales M\u00e9dicos por provincia seg\u00fan domicilio electoral",
+                "description":           "Informaci\u00f3n consolidada de profesionales m\u00e9dicos a nivel federal, seg\u00fan jurisdicci\u00f3n constatada por padr\u00f3n electoral",
+                "modified":           "2019-04-23T09:30:46.042330",
+                "issued":             "2019-04-12T13:06:54.806588",
+                "landingPage":        "http://datos.salud.gob.ar/dataset/profesionales-medicos-por-jurisdiccion",
+                "license":            "CC-BY-4.0",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "refeps.msal@gmail.com", "name": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Regulaci\u00f3n y Gesti\u00f3n Sanitaria. Direcci\u00f3n Nacional de Calidad de Servicios de Salud y Regulaci\u00f3n Sanitaria "},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Regulaci\u00f3n y Gesti\u00f3n Sanitaria. Direcci\u00f3n Nacional de Calidad de Servicios de Salud y Regulaci\u00f3n Sanitaria ",
+                "contactPoint":       {"hasEmail": "refeps.msal@gmail.com", "fn": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Regulaci\u00f3n y Gesti\u00f3n Sanitaria. Direcci\u00f3n Nacional de Calidad de Servicios de Salud y Regulaci\u00f3n Sanitaria "},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Cantidad de M\u00e9dicos por jurisdicci\u00f3n seg\u00fan domicilio electoral con corte al a\u00f1o 2016",
+                            "description":       "Informaci\u00f3n consolidada de profesionales m\u00e9dicos a nivel federal con corte al a\u00f1o 2016, seg\u00fan jurisdicci\u00f3n constatada por padr\u00f3n electoral",
+                            "fileName":     "medicos-juridisccion-2016.csv",
+                            "type":         "file.upload",
+                            "issued":       "2019-04-12T10:07:53.692754",
+                            "modified":     "2019-04-25T13:21:37.477343",
+                            "license":      "CC-BY-4.0",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/40343ae6-25f5-4c80-bab8-59b5dcae7548/resource/3ae764d8-e4f0-41bb-8648-20a526f0b927",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/40343ae6-25f5-4c80-bab8-59b5dcae7548/resource/3ae764d8-e4f0-41bb-8648-20a526f0b927/download/medicos-juridisccion-2016.csv",
+                            "identifier":       "3ae764d8-e4f0-41bb-8648-20a526f0b927"
+                        } 
+                    
+                    ],
+                "keyword":        ["cantidad", "jurisdicci\u00f3n", "m\u00e9dicos", "profesionales"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["profesionales-salud"],
+                "accrualPeriodicity": "R/P1Y",
+                "temporal":      "2019-01-01T03:00:00.000Z/2019-03-31T03:00:00.000Z",
+                "identifier":           "40343ae6-25f5-4c80-bab8-59b5dcae7548"
+            } ,
+            {
+                "title":           "Profesionales de Salud certificados por Especialidad y Jurisdicci\u00f3n en la Rep\u00fablica Argentina",
+                "description":           "Cantidad de profesionales de salud que se encuentran certificados como especialistas en cada una de las jurisdicciones de la Rep\u00fablica Argentina.",
+                "modified":           "2019-04-25T11:51:36.478463",
+                "issued":             "2019-04-12T12:58:20.471880",
+                "landingPage":        "http://datos.salud.gob.ar/dataset/profesionales-certificados-por-especialidad-y-jurisdiccion-republica-argentina",
+                "license":            "CC-BY-4.0",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "refeps.msal@gmail.com", "name": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Regulaci\u00f3n y Gesti\u00f3n Sanitaria. Direcci\u00f3n Nacional de Calidad de Servicios de Salud y Regulaci\u00f3n Sanitaria"},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Regulaci\u00f3n y Gesti\u00f3n Sanitaria. Direcci\u00f3n Nacional de Calidad de Servicios de Salud y Regulaci\u00f3n Sanitaria",
+                "contactPoint":       {"hasEmail": "refeps.msal@gmail.com", "fn": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Regulaci\u00f3n y Gesti\u00f3n Sanitaria. Direcci\u00f3n Nacional de Calidad de Servicios de Salud y Regulaci\u00f3n Sanitaria"},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Profesionales de salud certificados por especialidad a nivel nacional con corte al a\u00f1o 2016",
+                            "description":       "Informaci\u00f3n consolidada de especialidades certificadas a nivel federal con corte al a\u00f1o 2016",
+                            "fileName":     "certificacion-especialistas-provincia-2016.csv",
+                            "type":         "file.upload",
+                            "issued":       "2019-04-12T10:01:00.874945",
+                            "modified":     "2019-04-25T13:19:04.091752",
+                            "license":      "CC-BY-4.0",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/bd662b11-0633-4959-b26e-88579f6baad1/resource/083f91ef-981d-47fc-8063-abb9b69abf35",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/bd662b11-0633-4959-b26e-88579f6baad1/resource/083f91ef-981d-47fc-8063-abb9b69abf35/download/certificacion-especialistas-provincia-2016.csv",
+                            "identifier":       "083f91ef-981d-47fc-8063-abb9b69abf35"
+                        } 
+                    
+                    ],
+                "keyword":        ["certificaci\u00f3n", "especializaci\u00f3n", "profesionales"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["profesionales-salud"],
+                "accrualPeriodicity": "R/P1Y",
+                "temporal":      "2019-01-01T03:00:00.000Z/2019-03-31T03:00:00.000Z",
+                "identifier":           "bd662b11-0633-4959-b26e-88579f6baad1"
+            } ,
+            {
+                "title":           "Vigilancia de Chagas agudo vectorial",
+                "description":           "Datos correspondientes al Registro Sistema Nacional de Vigilancia de la Salud 2.0 a partir del a\u00f1o 1996\r\n",
+                "modified":           "2019-04-16T09:22:28.645674",
+                "issued":             "2018-07-27T10:08:14.046176",
+                "landingPage":        "https://www.argentina.gob.ar/salud/epidemiologia/boletinesepidemiologicos",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "areavigilanciamsal@gmail.com", "name": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Promoci\u00f3n de la Salud, Prevenci\u00f3n y Control de Riesgos. Subsecretar\u00eda de Prevenci\u00f3n y Control de Enfermedades Comunicables e Inmunoprevenibles. Direcci\u00f3n Nacional de Epidemiolog\u00eda y An\u00e1lisis de la Situaci\u00f3n de Salud. \u00c1rea de Vigilancia."},
+                "source":             "Direcci\u00f3n Nacional de Epidemiolog\u00eda y An\u00e1lisis de la Situaci\u00f3n de Salud. \u00c1rea de Vigilancia.",
+                "contactPoint":       {"hasEmail": "areavigilanciamsal@gmail.com", "fn": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Promoci\u00f3n de la Salud, Prevenci\u00f3n y Control de Riesgos. Subsecretar\u00eda de Prevenci\u00f3n y Control de Enfermedades Comunicables e Inmunoprevenibles. Direcci\u00f3n Nacional de Epidemiolog\u00eda y An\u00e1lisis de la Situaci\u00f3n de Salud. \u00c1rea de Vigilancia."},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Vigilancia de Chagas agudo vectorial",
+                            "description":       "Cantidad de casos de chagas agudos vectorial por jurisdicci\u00f3n. Registro Sistema Nacional de Vigilancia de la Salud 2.0",
+                            "fileName":     "casos-chagas-agudos-vectoriales-notificados-confirmados.csv",
+                            "type":         "file.upload",
+                            "issued":       "2018-07-27T10:08:50.351321",
+                            "modified":     "2019-04-22T08:56:49.459166",
+                            "license":      "cc-by",
+                            "field":       [{"description": "Periodo en el cual transcurrieron los casos de la notificaci\u00f3n de chagas", "specialTypeDetail": "R/P1Y", "title": "indice_tiempo", "specialType": "time_index", "type": "date", "id": "salud_0002"}, {"units": "Casos", "id": "chav_arg", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Rep\u00fablica Argentina", "title": "casos_chagas_argentina"}, {"units": "Casos", "id": "chav_02", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Ciudad Aut\u00f3noma de Buenos Aires", "title": "casos_chagas_ciudad_autonoma_buenos_aires"}, {"units": "Casos", "id": "chav_06", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de Buenos Aires", "title": "casos_chagas_buenos_aires"}, {"units": "Casos", "id": "chav_10", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de Catamarca", "title": "casos_chagas_catamarca"}, {"units": "Casos", "id": "chav_14", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de C\u00f3rdoba", "title": "casos_chagas_cordoba"}, {"units": "Casos", "id": "chav_18", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de Corrientes", "title": "casos_chagas_corrientes"}, {"units": "Casos", "id": "chav_22", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de Chaco", "title": "casos_chagas_chaco"}, {"units": "Casos", "id": "chav_26", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de Chubut", "title": "casos_chagas_chubut"}, {"units": "Casos", "id": "chav_30", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de Entre R\u00edos ", "title": "casos_chagas_entre_rios"}, {"units": "Casos", "id": "chav_34", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de Formosa", "title": "casos_chagas_formosa"}, {"units": "Casos", "id": "chav_38", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de Jujuy", "title": "casos_chagas_jujuy"}, {"units": "Casos", "id": "chav_42", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de La Pampa", "title": "casos_chagas_la_pampa"}, {"units": "Casos", "id": "chav_46", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de La Rioja", "title": "casos_chagas_la_rioja"}, {"units": "Casos", "id": "chav_50", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de Mendoza", "title": "casos_chagas_mendoza"}, {"units": "Casos", "id": "chav_54", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de Misiones", "title": "casos_chagas_misiones"}, {"units": "Casos", "id": "chav_58", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de Neuqu\u00e9n", "title": "casos_chagas_neuquen"}, {"units": "Casos", "id": "chav_62", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de R\u00edo Negro", "title": "casos_chagas_rio_negro"}, {"units": "Casos", "id": "chav_66", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de Salta", "title": "casos_chagas_salta"}, {"units": "Casos", "id": "chav_70", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de San Juan", "title": "casos_chagas_san_juan"}, {"units": "Casos", "id": "chav_74", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de San Luis", "title": "casos_chagas_san_luis"}, {"units": "Casos", "id": "chav_78", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de Santa Cruz", "title": "casos_chagas_santa_cruz"}, {"units": "Casos", "id": "chav_82", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de Santa F\u00e9", "title": "casos_chagas_santa_fe"}, {"units": "Casos", "id": "chav_86", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de Santiago del Estero", "title": "casos_chagas_santiago_del_estero"}, {"units": "Casos", "id": "chav_90", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de Tucum\u00e1n", "title": "casos_chagas_tucuman"}, {"units": "Casos", "id": "chav_94", "type": "integer", "description": "Cantidad de casos de chagas agudos vectorial notificados en la Provincia de Tierra del Fuego", "title": "casos_chagas_tierra_del_fuego"}],
+                            "accessURL": "http://datos.salud.gob.ar/dataset/50bc5ed8-3730-433c-976b-78f749ed740b/resource/2c72e717-0ca9-4aad-a674-79e4bc132ebe",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/50bc5ed8-3730-433c-976b-78f749ed740b/resource/2c72e717-0ca9-4aad-a674-79e4bc132ebe/download/casos-chagas-agudos-vectoriales-notificados-confirmados.csv",
+                            "identifier":       "2c72e717-0ca9-4aad-a674-79e4bc132ebe"
+                        } 
+                    
+                    ],
+                "keyword":        ["chagas", "epidemiolog\u00eda", "vigilancia"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["vigilancia-notificacion-de-enfermedades"],
+                "accrualPeriodicity": "R/P6M",
+                "temporal":      "2018-01-01T03:00:00.000Z/2018-06-26T03:00:00.000Z",
+                "identifier":           "50bc5ed8-3730-433c-976b-78f749ed740b"
+            } ,
+            {
+                "title":           "Registro Nacional de Prestadores de Establecimientos de Salud Inscriptos",
+                "description":           "Establecimientos de salud  inscriptos, por provincia y tipo, correspondientes al Registro Nacional de Prestadores de la Superintendencia de Servicios de Salud, incluyendo denominaci\u00f3n, disposici\u00f3n, calle, vencimiento del certificado",
+                "modified":           "2019-04-16T10:54:56.026234",
+                "issued":             "2018-09-21T11:44:49.973420",
+                "landingPage":        "https://www.sssalud.gob.ar/?cat=prestadores&page=buspres",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "datos@sssalud.gob.ar", "name": "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Control Prestacional. Coordinaci\u00f3n de Registros de Prestadores, Redes de Prestadores y Contratos."},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Control Prestacional. Coordinaci\u00f3n de Registros de Prestadores, Redes de Prestadores y Contratos.",
+                "contactPoint":       {"hasEmail": "datos@sssalud.gob.ar", "fn": "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Control Prestacional. Coordinaci\u00f3n de Registros de Prestadores, Redes de Prestadores y Contratos."},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Registro Nacional de Prestadores Establecimientos Inscriptos",
+                            "description":       "Registro Nacional de prestadores. Establecimientos de salud  inscriptos, por provincia y tipo, correspondientes al Registro Nacional de Prestadores de la Superintendencia de Servicios de Salud.\r\n",
+                            "fileName":     "20180910registroestablecimientos.csv",
+                            "issued":       "2018-09-21T11:45:59.637272",
+                            "modified":     "2018-09-21T11:45:59.547755",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/bf5eca70-9c72-47e9-a134-cea473fe8e27/resource/9eb64f5b-a0cc-4fdc-8afd-1206a64814b1",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/bf5eca70-9c72-47e9-a134-cea473fe8e27/resource/9eb64f5b-a0cc-4fdc-8afd-1206a64814b1/download/20180910registroestablecimientos.csv",
+                            "identifier":       "9eb64f5b-a0cc-4fdc-8afd-1206a64814b1"
+                        } 
+                    
+                    ],
+                "keyword":        ["SSS", "establecimientos", "prestadores"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["registros-padrones-listados-nacionales-en-salud"],
+                "accrualPeriodicity": "R/P6M",
+                "temporal":      "2017-09-07T03:00:00.000Z/2018-03-06T03:00:00.000Z",
+                "identifier":           "bf5eca70-9c72-47e9-a134-cea473fe8e27"
+            } ,
+            {
+                "title":           "Financiamiento de Obras Sociales Nacionales",
+                "description":           "Subsidios pagados por la Superintendencia de Servicios de Salud (SSS) mensualmente",
+                "modified":           "2019-04-16T10:50:29.595487",
+                "issued":             "2018-10-05T11:55:51.328698",
+                "landingPage":        "https://www.sssalud.gob.ar/",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "datos@sssalud.gob.ar", "name": "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Subsidios por Reintegros. Gerencia de Sistemas de Informaci\u00f3n. Gerencia de Administraci\u00f3n."},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Subsidios por Reintegros. Gerencia de Sistemas de Informaci\u00f3n. Gerencia de Administraci\u00f3n.",
+                "contactPoint":       {"hasEmail": "datos@sssalud.gob.ar", "fn": "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Subsidios por Reintegros. Gerencia de Sistemas de Informaci\u00f3n. Gerencia de Administraci\u00f3n."},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Financiamiento de Obras Sociales Nacionales",
+                            "description":       "Subsidios pagados por la SSS mensualmente, correspondiente al primer semestre del 2018",
+                            "fileName":     "activo2financiamientooossglobalestrimestrales.csv",
+                            "type":         "file",
+                            "issued":       "2018-10-05T11:56:30.554251",
+                            "modified":     "2019-04-16T10:51:09.397758",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/568ffd05-13ec-4e16-bf54-8d1ce0218e17/resource/bbc54edb-64e7-46cc-ad86-2a9a98bab69b",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/568ffd05-13ec-4e16-bf54-8d1ce0218e17/resource/bbc54edb-64e7-46cc-ad86-2a9a98bab69b/download/activo2financiamientooossglobalestrimestrales.csv",
+                            "identifier":       "bbc54edb-64e7-46cc-ad86-2a9a98bab69b"
+                        } 
+                    
+                    ],
+                "keyword":        ["SSS", "financiamiento", "gesti\u00f3n", "obras sociales"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["registros-padrones-listados-nacionales-en-salud"],
+                "accrualPeriodicity": "R/P6M",
+                "temporal":      "2018-01-01T03:00:00.000Z/2018-06-30T03:00:00.000Z",
+                "identifier":           "568ffd05-13ec-4e16-bf54-8d1ce0218e17"
+            } ,
+            {
+                "title":           "Facturaci\u00f3n de Hospitales P\u00fablicos de Gesti\u00f3n Descentralizada",
+                "description":           "Facturas pagas por prestaciones Brindadas a Beneficiarios de Obras Sociales\r\n",
+                "modified":           "2019-04-16T09:42:10.454814",
+                "issued":             "2018-10-05T11:42:11.813712",
+                "landingPage":        "https://www.sssalud.gob.ar/",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "datos@sssalud.gob.ar", "name": "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Control Prestacional."},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Control Prestacional.",
+                "contactPoint":       {"hasEmail": "datos@sssalud.gob.ar", "fn": "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Control Prestacional."},
+                "distribution":
+                    [
+                        {
+                            "format":       "XLS",
+                            "title":       "Facturaci\u00f3n de Hospitales P\u00fablicos de Gesti\u00f3n descentralizada",
+                            "description":       "Facturas pagas por prestaciones Brindadas a Beneficiarios de Obras Sociales, del 5/1/2018 al 6/12/2018",
+                            "fileName":     "facturacion-de-hospirales-publicos-de-gestion-descentralizada-20181217.xls",
+                            "type":         "file",
+                            "issued":       "2018-10-05T11:43:45.668315",
+                            "modified":     "2019-04-16T10:27:51.550745",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/9d6315aa-6ba3-4ac2-acfd-f26233cba241/resource/d5857ba9-33a4-45ef-8af8-29ceaa9b8c70",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/9d6315aa-6ba3-4ac2-acfd-f26233cba241/resource/d5857ba9-33a4-45ef-8af8-29ceaa9b8c70/download/facturacion-de-hospirales-publicos-de-gestion-descentralizada-20181217.xls",
+                            "identifier":       "d5857ba9-33a4-45ef-8af8-29ceaa9b8c70"
+                        } ,
+                    
+                        {
+                            "format":       "CSV",
+                            "title":       "Facturaci\u00f3n de Hospitales P\u00fablicos de Gesti\u00f3n descentralizada",
+                            "description":       "Facturas pagas por prestaciones brindadas a Beneficiarios de Obras Sociales, del 5/1/2018 al 6/12/2018",
+                            "fileName":     "facturacion-de-hospitales-publicos-de-gestion-descentralizada-20181217.csv",
+                            "type":         "file.upload",
+                            "issued":       "2019-04-16T10:35:17.141404",
+                            "modified":     "2019-04-16T10:43:25.216410",
+                            "license":      "CC-BY-4.0",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/9d6315aa-6ba3-4ac2-acfd-f26233cba241/resource/148185dd-d9ae-4b0c-ae79-4f8e7f0fc2d5",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/9d6315aa-6ba3-4ac2-acfd-f26233cba241/resource/148185dd-d9ae-4b0c-ae79-4f8e7f0fc2d5/download/facturacion-de-hospitales-publicos-de-gestion-descentralizada-20181217.csv",
+                            "identifier":       "148185dd-d9ae-4b0c-ae79-4f8e7f0fc2d5"
+                        } 
+                    
+                    ],
+                "keyword":        ["SSS", "contrataci\u00f3n", "facturaci\u00f3n", "hospitales p\u00fablicos"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["gestion-en-salud"],
+                "accrualPeriodicity": "R/P6M",
+                "temporal":      "2018-01-01T03:00:00.000Z/2018-12-17T03:00:00.000Z",
+                "identifier":           "9d6315aa-6ba3-4ac2-acfd-f26233cba241"
+            } ,
+            {
+                "title":           "Cantidad de Reclamos Realizados en  la Superintendencia de Servicios de Salud",
+                "description":           "Gesti\u00f3n de Reclamos totales por provincia de la Superintendencia de Servicios de Salud \r\n",
+                "modified":           "2019-04-16T10:23:52.103880",
+                "issued":             "2018-10-05T11:33:19.973313",
+                "landingPage":        "https://www.sssalud.gob.ar/",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "datos@sssalud.gob.ar", "name": "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Atenci\u00f3n y Servicios al Usuario del Sistema de Salud."},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Atenci\u00f3n y Servicios al Usuario del Sistema de Salud.",
+                "contactPoint":       {"hasEmail": "datos@sssalud.gob.ar", "fn": "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Atenci\u00f3n y Servicios al Usuario del Sistema de Salud."},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Cantidad de Reclamos Realizados en  la Superintendencia de Servicios de Salud",
+                            "description":       "Gesti\u00f3n de Reclamos totales por provincia de la Superintendencia de Servicios de Salud desde enero a septiembre de 2018\r\n",
+                            "fileName":     "cantidad-de-reclamos-realizados-en-la-superintendencia-de-servicios-de-salud-20181217.csv",
+                            "issued":       "2018-10-05T11:33:54.597426",
+                            "modified":     "2018-12-17T11:25:15.672260",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/89f2a927-5d69-4cfd-a169-22c4326afaf7/resource/83999647-c054-4d8f-8709-3a4b68248a83",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/89f2a927-5d69-4cfd-a169-22c4326afaf7/resource/83999647-c054-4d8f-8709-3a4b68248a83/download/cantidad-de-reclamos-realizados-en-la-superintendencia-de-servicios-de-salud-20181217.csv",
+                            "identifier":       "83999647-c054-4d8f-8709-3a4b68248a83"
+                        } 
+                    
+                    ],
+                "keyword":        ["SSS", "atenci\u00f3n", "reclamos"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["estadisticas-de-servicios"],
+                "accrualPeriodicity": "R/P6M",
+                "temporal":      "2018-01-01T03:00:00.000Z/2018-12-17T03:00:00.000Z",
+                "identifier":           "89f2a927-5d69-4cfd-a169-22c4326afaf7"
+            } ,
+            {
+                "title":           "Pacientes en lista de espera del Incucai",
+                "description":           "Datos correspondientes a la lista de espera de pacientes de \u00f3rganos y tejidos.",
+                "modified":           "2019-04-16T09:47:44.706917",
+                "issued":             "2018-07-26T09:13:57.649088",
+                "landingPage":        "http://datos.salud.gob.ar/dataset/lista-de-espera",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "le@incucai.gov.ar", "name": "Secretar\u00eda de Gobierno de Salud. Instituto Nacional Central \u00danico Coordinador de Ablaci\u00f3n e Implante (INCUCAI) . Direcci\u00f3n Cient\u00edfico T\u00e9cnica."},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Instituto Nacional Central \u00danico Coordinador de Ablaci\u00f3n e Implante (INCUCAI). Coordinaci\u00f3n de Comunicaci\u00f3n Social.",
+                "contactPoint":       {"hasEmail": "le@incucai.gov.ar", "fn": "Secretar\u00eda de Gobierno de Salud. Instituto Nacional Central \u00danico Coordinador de Ablaci\u00f3n e Implante (INCUCAI) . Direcci\u00f3n Cient\u00edfico T\u00e9cnica."},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Lista de espera de pacientes por jurisdicci\u00f3n",
+                            "description":       "Lista de espera de pacientes de \u00f3rganos y tejidos  por jurisdicci\u00f3n",
+                            "fileName":     "pacientes-lista-espera-provincia-20180725.csv",
+                            "type":         "file",
+                            "issued":       "2018-07-26T09:14:38.145102",
+                            "modified":     "2019-04-12T11:30:00.742307",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/270bdaf7-05cd-4e83-b479-b6491a058110/resource/0046d3b0-e29c-4ece-be1e-9c8e7c05b544",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/270bdaf7-05cd-4e83-b479-b6491a058110/resource/0046d3b0-e29c-4ece-be1e-9c8e7c05b544/download/pacientes-lista-espera-provincia-20180725.csv",
+                            "identifier":       "0046d3b0-e29c-4ece-be1e-9c8e7c05b544"
+                        } 
+                    
+                    ],
+                "keyword":        ["INCUCAI", "lista de espera", "pacientes", "transplantes"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["donacion-de-organos-y-tejidos", "registros-padrones-listados-nacionales-en-salud"],
+                "accrualPeriodicity": "R/P6M",
+                "temporal":      "2017-01-01T03:00:00.000Z/2018-01-08T03:00:00.000Z",
+                "identifier":           "270bdaf7-05cd-4e83-b479-b6491a058110"
+            } ,
+            {
+                "title":           "Expresiones de voluntad sobre donaci\u00f3n de \u00f3rganos y tejidos",
+                "description":           "Datos correspondiente al Registro nacional de expresiones de voluntad para la donaci\u00f3n de \u00f3rganos y tejidos",
+                "modified":           "2019-04-16T09:47:27.023065",
+                "issued":             "2018-07-26T09:16:55.236860",
+                "landingPage":        "http://datos.salud.gob.ar/dataset/expresiones-de-voluntad",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "rfontana@incucai.gov.ar", "name": "Secretar\u00eda de Gobierno de Salud. Instituto Nacional Central \u00danico Coordinador de Ablaci\u00f3n e Implante (INCUCAI). Coordinaci\u00f3n de Comunicaci\u00f3n Social."},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Instituto Nacional Central \u00danico Coordinador de Ablaci\u00f3n e Implante (INCUCAI). Coordinaci\u00f3n de Comunicaci\u00f3n Social.",
+                "contactPoint":       {"hasEmail": "rfontana@incucai.gov.ar", "fn": "Secretar\u00eda de Gobierno de Salud. Instituto Nacional Central \u00danico Coordinador de Ablaci\u00f3n e Implante (INCUCAI). Coordinaci\u00f3n de Comunicaci\u00f3n Social."},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Expresiones de voluntad por provincia",
+                            "description":       "Datos correspondiente al Registro nacional de expresiones de voluntad por jurisdicci\u00f3n para la donaci\u00f3n\r\n",
+                            "fileName":     "expresiones-voluntad-provincia-20180725.csv",
+                            "type":         "file",
+                            "issued":       "2018-07-26T09:27:06.513050",
+                            "modified":     "2019-04-12T11:25:35.951399",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/554aad34-5213-47ba-b9d5-5ce63c494de9/resource/4723a6d1-e67a-4f35-b0c4-edcf4c925599",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/554aad34-5213-47ba-b9d5-5ce63c494de9/resource/4723a6d1-e67a-4f35-b0c4-edcf4c925599/download/expresiones-voluntad-provincia-20180725.csv",
+                            "identifier":       "4723a6d1-e67a-4f35-b0c4-edcf4c925599"
+                        } 
+                    
+                    ],
+                "keyword":        ["INCUCAI", "donantes", "expresion", "voluntad"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["donacion-de-organos-y-tejidos", "registros-padrones-listados-nacionales-en-salud"],
+                "accrualPeriodicity": "R/P6M",
+                "temporal":      "2017-01-08T03:00:00.000Z/2018-01-08T03:00:00.000Z",
+                "identifier":           "554aad34-5213-47ba-b9d5-5ce63c494de9"
+            } ,
+            {
+                "title":           "Actualizaciones del Vademecun Nacional de Medicamentos (VNM)",
+                "description":           "Datos sobre las actualizaciones de los medicamentos comercializados en la Rep\u00fablica Argentina incluyendo laboratorio titular, n\u00famero de certificado, nombre comercial y gen\u00e9rico",
+                "modified":           "2019-04-16T09:47:01.360294",
+                "issued":             "2018-07-27T10:13:57.748631",
+                "landingPage":        "https://www.argentina.gob.ar/anmat",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"name": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Pol\u00edticas. Regulaci\u00f3n e Institutos. Administraci\u00f3n Nacional de Medicamentos. Alimentos y Tecnolog\u00eda M\u00e9dica (ANMAT). Direcci\u00f3n General de Informaci\u00f3n t\u00e9cnica"},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Pol\u00edticas. Regulaci\u00f3n e Institutos. Administraci\u00f3n Nacional de Medicamentos. Alimentos y Tecnolog\u00eda M\u00e9dica (ANMAT). Direcci\u00f3n General de Informaci\u00f3n t\u00e9cnica",
+                "contactPoint":       {"fn": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Pol\u00edticas. Regulaci\u00f3n e Institutos. Administraci\u00f3n Nacional de Medicamentos. Alimentos y Tecnolog\u00eda M\u00e9dica (ANMAT). Direcci\u00f3n General de Informaci\u00f3n t\u00e9cnica"},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Actualizaciones del Vademecun Nacional de Medicamentos (VNM) - julio 2018",
+                            "description":       "Actualizaciones de los medicamentos comercializados en la Rep\u00fablica Argentina para el mes de julio 2018",
+                            "fileName":     "vnm-jun-2018-.csv",
+                            "type":         "file",
+                            "issued":       "2018-07-27T10:15:17.554242",
+                            "modified":     "2019-04-15T13:41:54.113742",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/3e28c31c-2bcf-4a74-81cf-f992152f9e6a/resource/7c95c566-e1fa-4ebc-a5b6-7a9f236a2f38",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/3e28c31c-2bcf-4a74-81cf-f992152f9e6a/resource/7c95c566-e1fa-4ebc-a5b6-7a9f236a2f38/download/vnm-jun-2018-.csv",
+                            "identifier":       "7c95c566-e1fa-4ebc-a5b6-7a9f236a2f38"
+                        } ,
+                    
+                        {
+                            "format":       "XLS",
+                            "title":       "Actualizaciones del Vademecun Nacional de Medicamentos (VNM) - diciembre 2018",
+                            "description":       "Actualizaciones de los medicamentos comercializados en la Rep\u00fablica Argentina para el mes de diciembre 2018",
+                            "fileName":     "vnm-2018.xls",
+                            "type":         "file.upload",
+                            "issued":       "2018-12-20T11:16:32.286986",
+                            "modified":     "2019-04-15T13:46:18.776754",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/3e28c31c-2bcf-4a74-81cf-f992152f9e6a/resource/5237a950-b47e-4f79-88c0-94ae39e4a319",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/3e28c31c-2bcf-4a74-81cf-f992152f9e6a/resource/5237a950-b47e-4f79-88c0-94ae39e4a319/download/vnm-2018.xls",
+                            "identifier":       "5237a950-b47e-4f79-88c0-94ae39e4a319"
+                        } ,
+                    
+                        {
+                            "format":       "CSV",
+                            "title":       "Actualizaciones del Vademecun Nacional de Medicamentos (VNM) - diciembre 2018",
+                            "description":       "Actualizaciones de los medicamentos comercializados en la Rep\u00fablica Argentina para el mes de diciembre 2018",
+                            "fileName":     "vnm-2018.csv",
+                            "type":         "file.upload",
+                            "issued":       "2019-04-15T13:51:18.987744",
+                            "modified":     "2019-04-15T13:51:18.987744",
+                            "license":      "CC-BY-4.0",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/3e28c31c-2bcf-4a74-81cf-f992152f9e6a/resource/9d5a5ee0-5942-428e-84ad-67f0a10091a3",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/3e28c31c-2bcf-4a74-81cf-f992152f9e6a/resource/9d5a5ee0-5942-428e-84ad-67f0a10091a3/download/vnm-2018.csv",
+                            "identifier":       "9d5a5ee0-5942-428e-84ad-67f0a10091a3"
+                        } 
+                    
+                    ],
+                "keyword":        ["ANMAT", "medicamentos", "vademecum"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["vademecum-y-medicamentos"],
+                "accrualPeriodicity": "eventual",
+                "temporal":      "2017-07-11T03:00:00.000Z/2018-07-11T03:00:00.000Z",
+                "identifier":           "3e28c31c-2bcf-4a74-81cf-f992152f9e6a"
+            } ,
+            {
+                "title":           "Registro Nacional de Prestadores Profesionales Inscriptos en la SSS",
+                "description":           "Registro Nacional de prestadores. Profesionales de la salud  inscriptos, al Registro Nacional de Prestadores de la Superintendencia de Servicios de Salud. Este dataset corresponde al sistema anterior al a\u00f1o 2018. Se encuentra una base denominada hist\u00f3rica, que pertenece al sistema inform\u00e1tico anterior, y la que se dispone actualmente. \r\n",
+                "modified":           "2019-04-16T09:45:13.121470",
+                "issued":             "2018-10-05T10:57:45.372080",
+                "landingPage":        "https://www.sssalud.gob.ar/index.php?cat=prestadores&page=busmed",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "datos@sssalud.gob.ar", "name": "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Control Prestacional. Coordinaci\u00f3n de Registros de Prestadores. Redes de Prestadores y Contratos."},
+                "source":             "Superintendencia de Servicios de Salud. Gerencia de Control Prestacional. Coordinaci\u00f3n de Registros de Prestadores. Redes de Prestadores y Contratos.",
+                "contactPoint":       {"hasEmail": "datos@sssalud.gob.ar", "fn": "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Control Prestacional. Coordinaci\u00f3n de Registros de Prestadores. Redes de Prestadores y Contratos."},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Registro Nacional de Prestadores Profesionales Inscriptos en la SSS (Sistema Hist\u00f3rico )",
+                            "description":       "Registro Nacional de prestadores. Profesionales de la salud  inscriptos, al Registro Nacional de Prestadores de la Superintendencia de Servicios de Salud. Este dataset corresponde al sistema anterior ",
+                            "fileName":     "registro-nacional-de-prestadores-profesionales-inscriptos-en-la-sss-sistema-historico-20181217.csv",
+                            "type":         "file",
+                            "issued":       "2018-10-05T11:00:07.700216",
+                            "modified":     "2019-04-15T12:13:14.033662",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/1e7d12d4-d097-4f17-8277-fd671361f3db/resource/533e2c11-c921-409f-8e84-405d031b8414",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/1e7d12d4-d097-4f17-8277-fd671361f3db/resource/533e2c11-c921-409f-8e84-405d031b8414/download/registro-nacional-de-prestadores-profesionales-inscriptos-en-la-sss-sistema-historico-20181217.csv",
+                            "identifier":       "533e2c11-c921-409f-8e84-405d031b8414"
+                        } ,
+                    
+                        {
+                            "format":       "CSV",
+                            "title":       "Registro Nacional de Prestadores Profesionales Inscriptos en la SSS (Nuevo Sistema)",
+                            "description":       "Registro Nacional de prestadores. Profesionales de la salud inscriptos. Este recurso corresponde a la base que se dispone actualmente (nuevo sistema)",
+                            "fileName":     "registro.csv",
+                            "type":         "file",
+                            "issued":       "2018-10-05T11:03:37.079692",
+                            "modified":     "2019-04-15T12:14:17.241912",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/1e7d12d4-d097-4f17-8277-fd671361f3db/resource/2a36274e-6d29-417c-84f5-ce75d7d56c41",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/1e7d12d4-d097-4f17-8277-fd671361f3db/resource/2a36274e-6d29-417c-84f5-ce75d7d56c41/download/registro.csv",
+                            "identifier":       "2a36274e-6d29-417c-84f5-ce75d7d56c41"
+                        } 
+                    
+                    ],
+                "keyword":        ["SSS", "prestadores", "profesionales", "registro"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["registros-padrones-listados-nacionales-en-salud"],
+                "accrualPeriodicity": "R/P6M",
+                "temporal":      "2018-09-21T03:00:00.000Z/2019-03-20T03:00:00.000Z",
+                "identifier":           "1e7d12d4-d097-4f17-8277-fd671361f3db"
+            } ,
+            {
+                "title":           "Recetas de medicamentos esenciales",
+                "description":           "Total de recetas (formularios de recetas y recetas de tratamientos prolongados) confeccionados (prescriptos) por provincia y a\u00f1o, se hayan entregado medicaci\u00f3n o no",
+                "modified":           "2019-04-16T09:44:51.449700",
+                "issued":             "2018-06-13T10:57:08.799735",
+                "landingPage":        "http://msal.gov.ar/medicamentos/",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "evaluacion@medicamentos.msal.gob.ar", "name": "Secretar\u00eda de Gobierno de Salud. \u00c1rea de Seguimiento y Evaluaci\u00f3n"},
+                "source":             "Secretar\u00eda de Gobierno de Salud. \u00c1rea de Seguimiento y Evaluaci\u00f3n",
+                "contactPoint":       {"hasEmail": "evaluacion@medicamentos.msal.gob.ar", "fn": "Secretar\u00eda de Gobierno de Salud. \u00c1rea de Seguimiento y Evaluaci\u00f3n"},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "recetas de medicamentos esenciales. A\u00f1o 2003-2017",
+                            "description":       "Total de recetas (formularios de recetas y recetas de tratamientos prolongados) confeccionados (prescriptos) por provincia y a\u00f1o, se hayan entregado medicaci\u00f3n o no. A\u00f1os 2003-2017",
+                            "fileName":     "recetas-medicamentos-esenciales.csv",
+                            "type":         "file",
+                            "issued":       "2018-06-13T10:58:06.097161",
+                            "modified":     "2019-04-15T12:03:31.942499",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/dff3bf69-3514-42a3-a2aa-041495895ab2/resource/7fe68644-7411-4080-be29-ec5bb94dc635",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/dff3bf69-3514-42a3-a2aa-041495895ab2/resource/7fe68644-7411-4080-be29-ec5bb94dc635/download/recetas-medicamentos-esenciales.csv",
+                            "identifier":       "7fe68644-7411-4080-be29-ec5bb94dc635"
+                        } ,
+                    
+                        {
+                            "format":       "XLS",
+                            "title":       "Serie hist\u00f3rica de cantidad de recetas de medicamentos esenciales 2003-2018",
+                            "description":       "Total de Formularios de R (recetas) y Receta Tp (recetas de tratamientos prolongados) confeccionados (prescriptos) en el mes informado, se haya entregado medicaci\u00f3n o no. A\u00f1o 2003-2018",
+                            "fileName":     "serie-historica-de-cantidad-de-recetas-de-medicamentos-escenciales-2003-2018.xls",
+                            "type":         "file",
+                            "issued":       "2019-01-11T10:01:13.733898",
+                            "modified":     "2019-04-15T12:03:53.898571",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/dff3bf69-3514-42a3-a2aa-041495895ab2/resource/cfcf3dce-4d8c-4b09-b272-717841f09c77",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/dff3bf69-3514-42a3-a2aa-041495895ab2/resource/cfcf3dce-4d8c-4b09-b272-717841f09c77/download/serie-historica-de-cantidad-de-recetas-de-medicamentos-escenciales-2003-2018.xls",
+                            "identifier":       "cfcf3dce-4d8c-4b09-b272-717841f09c77"
+                        } ,
+                    
+                        {
+                            "format":       "CSV",
+                            "title":       "Serie hist\u00f3rica de cantidad de recetas de medicamentos esenciales 2003-2018",
+                            "description":       "Total de Formularios de R (recetas) y Receta Tp (recetas de tratamientos prolongados) confeccionados (prescriptos) en el mes informado, se haya entregado medicaci\u00f3n o no. A\u00f1o 2003-2018",
+                            "fileName":     "serie-historica-de-cantidad-de-recetas-de-medicamentos-esenciales-2003-2018.csv",
+                            "type":         "file",
+                            "issued":       "2019-01-11T10:02:28.806947",
+                            "modified":     "2019-04-15T12:05:36.778282",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/dff3bf69-3514-42a3-a2aa-041495895ab2/resource/30edcfab-5e24-43f7-a0c7-f5f9d1a5a2ed",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/dff3bf69-3514-42a3-a2aa-041495895ab2/resource/30edcfab-5e24-43f7-a0c7-f5f9d1a5a2ed/download/serie-historica-de-cantidad-de-recetas-de-medicamentos-esenciales-2003-2018.csv",
+                            "identifier":       "30edcfab-5e24-43f7-a0c7-f5f9d1a5a2ed"
+                        } 
+                    
+                    ],
+                "keyword":        ["CUS", "medicamentos", "recetas"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["vademecum-y-medicamentos"],
+                "accrualPeriodicity": "R/P6M",
+                "temporal":      "2003-01-01T03:00:00.000Z/2017-12-31T03:00:00.000Z",
+                "identifier":           "dff3bf69-3514-42a3-a2aa-041495895ab2"
+            } ,
+            {
+                "title":           "Defunciones ocurridas y registradas en la Rep\u00fablica Argentina",
+                "description":           "Cantidad de defunciones ocurridas y registradas en la Rep\u00fablica Argentina. Incluye las variables sociodemogr\u00e1ficas: provincia de residencia, sexo, causa y edad de la defunci\u00f3n. Tambi\u00e9n especifica si la muerte ocurrida fue materna.",
+                "modified":           "2019-04-16T09:42:59.023417",
+                "issued":             "2019-03-18T15:21:10.898104",
+                "landingPage":        "http://www.deis.msal.gov.ar/index.php/estadisticas-vitales/",
+                "license":            "CC-BY-4.0",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "informaciondeis@gmail.com", "name": "Secretar\u00eda de Gobierno de Salud. Direcci\u00f3n de Estad\u00edstica e Informaci\u00f3n en Salud (DEIS)"},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Direcci\u00f3n de Estad\u00edstica e Informaci\u00f3n en Salud (DEIS)",
+                "contactPoint":       {"hasEmail": "informaciondeis@gmail.com", "fn": "Secretar\u00eda de Gobierno de Salud. Direcci\u00f3n de Estad\u00edstica e Informaci\u00f3n en Salud (DEIS)"},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Defunciones ocurridas y registradas en la Rep\u00fablica Argentina en el a\u00f1o 2017",
+                            "description":       "Datos de defunciones ocurridas y registradas en Argentina incluyendo residencia, sexo, causa y grupo de edad en el a\u00f1o 2017; se especifica si la muerte ocurrida fue materna.",
+                            "fileName":     "estadisticas-vitales-defunciones-2017.csv",
+                            "type":         "file.upload",
+                            "issued":       "2019-03-18T12:24:17.992666",
+                            "modified":     "2019-04-11T12:19:51.893164",
+                            "license":      "CC-BY-4.0",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/27c588e8-43d0-411a-a40c-7ecc563c2c9f/resource/26c1be0a-e74f-48c7-bba0-1fdcd02da85b",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/27c588e8-43d0-411a-a40c-7ecc563c2c9f/resource/26c1be0a-e74f-48c7-bba0-1fdcd02da85b/download/estadisticas-vitales-defunciones-2017.csv",
+                            "identifier":       "26c1be0a-e74f-48c7-bba0-1fdcd02da85b"
+                        } ,
+                    
+                        {
+                            "format":       "CSV",
+                            "title":       "Defunciones ocurridas y registradas en la Rep\u00fablica Argentina en el a\u00f1o 2016",
+                            "description":       "Datos de defunciones ocurridas y registradas en Argentina incluyendo residencia, sexo, causa y grupo de edad en el a\u00f1o 2016; se especifica si la muerte ocurrida fue materna a partir del a\u00f1o 2012",
+                            "fileName":     "estadisticas-vitales-defunciones-2016.csv",
+                            "type":         "file.upload",
+                            "issued":       "2019-04-04T11:21:55.863551",
+                            "modified":     "2019-04-11T12:14:00.182048",
+                            "license":      "CC-BY-4.0",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/27c588e8-43d0-411a-a40c-7ecc563c2c9f/resource/b1c09aca-6187-4921-bf8a-ea3f712497b7",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/27c588e8-43d0-411a-a40c-7ecc563c2c9f/resource/b1c09aca-6187-4921-bf8a-ea3f712497b7/download/estadisticas-vitales-defunciones-2016.csv",
+                            "identifier":       "b1c09aca-6187-4921-bf8a-ea3f712497b7"
+                        } ,
+                    
+                        {
+                            "title":       "Defunciones ocurridas y registradas en la Rep\u00fablica Argentina entre los a\u00f1os 2005-2015.",
+                            "description":       "Cantidad de defunciones ocurridas y registradas en la Rep\u00fablica Argentina entre los a\u00f1os 2005-2015",
+                            "type":         "file",
+                            "issued":       "2019-04-05T12:17:58.870001",
+                            "modified":     "2019-04-05T12:17:58.870001",
+                            "license":      "CC-BY-4.0",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/27c588e8-43d0-411a-a40c-7ecc563c2c9f/resource/24804068-7c81-461b-a219-2f9acb50d634",
+                            "downloadURL": "http://www.deis.msal.gov.ar/index.php/base-de-datos/",
+                            "identifier":       "24804068-7c81-461b-a219-2f9acb50d634"
+                        } 
+                    
+                    ],
+                "keyword":        ["DEIS", "defunciones", "jurisdiccion", "nacional"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["estadisticas-vitales"],
+                "accrualPeriodicity": "R/P1Y",
+                "temporal":      "2017-01-01T03:00:00.000Z/2017-12-31T03:00:00.000Z",
+                "identifier":           "27c588e8-43d0-411a-a40c-7ecc563c2c9f"
+            } ,
+            {
+                "title":           "Contrataciones, Compras y Licitaciones de la Superintendencia de Servicios de Salud (SSS)",
+                "description":           "Listado de contrataciones, compras y licitaciones de la Superintendencia de Servicios de Salud",
+                "modified":           "2019-04-16T09:42:32.692467",
+                "issued":             "2018-10-05T09:41:04.410256",
+                "landingPage":        "https://www.sssalud.gob.ar/index.php?page=compras",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "datos@sssalud.gob.ar", "name": "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Administraci\u00f3n. Subgerencia de Presupuestos y Contabilidad. Coordinaci\u00f3n de Compras y Patrimonio."},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Administraci\u00f3n. Subgerencia de Presupuestos y Contabilidad. Coordinaci\u00f3n de Compras y Patrimonio.",
+                "contactPoint":       {"hasEmail": "datos@sssalud.gob.ar", "fn": "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Administraci\u00f3n. Subgerencia de Presupuestos y Contabilidad. Coordinaci\u00f3n de Compras y Patrimonio."},
+                "distribution":
+                    [
+                        {
+                            "format":       "XLS",
+                            "title":       "Contrataciones, compras y licitaciones realizadas en el transcurso del a\u00f1o 2018 hasta el mes de diciembre.",
+                            "description":       "Contrataciones, compras y licitaciones de la Superintendencia de Servicios de Salud realizadas en el transcurso del a\u00f1o 2018 hasta el mes de diciembre.\r\n",
+                            "fileName":     "contrataciones-compras-y-licitaciones-realizadas-en-el-transcurso-del-2018-hasta-diciembre-20181.xls",
+                            "issued":       "2018-10-05T09:45:22.482569",
+                            "modified":     "2018-12-17T11:16:46.296861",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/744f3ed1-2267-438c-a855-f5153b207fbc/resource/894eb841-929f-4e23-9c53-59dd23e0c9ca",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/744f3ed1-2267-438c-a855-f5153b207fbc/resource/894eb841-929f-4e23-9c53-59dd23e0c9ca/download/contrataciones-compras-y-licitaciones-realizadas-en-el-transcurso-del-2018-hasta-diciembre-20181.xls",
+                            "identifier":       "894eb841-929f-4e23-9c53-59dd23e0c9ca"
+                        } ,
+                    
+                        {
+                            "format":       "CSV",
+                            "title":       "Contrataciones, compras y licitaciones realizadas en el transcurso del a\u00f1o 2018 hasta el mes de diciembre.",
+                            "description":       "Contrataciones, compras y licitaciones de la Superintendencia de Servicios de Salud realizadas en el transcurso del a\u00f1o 2018 hasta el mes de diciembre.",
+                            "fileName":     "contrataciones-compras-licitaciones-20180921.csv",
+                            "type":         "file.upload",
+                            "issued":       "2019-04-11T11:19:35.132569",
+                            "modified":     "2019-04-11T11:19:35.132569",
+                            "license":      "CC-BY-4.0",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/744f3ed1-2267-438c-a855-f5153b207fbc/resource/6db56c32-ec72-42c9-b698-39f929b23b61",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/744f3ed1-2267-438c-a855-f5153b207fbc/resource/6db56c32-ec72-42c9-b698-39f929b23b61/download/contrataciones-compras-licitaciones-20180921.csv",
+                            "identifier":       "6db56c32-ec72-42c9-b698-39f929b23b61"
+                        } 
+                    
+                    ],
+                "keyword":        ["SSS", "compras", "contrataciones", "licitaci\u00f3n"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["gestion-en-salud"],
+                "accrualPeriodicity": "R/P6M",
+                "temporal":      "2018-01-01T03:00:00.000Z/2018-12-17T03:00:00.000Z",
+                "identifier":           "744f3ed1-2267-438c-a855-f5153b207fbc"
+            } ,
+            {
+                "title":           "Notificaciones de VIH por jurisdicci\u00f3n 2015-2016-2017, Argentina.",
+                "description":           "Datos correspondientes a las notificaciones realizadas por jurisdicci\u00f3n durante los a\u00f1os 2015, 2016, y 2017 en Argentina. ",
+                "modified":           "2019-04-16T09:41:21.194697",
+                "issued":             "2018-06-15T10:17:18.880900",
+                "landingPage":        "http://www.salud.gob.ar/sida/",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "secretaria.sidayets@gmail.com", "name": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Prevenci\u00f3n de Enfermedades Comunicables e Inmunoprevenibles. Direcci\u00f3n de Sida, Enfermedades de Transmisi\u00f3n Sexual, Hepatitis y Tuberculosis."},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Prevenci\u00f3n de Enfermedades Comunicables e Inmunoprevenibles. Direcci\u00f3n de Sida, Enfermedades de Transmisi\u00f3n Sexual, Hepatitis y Tuberculosis.",
+                "contactPoint":       {"hasEmail": "secretaria.sidayets@gmail.com", "fn": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Prevenci\u00f3n de Enfermedades Comunicables e Inmunoprevenibles. Direcci\u00f3n de Sida, Enfermedades de Transmisi\u00f3n Sexual, Hepatitis y Tuberculosis."},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Notificaciones de VIH por jurisdicci\u00f3n 2015-2016-2017, Argentina.",
+                            "description":       "Datos correspondientes a las notificaciones realizadas por jurisdicci\u00f3n durante los a\u00f1os 2015, 2016, y 2017 en Argentina. ",
+                            "fileName":     "notificaciones-vih-por-jurisdiccion-2015-2016-2017.csv",
+                            "issued":       "2018-06-15T10:18:26.303359",
+                            "modified":     "2018-07-27T09:42:38.188317",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/03058c84-a766-4fcd-b16a-533b21ce6766/resource/08c7c922-69f8-46df-b1be-21db2873b905",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/03058c84-a766-4fcd-b16a-533b21ce6766/resource/08c7c922-69f8-46df-b1be-21db2873b905/download/notificaciones-vih-por-jurisdiccion-2015-2016-2017.csv",
+                            "identifier":       "08c7c922-69f8-46df-b1be-21db2873b905"
+                        } 
+                    
+                    ],
+                "keyword":        ["HIV", "SIDA", "jurisdiccion", "notificaciones"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["vigilancia-notificacion-de-enfermedades"],
+                "accrualPeriodicity": "R/P1Y",
+                "temporal":      "2015-01-01T03:00:00.000Z/2017-07-01T03:00:00.000Z",
+                "identifier":           "03058c84-a766-4fcd-b16a-533b21ce6766"
+            } ,
+            {
+                "title":           "Beneficiarios medicamentos esenciales",
+                "description":           "Cantidad de beneficiarios hist\u00f3rico totales por provincia, dividido por sexo. Periodo 2002-2015.",
+                "modified":           "2019-04-16T09:40:29.590919",
+                "issued":             "2018-06-12T13:14:20.587465",
+                "landingPage":        "http://msal.gov.ar/medicamentos/",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "evaluacion@medicamentos.msal.gob.ar", "name": "Secretar\u00eda de Gobierno de Salud. \u00c1rea de Seguimiento y Evaluaci\u00f3n"},
+                "source":             "Secretar\u00eda de Gobierno de Salud. \u00c1rea de Seguimiento y Evaluaci\u00f3n",
+                "contactPoint":       {"hasEmail": "evaluacion@medicamentos.msal.gob.ar", "fn": "Secretar\u00eda de Gobierno de Salud. \u00c1rea de Seguimiento y Evaluaci\u00f3n"},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "beneficiarios-medicamentos-esenciales",
+                            "description":       "Cantidad de beneficiarios hist\u00f3rico totales por provincia, dividido por sexo. Periodo 2002-2015.",
+                            "fileName":     "beneficiarios-medicamentos-escenciales.csv",
+                            "issued":       "2018-06-12T13:17:24.539280",
+                            "modified":     "2018-07-27T12:42:41.534688",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/0eb46cb9-abf1-4faa-a6fe-47d3ac87dd74/resource/ce6efd0a-a26d-4bed-a981-b6b89b4b8617",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/0eb46cb9-abf1-4faa-a6fe-47d3ac87dd74/resource/ce6efd0a-a26d-4bed-a981-b6b89b4b8617/download/beneficiarios-medicamentos-esenciales.csv",
+                            "identifier":       "ce6efd0a-a26d-4bed-a981-b6b89b4b8617"
+                        } 
+                    
+                    ],
+                "keyword":        ["CUS", "beneficiarios", "medicamentos"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["vademecum-y-medicamentos"],
+                "accrualPeriodicity": "R/P1Y",
+                "temporal":      "2003-01-01T03:00:00.000Z/2015-12-31T03:00:00.000Z",
+                "identifier":           "0eb46cb9-abf1-4faa-a6fe-47d3ac87dd74"
+            } ,
+            {
+                "title":           "Padr\u00f3n de beneficiarios de Obras Sociales Nacionales",
+                "description":           "Total de titulares y familiares por provincia correspondientes al Padr\u00f3n de Beneficiarios de la Superintendencia de Servicios de Salud.",
+                "modified":           "2019-04-16T09:39:15.345963",
+                "issued":             "2018-07-23T11:45:16.740377",
+                "landingPage":        "https://www.sssalud.gob.ar/index.php?cat=consultas&page=estadisticas",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "datos@sssalud.gob.ar", "name": "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Sistemas de Informaci\u00f3n. Coordinaci\u00f3n de Dise\u00f1o y Procesamiento de la Informaci\u00f3n."},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Sistemas de Informaci\u00f3n. Coordinaci\u00f3n de Dise\u00f1o y Procesamiento de la Informaci\u00f3n.",
+                "contactPoint":       {"hasEmail": "datos@sssalud.gob.ar", "fn": "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Sistemas de Informaci\u00f3n. Coordinaci\u00f3n de Dise\u00f1o y Procesamiento de la Informaci\u00f3n."},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Padr\u00f3n de beneficiarios de Obras Sociales Nacionales",
+                            "description":       "Total de titulares y familiares por provincia correspondientes al Padr\u00f3n de Beneficiarios de la Superintendencia de Servicios de Salud.\r\n",
+                            "fileName":     "padron-de-beneficiarios-de-obras-sociales-nacionales-20181217.csv",
+                            "issued":       "2018-07-23T11:48:20.186808",
+                            "modified":     "2018-12-17T10:09:58.100826",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/0fe5fc87-d980-41c2-8e71-3a7d0964350c/resource/7486a94a-047f-4e19-a742-5b6f2db9c854",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/0fe5fc87-d980-41c2-8e71-3a7d0964350c/resource/7486a94a-047f-4e19-a742-5b6f2db9c854/download/padron-de-beneficiarios-de-obras-sociales-nacionales-20181217.csv",
+                            "identifier":       "7486a94a-047f-4e19-a742-5b6f2db9c854"
+                        } 
+                    
+                    ],
+                "keyword":        ["SSS", "beneficiarios", "obras sociales", "padron"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["registros-padrones-listados-nacionales-en-salud"],
+                "accrualPeriodicity": "R/P1Y",
+                "temporal":      "2018-08-18T03:00:00.000Z/2019-07-18T03:00:00.000Z",
+                "identifier":           "0fe5fc87-d980-41c2-8e71-3a7d0964350c"
+            } ,
+            {
+                "title":           "Listado Establecimientos de Salud Asentados en el Registro Federal  (REFES).",
+                "description":           "Listado de los establecimientos de salud, con y sin internaci\u00f3n, de todas las dependencias y cuyo financiamiento es de  origen p\u00fablico \u00f3 de origen  financiamiento privado, que funcionan dentro del territorio nacional acorde con las normativas vigentes y que est\u00e1n registrados en el Registro Federal de Establecimientos de Salud (REFES).",
+                "modified":           "2019-04-16T09:38:44.017431",
+                "issued":             "2018-07-04T11:27:11.654250",
+                "landingPage":        "http://datos.salud.gob.ar/dataset/listado-establecimientos-de-salud-asentados-en-el-registro-federal-refes",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "msfernandez.f@msal.gov.ar", "name": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Regulaci\u00f3n y Gesti\u00f3n Sanitaria. Direcci\u00f3n Nacional de Calidad de Servicios de Salud y Regulaci\u00f3n Sanitaria."},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Regulaci\u00f3n y Gesti\u00f3n Sanitaria. Direcci\u00f3n Nacional de Calidad de Servicios de Salud y Regulaci\u00f3n Sanitaria.",
+                "contactPoint":       {"hasEmail": "msfernandez.f@msal.gov.ar", "fn": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Regulaci\u00f3n y Gesti\u00f3n Sanitaria. Direcci\u00f3n Nacional de Calidad de Servicios de Salud y Regulaci\u00f3n Sanitaria."},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "LISTADO ESTABLECIMIENTOS DE SALUD ASENTADOS EN EL REGISTRO FEDERAL (REFES)",
+                            "description":       "Listado de los establecimientos de salud, con y sin internaci\u00f3n, de todas las dependencias y cuyo financiamiento es de  origen p\u00fablico \u00f3 de origen  financiamiento privado, que funcionan dentro del ter",
+                            "fileName":     "establecimientos-062018.csv",
+                            "issued":       "2018-07-04T11:29:37.732356",
+                            "modified":     "2018-07-27T11:03:52.924862",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/336cf4d9-447a-44c4-8e34-0ba1fc293d55/resource/265d939a-2461-482c-8445-bbaa60f97367",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/336cf4d9-447a-44c4-8e34-0ba1fc293d55/resource/265d939a-2461-482c-8445-bbaa60f97367/download/establecimientos-062018.csv",
+                            "identifier":       "265d939a-2461-482c-8445-bbaa60f97367"
+                        } 
+                    
+                    ],
+                "keyword":        ["REFAR", "establecimiento", "listado"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["registros-padrones-listados-nacionales-en-salud"],
+                "accrualPeriodicity": "R/P6M",
+                "identifier":           "336cf4d9-447a-44c4-8e34-0ba1fc293d55"
+            } ,
+            {
+                "title":           "Listado de Establecimientos de Farmacias",
+                "description":           "Listado de los establecimientos de farmacias incluyendo: botiqu\u00edn; farmacia ambulatoria comercial con acceso al p\u00fablico; farmacias de mutuales, de cooperativas y de obras sociales sin fines de lucro y;  farmacias de establecimiento de salud con internaci\u00f3n que operen en el territorio nacional de acuerdo a las normativas vigentes y que est\u00e1n registradas en el REFAR.",
+                "modified":           "2019-04-16T09:38:17.562105",
+                "issued":             "2018-07-04T11:20:51.277795",
+                "landingPage":        "http://datos.salud.gob.ar/dataset/listado-de-establecimientos-de-farmacias",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "msfernandez.f@msal.gov.ar", "name": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Regulaci\u00f3n y Gesti\u00f3n Sanitaria. Direcci\u00f3n Nacional de Calidad de Servicios de Salud y Regulaci\u00f3n Sanitaria."},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Regulaci\u00f3n y Gesti\u00f3n Sanitaria. Direcci\u00f3n Nacional de Calidad de Servicios de Salud y Regulaci\u00f3n Sanitaria.",
+                "contactPoint":       {"hasEmail": "msfernandez.f@msal.gov.ar", "fn": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Regulaci\u00f3n y Gesti\u00f3n Sanitaria. Direcci\u00f3n Nacional de Calidad de Servicios de Salud y Regulaci\u00f3n Sanitaria."},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "LISTADO de ESTABLECIMIENTOS DE FARMACIAS",
+                            "description":       "Listado de los establecimientos de farmacias incluyendo: botiqu\u00edn; farmacia ambulatoria comercial con acceso al p\u00fablico; farmacias de mutuales, de cooperativas y de obras sociales sin fines de lucro y",
+                            "fileName":     "farmacias-062018.csv",
+                            "issued":       "2018-07-04T11:22:17.822125",
+                            "modified":     "2018-07-27T11:25:40.251510",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/39117f8f-e2bc-4571-a572-15a6ce7ea9e1/resource/8faff7ff-94e5-4fe3-9942-c6c7e78fa7c5",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/39117f8f-e2bc-4571-a572-15a6ce7ea9e1/resource/8faff7ff-94e5-4fe3-9942-c6c7e78fa7c5/download/farmacias-062018.csv",
+                            "identifier":       "8faff7ff-94e5-4fe3-9942-c6c7e78fa7c5"
+                        } 
+                    
+                    ],
+                "keyword":        ["REFAR", "establecimientos", "farmacias", "listado"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["registros-padrones-listados-nacionales-en-salud"],
+                "accrualPeriodicity": "R/P6M",
+                "identifier":           "39117f8f-e2bc-4571-a572-15a6ce7ea9e1"
+            } ,
+            {
+                "title":           "Listado de Establecimientos de Droguer\u00edas (REDRO)",
+                "description":           "Listado de los establecimientos droguer\u00edas incluyendo: dep\u00f3sitos; droguer\u00edas; empresas comercializadoras de productos m\u00e9dicos y operadores log\u00edsticos que operen dentro del territorio nacional de acuerdo a las normativas vigentes y que est\u00e1n registradas en el Registro Federal de Droguer\u00edas. ",
+                "modified":           "2019-04-16T09:37:55.188653",
+                "issued":             "2018-07-04T11:32:19.790621",
+                "landingPage":        "http://datos.salud.gob.ar/dataset/listado-de-establecimientos-de-droguerias-redro",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "msfernandez.f@msal.gov.ar", "name": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Regulaci\u00f3n y Gesti\u00f3n Sanitaria. Direcci\u00f3n Nacional de Calidad de Servicios de Salud y Regulaci\u00f3n Sanitaria."},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Regulaci\u00f3n y Gesti\u00f3n Sanitaria. Direcci\u00f3n Nacional de Calidad de Servicios de Salud y Regulaci\u00f3n Sanitaria.",
+                "contactPoint":       {"hasEmail": "msfernandez.f@msal.gov.ar", "fn": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Regulaci\u00f3n y Gesti\u00f3n Sanitaria. Direcci\u00f3n Nacional de Calidad de Servicios de Salud y Regulaci\u00f3n Sanitaria."},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "LISTADO de ESTABLECIMIENTOS DE DROGUER\u00cdAS (REDRO)",
+                            "description":       "Listado de los establecimientos droguer\u00edas incluyendo: dep\u00f3sitos; droguer\u00edas; empresas comercializadoras de productos m\u00e9dicos y operadores log\u00edsticos que operen dentro del territorio nacional de acuer",
+                            "fileName":     "droguerias-062018.csv",
+                            "issued":       "2018-07-04T11:32:57.441904",
+                            "modified":     "2018-07-27T10:52:47.279993",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/e8be808d-32ab-4e58-a7c2-d87e53f56eb5/resource/8c28d8b1-1480-4ded-a8bb-8b7d32b4147f",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/e8be808d-32ab-4e58-a7c2-d87e53f56eb5/resource/8c28d8b1-1480-4ded-a8bb-8b7d32b4147f/download/droguerias-062018.csv",
+                            "identifier":       "8c28d8b1-1480-4ded-a8bb-8b7d32b4147f"
+                        } 
+                    
+                    ],
+                "keyword":        ["REDRO", "droguer\u00edas", "establecimientos", "listado"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["registros-padrones-listados-nacionales-en-salud"],
+                "accrualPeriodicity": "R/P6M",
+                "identifier":           "e8be808d-32ab-4e58-a7c2-d87e53f56eb5"
+            } ,
+            {
+                "title":           "Registro Nacional de Investigaciones en Salud (RENIS)",
+                "description":           "Datos correspondientes al Registro Nacional de Investigaciones en salud",
+                "modified":           "2019-04-16T09:37:27.315500",
+                "issued":             "2018-06-15T10:26:37.753402",
+                "landingPage":        "https://www.argentina.gob.ar/salud/registroinvestigaciones",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "saludinvestiga@msal.gov.ar", "name": "Secretar\u00eda de Gobierno de Salud. Direcci\u00f3n de Investigaci\u00f3n para la Salud."},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Direcci\u00f3n de Investigaci\u00f3n para la Salud.",
+                "contactPoint":       {"hasEmail": "saludinvestiga@msal.gov.ar", "fn": "Secretar\u00eda de Gobierno de Salud. Direcci\u00f3n de Investigaci\u00f3n para la Salud."},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Registro Nacional de Investigaciones en Salud (RENIS) - julio 2018",
+                            "description":       "Datos correspondientes al Registro Nacional de Investigaciones en salud",
+                            "fileName":     "renisbase1.csv",
+                            "issued":       "2018-06-15T10:27:50.692350",
+                            "modified":     "2018-07-26T13:14:17.370223",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/5b7b2efb-111a-48eb-9476-c5871f5f8f11/resource/1db00660-6e24-437f-97a3-3fe2edcf967c",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/5b7b2efb-111a-48eb-9476-c5871f5f8f11/resource/1db00660-6e24-437f-97a3-3fe2edcf967c/download/renisbase1.csv",
+                            "identifier":       "1db00660-6e24-437f-97a3-3fe2edcf967c"
+                        } ,
+                    
+                        {
+                            "format":       "XLS",
+                            "title":       "Registro Nacional de Investigaciones en Salud (RENIS) - diciembre 2018",
+                            "description":       "Datos correspondientes al Registro Nacional de Investigaciones en salud",
+                            "fileName":     "registro-nacional-de-investigaciones-en-salud-renis-20181221.xls",
+                            "issued":       "2018-12-21T12:23:48.950154",
+                            "modified":     "2018-12-21T12:23:48.922715",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/5b7b2efb-111a-48eb-9476-c5871f5f8f11/resource/5ede7041-c773-465a-86a5-390754c76813",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/5b7b2efb-111a-48eb-9476-c5871f5f8f11/resource/5ede7041-c773-465a-86a5-390754c76813/download/registro-nacional-de-investigaciones-en-salud-renis-20181221.xls",
+                            "identifier":       "5ede7041-c773-465a-86a5-390754c76813"
+                        } 
+                    
+                    ],
+                "keyword":        ["RENIS", "investigaci\u00f3n", "registro", "salud"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["registros-padrones-listados-nacionales-en-salud"],
+                "accrualPeriodicity": "R/P6M",
+                "identifier":           "5b7b2efb-111a-48eb-9476-c5871f5f8f11"
+            } ,
+            {
+                "title":           "Legisalud Argentina",
+                "description":           "Base de datos de legislaci\u00f3n sanitaria argentina",
+                "modified":           "2019-04-16T09:37:03.141341",
+                "issued":             "2018-07-13T12:49:13.923614",
+                "landingPage":        "http://www.legisalud.gov.ar/",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "legisalud@msal.gov.ar", "name": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Regulaci\u00f3n y Gesti\u00f3n Sanitaria. Subsecretar\u00eda de Calidad, Regulaci\u00f3n y Fiscalizaci\u00f3n. Direcci\u00f3n Nacional de Calidad en Servicios de Salud y Regulaci\u00f3n Sanitaria."},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Regulaci\u00f3n y Gesti\u00f3n Sanitaria. Subsecretar\u00eda de Calidad, Regulaci\u00f3n y Fiscalizaci\u00f3n. Direcci\u00f3n Nacional de Calidad en Servicios de Salud y Regulaci\u00f3n Sanitaria.",
+                "contactPoint":       {"hasEmail": "obaggini@msal.gov.ar", "fn": "Secretar\u00eda de Gobierno de Salud. Secretar\u00eda de Regulaci\u00f3n y Gesti\u00f3n Sanitaria. Subsecretar\u00eda de Calidad, Regulaci\u00f3n y Fiscalizaci\u00f3n. Direcci\u00f3n Nacional de Calidad en Servicios de Salud y Regulaci\u00f3n Sanitaria."},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Legisalud Argentina",
+                            "description":       "Base de datos de legislaci\u00f3n sanitaria argentina",
+                            "fileName":     "legisalud2018-2.csv",
+                            "issued":       "2018-07-13T12:51:10.954943",
+                            "modified":     "2018-07-27T09:30:42.799239",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/fd5fc69f-0d30-4125-b7b5-d6d632739324/resource/83e9453c-5156-4c5a-83a1-87e6658071c9",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/fd5fc69f-0d30-4125-b7b5-d6d632739324/resource/83e9453c-5156-4c5a-83a1-87e6658071c9/download/legisalud2018-2.csv",
+                            "identifier":       "83e9453c-5156-4c5a-83a1-87e6658071c9"
+                        } 
+                    
+                    ],
+                "keyword":        ["legislaci\u00f3n", "sanitaria"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["legislacion-en-salud"],
+                "accrualPeriodicity": "R/P1Y",
+                "temporal":      "1877-01-01T03:53:00.000Z/2018-03-01T03:00:00.000Z",
+                "identifier":           "fd5fc69f-0d30-4125-b7b5-d6d632739324"
+            } ,
+            {
+                "title":           "Cantidad  de Usuarios de Empresas de Medicinas Prepagas",
+                "description":           "Cantidad de usuarios de empresas de medicina prepaga por provincia",
+                "modified":           "2019-04-16T09:34:55.443197",
+                "issued":             "2018-10-05T11:19:57.530535",
+                "landingPage":        "https://www.sssalud.gob.ar/index.php?page=poblacion&cat=consultas",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "datos@sssalud.gob.ar", "name": "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Sistemas de Informaci\u00f3n. Coordinaci\u00f3n de Dise\u00f1o y Procesamiento de la Informaci\u00f3n."},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Sistemas de Informaci\u00f3n. Coordinaci\u00f3n de Dise\u00f1o y Procesamiento de la Informaci\u00f3n.",
+                "contactPoint":       {"hasEmail": "datos@sssalud.gob.ar", "fn": "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud. Gerencia de Sistemas de Informaci\u00f3n. Coordinaci\u00f3n de Dise\u00f1o y Procesamiento de la Informaci\u00f3n."},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Cantidad  de Usuarios de Empresas de Medicinas Prepagas",
+                            "description":       "Cantidad de usuarios de empresas de medicina prepaga por provincia\r\n",
+                            "fileName":     "cantidad-de-usuarios-de-empresas-de-medicinas-prepagas-20181220.csv",
+                            "issued":       "2018-10-05T11:22:08.199671",
+                            "modified":     "2018-12-17T09:59:48.406496",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/017cd909-3534-4e11-9b41-cdce8f13276a/resource/7cd31f90-6ce2-4ed9-b1c4-bf454479090e",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/017cd909-3534-4e11-9b41-cdce8f13276a/resource/7cd31f90-6ce2-4ed9-b1c4-bf454479090e/download/cantidad-de-usuarios-de-empresas-de-medicinas-prepagas-20181220.csv",
+                            "identifier":       "7cd31f90-6ce2-4ed9-b1c4-bf454479090e"
+                        } 
+                    
+                    ],
+                "keyword":        ["SSS", "empresas", "medicina prepaga", "usuarios"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["estadisticas-de-servicios"],
+                "accrualPeriodicity": "R/P1Y",
+                "temporal":      "2018-07-18T03:00:00.000Z/2019-07-18T03:00:00.000Z",
+                "identifier":           "017cd909-3534-4e11-9b41-cdce8f13276a"
+            } ,
+            {
+                "title":           "Encuestas Satisfacci\u00f3n a Usuarios en centros de atenci\u00f3n de Superintendencia de Servicios de Salud",
+                "description":           "Resultados de las encuestas de satisfacci\u00f3n realizadas en nuestros centros de atenci\u00f3n en todo el pa\u00eds.\r\n",
+                "modified":           "2019-04-16T09:32:39.936424",
+                "issued":             "2018-10-05T10:08:08.284871",
+                "landingPage":        "https://www.sssalud.gob.ar/",
+                "license":            "Creative Commons Attribution",
+                "spatial":            ["ARG"],
+                "publisher":          {"mbox": "datos@sssalud.gob.ar", "name": "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud (SSS). Secretaria General. Unidad Administrativa."},
+                "source":             "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud (SSS). Secretaria General. Unidad Administrativa.",
+                "contactPoint":       {"hasEmail": "datos@sssalud.gob.ar", "fn": "Secretar\u00eda de Gobierno de Salud. Superintendencia de Servicios de Salud (SSS). Secretaria General. Unidad Administrativa."},
+                "distribution":
+                    [
+                        {
+                            "format":       "CSV",
+                            "title":       "Encuestas de Satisfacci\u00f3n a Usuarios",
+                            "description":       "Resultados de las encuestas de satisfacci\u00f3n realizadas en nuestros centros de atenci\u00f3n en todo el pa\u00eds correspondientes al 1er semestre del a\u00f1o 2018.\r\n",
+                            "fileName":     "encuentas-satisfaccion-1-semetre-2018-.csv",
+                            "issued":       "2018-10-05T10:08:43.874118",
+                            "modified":     "2018-10-05T10:08:43.849051",
+                            "license":      "cc-by",
+                            "accessURL": "http://datos.salud.gob.ar/dataset/57f0c4df-924c-4dac-b4bd-bce91c22e9d4/resource/35120aaa-3367-459b-9025-079f19137a86",
+                            "downloadURL": "http://datos.salud.gob.ar/dataset/57f0c4df-924c-4dac-b4bd-bce91c22e9d4/resource/35120aaa-3367-459b-9025-079f19137a86/download/encuentas-satisfaccion-1-semetre-2018-.csv",
+                            "identifier":       "35120aaa-3367-459b-9025-079f19137a86"
+                        } 
+                    
+                    ],
+                "keyword":        ["SSS", "encuesta", "satisfacci\u00f3n", "usuarios"],
+                "superTheme":         ["HEAL"],
+                "language":       ["spa"],
+                "theme":          ["encuestas-en-salud"],
+                "accrualPeriodicity": "R/P6M",
+                "temporal":      "2018-01-01T03:00:00.000Z/2018-06-30T03:00:00.000Z",
+                "identifier":           "57f0c4df-924c-4dac-b4bd-bce91c22e9d4"
+            } 
+        ]
+}
