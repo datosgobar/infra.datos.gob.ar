@@ -4,17 +4,21 @@
 
 <h1>Catálogos del nodo {{ node_name }}</h1>
 
+<a class="catalogs" href="{% url 'catalog:nodes' %}">Volver</a>
+
 <h3>Archivos actuales</h3>
-<a href="{{ base_url }}{{ node_name }}/data.json" download="data.json">data.json</a>
-<br>
-{% if has_xlsx %}
-    <a href="{{ base_url }}{{ node_name }}/catalog.xlsx" download="catalog.xlsx">catalog.xlsx</a>
-{% endif %}
+<div class="container">
+    <a href="{{ base_url }}{{ node_name }}/data.json" download="data.json">data.json</a>
+    {% if has_xlsx %}
+        <a class="catalogs" href="{{ base_url }}{{ node_name }}/catalog.xlsx" download="catalog.xlsx">catalog.xlsx</a>
+    {% endif %}
+</div>
 
 <h3>Versiones anteriores</h3>
-{% for catalog in object_list %}
-    <a href="/{% if 'media' in base_url %}media/{% endif %}{{ catalog.file }}" download="{{ catalog.file }}">{{ catalog.uploaded_at }} ({{ catalog.format }}) </a>
-    <br>
-{% endfor %}
+<div class="container">
+    {% for catalog in object_list %}
+        <a class="catalogs" href="/{% if 'media' in base_url %}media/{% endif %}{{ catalog.file }}" download="{{ catalog.file }}">{{ catalog.uploaded_at }} ({{ catalog.format }}) </a>
+    {% endfor %}
+</div>
 
 {% endblock %}
