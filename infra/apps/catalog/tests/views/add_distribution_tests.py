@@ -4,6 +4,7 @@ import pytest
 from django.urls import reverse
 
 from infra.apps.catalog.models import Distribution
+from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
 
 pytestmark = pytest.mark.django_db
 
@@ -64,6 +65,15 @@ def test_create_from_url_404(client, catalog, requests_mock):
 
     response = client.post(_url(catalog.node), form_data)
     assert response.status_code == 400
+
+
+def test_create_from_file(client, catalog):
+    with open_catalog('test_data.csv') as sample:
+        form_data = {'file': sample,
+                     'dataset_identifier': "125", 'distribution_identifier': "125.1"}
+
+        client.post(_url(catalog.node), form_data)
+    assert Distribution.objects.get().identifier == "125.1"
 
 
 def _url(node):

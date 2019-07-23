@@ -70,7 +70,7 @@ class AddDistribution(TemplateView):
         if form.cleaned_data['url']:
             return self.create_from_url(request, context, node, form)
 
-        return HttpResponseRedirect(reverse('catalog:list'))
+        return self.create_from_file(node, form)
 
     def post_error(self, context):
         return self.render_to_response(context, status=400)
@@ -101,4 +101,11 @@ class AddDistribution(TemplateView):
             messages.error(request, 'Error descargando la distribución desde la URL especificada')
             return self.post_error(context)
 
+        return HttpResponseRedirect(reverse('catalog:list'))
+
+    def create_from_file(self, node, form):
+        Distribution.objects.create(node=node,
+                                    file=form.cleaned_data['file'],
+                                    dataset_identifier=form.cleaned_data['dataset_identifier'],
+                                    identifier=form.cleaned_data['distribution_identifier'])
         return HttpResponseRedirect(reverse('catalog:list'))
