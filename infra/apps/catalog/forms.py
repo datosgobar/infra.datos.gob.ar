@@ -30,4 +30,4 @@ class DistributionForm(forms.Form):
         super(DistributionForm, self).__init__(*args, **kwargs)
         latest = node.get_latest_catalog_upload()
         datasets = [(x['identifier'], x['identifier']) for x in latest.get_datasets()]
-        self.fields['dataset'] = forms.ChoiceField(choices=datasets)
+        self.fields['dataset_identifier'] = forms.ChoiceField(choices=datasets)

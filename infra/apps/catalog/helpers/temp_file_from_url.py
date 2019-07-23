@@ -1,5 +1,5 @@
-import requests
 import tempfile
+import requests
 
 
 def temp_file_from_url(url):

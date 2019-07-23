@@ -1,5 +1,9 @@
+from io import BytesIO
+
 import pytest
 from django.urls import reverse
+
+from infra.apps.catalog.models import Distribution
 
 pytestmark = pytest.mark.django_db
 
@@ -26,8 +30,37 @@ def test_post_invalid_data(client, catalog):
     assert response.status_code == 400
 
 
-def test_post_both_url_and_file(client, catalog):
-    form_data = {'url': 'https://fakeurl.com/data.csv', 'file': ''}
+def test_post_both_url_and_file(client, catalog, requests_mock):
+    url = 'https://fakeurl.com/data.csv'
+    requests_mock.get(url,
+                      text='test_content')
+
+    form_data = {'url': 'https://fakeurl.com/data.csv', 'file': BytesIO(b'some_file_content'),
+                 'dataset_identifier': "125", 'distribution_identifier': "125.1"}
+
+    response = client.post(_url(catalog.node), form_data)
+    assert response.status_code == 400
+
+
+def test_create_from_url(client, catalog, requests_mock):
+    url = 'https://fakeurl.com/data.csv'
+    requests_mock.get(url,
+                      text='test_content')
+
+    form_data = {'url': url,
+                 'dataset_identifier': "125", 'distribution_identifier': "125.1"}
+
+    client.post(_url(catalog.node), form_data)
+    assert Distribution.objects.get().identifier == "125.1"
+
+
+def test_create_from_url_404(client, catalog, requests_mock):
+    url = 'https://fakeurl.com/data.csv'
+    requests_mock.get(url,
+                      status_code=404)
+
+    form_data = {'url': url,
+                 'dataset_identifier': "125", 'distribution_identifier': "125.1"}
 
     response = client.post(_url(catalog.node), form_data)
     assert response.status_code == 400

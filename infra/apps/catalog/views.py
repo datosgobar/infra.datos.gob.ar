@@ -5,10 +5,11 @@ from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import FormView
+from requests import RequestException
 
 from infra.apps.catalog.exceptions.catalog_not_uploaded_error import CatalogNotUploadedError
 from infra.apps.catalog.forms import CatalogForm, DistributionForm
-from infra.apps.catalog.models import CatalogUpload, Node
+from infra.apps.catalog.models import CatalogUpload, Node, Distribution
 from infra.apps.catalog.validator.url_or_file import URLOrFileValidator
 
 
@@ -66,6 +67,9 @@ class AddDistribution(TemplateView):
         if not self._valid_form(form):
             return self.post_error(context)
 
+        if form.cleaned_data['url']:
+            return self.create_from_url(request, context, node, form)
+
         return HttpResponseRedirect(reverse('catalog:list'))
 
     def post_error(self, context):
@@ -86,3 +90,15 @@ class AddDistribution(TemplateView):
             return False
 
         return True
+
+    def create_from_url(self, request, context, node, form):
+        try:
+            Distribution.create_from_url(form.cleaned_data['url'],
+                                         node,
+                                         form.cleaned_data['dataset_identifier'],
+                                         form.cleaned_data['distribution_identifier'])
+        except RequestException:
+            messages.error(request, 'Error descargando la distribución desde la URL especificada')
+            return self.post_error(context)
+
+        return HttpResponseRedirect(reverse('catalog:list'))
