@@ -1,4 +1,5 @@
-from django.urls import path, re_path
+from django.urls import path
+
 from infra.apps.catalog import views as catalog_views
 
 app_name = 'catalog'

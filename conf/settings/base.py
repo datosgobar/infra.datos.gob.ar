@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
-import os
 import environ
 
 env = environ.Env(DEBUG=(bool, False),) # set default values and casting
@@ -134,6 +133,7 @@ MEDIA_ROOT = BASE_DIR('media')
 MEDIA_URL = '/media/'
 STATIC_ROOT = BASE_DIR('static')
 STATIC_URL = '/static/'
+CATALOG_SERVING_URL = f'{MEDIA_URL}catalog/'
 
 SITE_ID = 1
 

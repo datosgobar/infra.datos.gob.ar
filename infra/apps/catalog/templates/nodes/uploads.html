@@ -5,12 +5,16 @@
 <h1>Catálogos del nodo {{ node_name }}</h1>
 
 <h3>Archivos actuales</h3>
-<a href="catalog/Test/data-2019-07-22.json">json, si existe</a>
-<a>xlsx, si existe</a>
+<a href="{{ base_url }}{{ node_name }}/data.json" download="data.json">data.json</a>
+<br>
+{% if has_xlsx %}
+    <a href="{{ base_url }}{{ node_name }}/catalog.xlsx" download="catalog.xlsx">catalog.xlsx</a>
+{% endif %}
 
 <h3>Versiones anteriores</h3>
 {% for catalog in object_list %}
-    <p>Catálogo: {{ catalog.node }} </p>
+    <a href="/{% if 'media' in base_url %}media/{% endif %}{{ catalog.file }}" download="{{ catalog.file }}">{{ catalog.uploaded_at }} ({{ catalog.format }}) </a>
+    <br>
 {% endfor %}
 
 {% endblock %}

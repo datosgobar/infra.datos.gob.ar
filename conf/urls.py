@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
@@ -30,7 +31,7 @@ urlpatterns = [
     path('django-des/', include(des_urls)),
     path('ingresar/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.logout_then_login, name='logout')
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     import debug_toolbar
