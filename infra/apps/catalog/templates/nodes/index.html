@@ -15,7 +15,7 @@
             <ul>
                 <li>
                     {% for node in object_list %}
-                        <a class="catalogs" href="{% url 'catalog:node_catalogs' id=node.id %}">Nodo: {{ node }} </a>
+                        <a class="catalogs" href="{% url 'catalog:node_catalogs' node_id=node.id %}">Nodo: {{ node }} </a>
                     {% endfor %}
                 </li>
             </ul>
