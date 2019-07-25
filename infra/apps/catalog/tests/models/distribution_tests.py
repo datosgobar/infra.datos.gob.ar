@@ -1,4 +1,7 @@
+import os
+
 import pytest
+from django.conf import settings
 from django.core.files import File
 
 from infra.apps.catalog.exceptions.catalog_not_uploaded_error import CatalogNotUploadedError
@@ -45,3 +48,21 @@ def test_file_upload_large_name(catalog):
                                     file=File(distribution))
 
     assert Distribution.objects.count() == 1
+
+
+def test_file_saved_as_latest(catalog):
+    with open_catalog('test_data.csv') as distribution:
+        distribution = Distribution.objects.create(node=catalog.node,
+                                                   dataset_identifier='125',
+                                                   identifier='125.1',
+                                                   file=File(distribution))
+
+    assert os.path.exists(os.path.join(settings.MEDIA_ROOT,
+                                       'catalog',
+                                       catalog.node.identifier,
+                                       'dataset',
+                                       '125',
+                                       'distribution',
+                                       '125.1',
+                                       'download',
+                                       distribution.file_name))

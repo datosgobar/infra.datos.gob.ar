@@ -16,6 +16,5 @@ def distribution_directory(instance):
 
 class DistributionStorage(InfraStorage):
     def latest_file_path(self, instance):
-        name = instance.name.split('/')[-1]
         return os.path.join(distribution_directory(instance),
-                            name)
+                            instance.file_name)
