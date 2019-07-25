@@ -1,7 +1,8 @@
 # coding=utf-8
 from django import forms
+from django.core.exceptions import ValidationError
 
-from infra.apps.catalog.models import CatalogUpload
+from infra.apps.catalog.models import CatalogUpload, Node
 
 FORMAT_OPTIONS = [
         ('json', 'JSON'),
@@ -17,6 +18,25 @@ class CatalogForm(forms.ModelForm):
     file = forms.FileField(required=False)
     format = forms.CharField(label='Formato', widget=forms.Select(choices=FORMAT_OPTIONS))
     url = forms.URLField(required=False)
+    node = forms.ChoiceField(required=True)
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
+        super(CatalogForm, self).__init__(*args, **kwargs)
+        self.fields['node'].choices = self.get_user_nodes()
+
+    def get_user_nodes(self):
+        nodes = self.user.node_set.all()
+        return [(node.identifier, node.identifier) for node in nodes]
+
+    def clean_node(self):
+        try:
+            node = Node.objects.get(identifier=self.cleaned_data['node'])
+        except Node.DoesNotExist:
+            raise ValidationError('No existe nodo con ese identifier')
+        if self.user not in node.admins.all():
+            raise ValidationError('El usuario no es administrador del nodo')
+        return node
 
 
 class DistributionForm(forms.Form):
