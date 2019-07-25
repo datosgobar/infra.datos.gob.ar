@@ -34,3 +34,14 @@ def test_read_from_url(catalog, requests_mock):
 
     distribution = Distribution.create_from_url(url, catalog.node, "125", "125.1")
     assert distribution.file.read() == b'test_content'
+
+
+def test_file_upload_large_name(catalog):
+    long_name = 'extremely_long_distribution_id_that_makes_final_name_very_big'
+    with open_catalog('test_data.csv') as distribution:
+        Distribution.objects.create(node=catalog.node,
+                                    dataset_identifier='125',
+                                    identifier=long_name,
+                                    file=File(distribution))
+
+    assert Distribution.objects.count() == 1
