@@ -14,6 +14,7 @@ from requests import RequestException
 
 from infra.apps.catalog.exceptions.catalog_not_uploaded_error import CatalogNotUploadedError
 from infra.apps.catalog.forms import CatalogForm, DistributionForm
+from infra.apps.catalog.mixins import UserIsNodeAdminMixin
 from infra.apps.catalog.models import CatalogUpload, Node, Distribution
 from infra.apps.catalog.validator.url_or_file import URLOrFileValidator
 
@@ -22,14 +23,23 @@ class CatalogView(ListView):
     model = CatalogUpload
     template_name = "index.html"
 
+    def get_queryset(self):
+        nodes = self.request.user.node_set.all()
+        return CatalogUpload.objects.filter(node__in=nodes)
+
 
 class AddCatalogView(FormView):
     template_name = "add.html"
     form_class = CatalogForm
     success_url = reverse_lazy('catalog:upload_success')
 
+    def get_form_kwargs(self):
+        kwargs = super(AddCatalogView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def post(self, request, *args, **kwargs):
-        form = CatalogForm(request.POST, request.FILES)
+        form = CatalogForm(request.POST, request.FILES, user=self.request.user)
         if not form.is_valid():
             return self.form_invalid(form)
 
@@ -50,13 +60,13 @@ class AddCatalogView(FormView):
         return response
 
 
-class AddDistribution(TemplateView):
+class AddDistribution(UserIsNodeAdminMixin, TemplateView):
     template_name = 'add_distribution.html'
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         status = 200
-        node = self._get_node(kwargs['node'])
+        node = self._get_node(kwargs['node_id'])
 
         try:
             context['form'] = DistributionForm(node=node)
@@ -69,7 +79,7 @@ class AddDistribution(TemplateView):
 
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
-        node = self._get_node(kwargs['node'])
+        node = self._get_node(kwargs['node_id'])
         form = DistributionForm(request.POST, request.FILES, node=node)
         context['form'] = form
         if not self._valid_form(form):
@@ -120,20 +130,21 @@ class AddDistribution(TemplateView):
         return self.success_url(node)
 
     def success_url(self, node):
-        return HttpResponseRedirect(reverse('catalog:node_catalogs', kwargs={'id': node.id}))
+        return HttpResponseRedirect(reverse('catalog:node_catalogs',
+                                            kwargs={'node_id': node.id}))
 
 
-class ListDistributions(ListView):
+class ListDistributions(UserIsNodeAdminMixin, ListView):
     model = Distribution
     template_name = "list_distributions.html"
 
     def get_queryset(self):
-        node = self.kwargs['node']
+        node = self.kwargs['node_id']
         return self.model.objects.filter(node=node)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ListDistributions, self).get_context_data(object_list=object_list, **kwargs)
-        context['node'] = Node.objects.get(id=self.kwargs['node'])
+        context['node'] = Node.objects.get(id=self.kwargs['node_id'])
         return context
 
 
@@ -145,13 +156,17 @@ class NodeListView(ListView):
     model = Node
     template_name = "nodes/index.html"
 
+    def get_queryset(self):
+        user = self.request.user
+        return user.node_set.all()
 
-class NodeUploadsView(ListView):
+
+class NodeUploadsView(UserIsNodeAdminMixin, ListView):
     model = CatalogUpload
     template_name = "nodes/uploads.html"
 
     def get(self, request, *args, **kwargs):
-        node_id = self.kwargs['id']
+        node_id = self.kwargs['node_id']
         node_name = Node.objects.get(pk=node_id).identifier
         node_uploads = self.model.objects.filter(node=node_id).order_by('-uploaded_at')
         base_url = settings.CATALOG_SERVING_URL
