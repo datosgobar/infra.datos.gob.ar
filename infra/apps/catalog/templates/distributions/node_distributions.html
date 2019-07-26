@@ -9,6 +9,6 @@
     </div>
     <br/>
 {% for distribution in object_list %}
-    <a class="catalogs" href="{% get_media_prefix  %}{{ distribution.file.name }}">Distribución: {{ distribution }} </a>
+    <p>Distribución: {{ distribution }} (<a href="{% get_media_prefix  %}{{ distribution.file.name }}">{{ distribution.file_name }}</a>)</p>
 {% endfor %}
 {% endblock %}
