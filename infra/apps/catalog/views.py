@@ -19,7 +19,7 @@ from infra.apps.catalog.validator.url_or_file import URLOrFileValidator
 
 
 class AddCatalogView(FormView):
-    template_name = "add_catalog.html"
+    template_name = "catalogs/add_catalog.html"
     form_class = CatalogForm
     success_url = None
 
@@ -55,7 +55,7 @@ class AddCatalogView(FormView):
 
 
 class AddDistribution(TemplateView):
-    template_name = 'add_distribution.html'
+    template_name = 'distributions/add_distribution.html'
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
@@ -129,7 +129,7 @@ class AddDistribution(TemplateView):
 
 class ListDistributions(ListView):
     model = Distribution
-    template_name = "node_distributions.html"
+    template_name = "distributions/node_distributions.html"
 
     def get_queryset(self):
         node = self.kwargs['node_id']
@@ -142,7 +142,7 @@ class ListDistributions(ListView):
 
 
 class CatalogUploadSuccess(TemplateView):
-    template_name = "catalog_success.html"
+    template_name = "catalogs/catalog_success.html"
 
     def get(self, request, *args, **kwargs):
         params_dict = {'node_id': self.kwargs.get('node_id')}
