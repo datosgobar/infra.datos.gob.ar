@@ -13,7 +13,7 @@ FORMAT_OPTIONS = [
 class CatalogForm(forms.ModelForm):
     class Meta:
         model = CatalogUpload
-        fields = ['format', 'file', 'node']
+        fields = ['format', 'file']
 
     file = forms.FileField(required=False)
     format = forms.CharField(label='Formato', widget=forms.Select(choices=FORMAT_OPTIONS))

@@ -1,12 +1,12 @@
 # coding=utf-8
 import os
-from django.http import Http404, HttpResponseRedirect
-from django.urls import reverse
 
 from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import ValidationError
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from django.urls import reverse_lazy
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import FormView
@@ -19,19 +19,10 @@ from infra.apps.catalog.models import CatalogUpload, Node, Distribution
 from infra.apps.catalog.validator.url_or_file import URLOrFileValidator
 
 
-class CatalogView(ListView):
-    model = CatalogUpload
-    template_name = "index.html"
-
-    def get_queryset(self):
-        nodes = self.request.user.node_set.all()
-        return CatalogUpload.objects.filter(node__in=nodes)
-
-
 class AddCatalogView(FormView):
-    template_name = "add.html"
+    template_name = "catalogs/add_catalog.html"
     form_class = CatalogForm
-    success_url = reverse_lazy('catalog:upload_success')
+    success_url = None
 
     def get_form_kwargs(self):
         kwargs = super(AddCatalogView, self).get_form_kwargs()
@@ -39,12 +30,16 @@ class AddCatalogView(FormView):
         return kwargs
 
     def post(self, request, *args, **kwargs):
+        node_id = self.kwargs.get('node_id')
+        self.success_url = reverse_lazy('catalog:upload_success', kwargs={'node_id': node_id})
         form = CatalogForm(request.POST, request.FILES, user=self.request.user)
         if not form.is_valid():
             return self.form_invalid(form)
 
         try:
-            catalog = CatalogUpload.create_from_url_or_file(form.cleaned_data)
+            raw_data = form.cleaned_data
+            raw_data['node'] = Node.objects.get(pk=node_id)
+            catalog = CatalogUpload.create_from_url_or_file(raw_data)
         except ValidationError as e:
             messages.error(request, e)
             return self.form_invalid(form)
@@ -53,6 +48,11 @@ class AddCatalogView(FormView):
         for error_message in validation_error_messages:
             messages.info(request, error_message)
         return self.form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(AddCatalogView, self).get_context_data(**kwargs)
+        context['node_id'] = self.kwargs.get('node_id')
+        return context
 
     def form_invalid(self, form):
         response = super().form_invalid(form)
@@ -130,13 +130,12 @@ class AddDistribution(UserIsNodeAdminMixin, TemplateView):
         return self.success_url(node)
 
     def success_url(self, node):
-        return HttpResponseRedirect(reverse('catalog:node_catalogs',
-                                            kwargs={'node_id': node.id}))
+        return HttpResponseRedirect(reverse('catalog:node', kwargs={'node_id': node.id}))
 
 
 class ListDistributions(UserIsNodeAdminMixin, ListView):
     model = Distribution
-    template_name = "list_distributions.html"
+    template_name = "distributions/node_distributions.html"
 
     def get_queryset(self):
         node = self.kwargs['node_id']
@@ -149,7 +148,11 @@ class ListDistributions(UserIsNodeAdminMixin, ListView):
 
 
 class CatalogUploadSuccess(TemplateView):
-    template_name = "catalog_success.html"
+    template_name = "catalogs/catalog_success.html"
+
+    def get(self, request, *args, **kwargs):
+        params_dict = {'node_id': self.kwargs.get('node_id')}
+        return render(request, self.template_name, params_dict)
 
 
 class NodeListView(ListView):

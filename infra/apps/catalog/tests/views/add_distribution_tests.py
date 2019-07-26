@@ -15,7 +15,7 @@ def test_get(client, catalog):
 
 
 def test_get_404_when_node_does_not_exist(client):
-    response = client.get(reverse('catalog:add_distribution', kwargs={'node': 1}))
+    response = client.get(reverse('catalog:add_distribution', kwargs={'node_id': 1}))
     assert response.status_code == 404
 
 
@@ -77,4 +77,4 @@ def test_create_from_file(client, catalog):
 
 
 def _url(node):
-    return reverse('catalog:add_distribution', kwargs={'node': node.id})
+    return reverse('catalog:add_distribution', kwargs={'node_id': node.id})

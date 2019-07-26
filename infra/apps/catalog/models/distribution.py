@@ -22,7 +22,8 @@ class Distribution(models.Model):
     dataset_identifier = models.CharField(max_length=64)
     identifier = models.CharField(max_length=64)
     file = models.FileField(upload_to=distribution_file_path,
-                            storage=DistributionStorage())
+                            storage=DistributionStorage(),
+                            max_length=1000)
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):

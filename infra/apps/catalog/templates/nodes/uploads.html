@@ -4,8 +4,12 @@
 
 <h1>Catálogos del nodo {{ node_name }}</h1>
 
-<a href="{% url 'catalog:add' %}">Subir nueva versión</a>
 <a class="catalogs" href="{% url 'catalog:nodes' %}">Volver</a>
+
+<a href="{% url 'catalog:add_catalog' node_id=node_id %}">Subir nueva versión</a>
+
+<h3>Distribuciones</h3>
+<a href="{% url 'catalog:node_distributions' node_id=node_id %}">Ver distribuciones</a>
 
 <h3>Archivos actuales</h3>
 <div class="container">
@@ -14,9 +18,6 @@
         <a class="catalogs" href="{{ base_url }}{{ node_name }}/catalog.xlsx" download="catalog.xlsx">catalog.xlsx</a>
     {% endif %}
 </div>
-
-    <h3>Distribuciones</h3>
-<a href="{% url 'catalog:list_distributions' node_id=node_id %}">Ver distribuciones</a>
 
 <h3>Versiones anteriores</h3>
 <div class="container">
