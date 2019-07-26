@@ -138,7 +138,18 @@ class ListDistributions(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ListDistributions, self).get_context_data(object_list=object_list, **kwargs)
         context['node'] = Node.objects.get(id=self.kwargs['node_id'])
+        context['object_list'] = self.distributions(context['object_list'])
         return context
+
+    def distributions(self, queryset):
+        qs = {}
+        for distribution in queryset:
+            qs.setdefault(distribution.identifier, []).append(distribution)
+
+        for distributions in qs.values():
+            distributions.sort(key=lambda x: (x.uploaded_at, x.id), reverse=True)
+            del distributions[3:]
+        return qs
 
 
 class CatalogUploadSuccess(TemplateView):

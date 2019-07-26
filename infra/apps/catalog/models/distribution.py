@@ -45,3 +45,8 @@ class Distribution(models.Model):
     @property
     def file_name(self):  # Temporary!
         return 'latest.data'
+
+    def file_name_with_date(self):
+        from pathlib import Path
+        p = Path(self.file.name)
+        return p.stem
