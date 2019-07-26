@@ -99,7 +99,7 @@ def test_catalog_get_datasets(catalog):
     assert ["125"] == ids
 
 
-def test_valiate_returns_error_message_if_catalog_is_not_valid(node):
+def test_validate_returns_error_message_if_catalog_is_not_valid(node):
     error_messages = [
         "'publisher' is a required property",
         "'title' is a required property",

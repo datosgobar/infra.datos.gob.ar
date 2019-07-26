@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Agregar distribución</h1>
+<h1>Agregar catálogo</h1>
 
-<a href="{% url 'catalog:list_distributions' node=node %}">Volver</a>
+<a href="{% url 'catalog:node' node_id=node_id %}">Volver</a>
 
 {% if messages %}
 <div class="errors">

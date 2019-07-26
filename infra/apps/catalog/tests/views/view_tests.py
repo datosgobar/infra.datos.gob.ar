@@ -14,23 +14,23 @@ class TestCatalogViews(TestCase):
     def setUp(self) -> None:
         self.node = _node()
 
-    def test_catalogs_page_renders_catalogs_index_template(self):
-        response = self.client.get(reverse('catalog:list'))
-        response_templates_names = [template.name for template in response.templates]
-        self.assertIn('index.html', response_templates_names)
-
-    def test_form_submit_with_valid_data_redirects_to_catalogs_index(self):
+    def test_form_submit_with_valid_data_redirects_to_success_page(self):
         with open_catalog('valid_data.json') as sample:
-            form_data = {'format': 'json', 'node': self.node.id, 'file': sample}
-            response = self.client.post(reverse('catalog:add'), form_data)
+            form_data = {'format': 'json', 'node_id': self.node.id, 'file': sample}
+            response = self.client.post(
+                reverse('catalog:add_catalog', kwargs={'node_id': self.node.id}),
+                form_data)
             self.assertEqual(response.status_code, 302)
 
-            self.assertEqual(response.url, reverse('catalog:upload_success'))
+            self.assertEqual(response.url,
+                             reverse('catalog:upload_success', kwargs={'node_id': self.node.id}))
 
     def test_catalog_is_created_when_submitted_form_is_valid(self):
         with open_catalog('valid_data.json') as sample:
-            form_data = {'format': 'json', 'node': self.node.id, 'file': sample}
-            self.client.post(reverse('catalog:add'), form_data)
+            form_data = {'format': 'json', 'node_id': self.node.id, 'file': sample}
+            self.client.post(
+                reverse('catalog:add_catalog', kwargs={'node_id': self.node.id}),
+                form_data)
             self.assertEqual(1, CatalogUpload.objects.count())
 
     @requests_mock.mock()
@@ -38,19 +38,27 @@ class TestCatalogViews(TestCase):
         mock.get('https://fakeurl.com/data.json', text="Testing text", status_code=404)
         data_dict = {'format': 'json', 'node': self.node,
                      'url': 'https://fakeurl.com/data.json'}
-        response = self.client.post(reverse('catalog:add'), data_dict, follow=True)
+        response = self.client.post(
+            reverse('catalog:add_catalog', kwargs={'node_id': self.node.id}),
+            data_dict,
+            follow=True)
         self.assertEqual(response.status_code, 400)
 
     def test_redirects_even_if_catalog_is_not_valid(self):
         with open_catalog('data.json') as sample:
-            form_data = {'format': 'json', 'node': self.node.id, 'file': sample}
-            response = self.client.post(reverse('catalog:add'), form_data)
+            form_data = {'format': 'json', 'node_id': self.node.id, 'file': sample}
+            response = self.client.post(
+                reverse('catalog:add_catalog', kwargs={'node_id': self.node.id}),
+                form_data)
             self.assertEqual(response.status_code, 302)
 
     def test_error_messages_in_view_if_catalog_is_not_valid(self):
         with open_catalog('data.json') as sample:
-            form_data = {'format': 'json', 'node': self.node.id, 'file': sample}
-            response = self.client.post(reverse('catalog:add'), form_data, follow=True)
+            form_data = {'format': 'json', 'node_id': self.node.id, 'file': sample}
+            response = self.client.post(
+                reverse('catalog:add_catalog', kwargs={'node_id': self.node.id}),
+                form_data,
+                follow=True)
             print(response)
             self.assertIsNotNone(response.context['messages'])
 
@@ -64,8 +72,11 @@ class TestCatalogViews(TestCase):
             "is not valid under any of the given schemas",
         ]
         with open_catalog('data.json') as sample:
-            form_data = {'format': 'json', 'node': self.node.id, 'file': sample}
-            response = self.client.post(reverse('catalog:add'), form_data, follow=True)
+            form_data = {'format': 'json', 'node_id': self.node.id, 'file': sample}
+            response = self.client.post(
+                reverse('catalog:add_catalog', kwargs={'node_id': self.node.id}),
+                form_data,
+                follow=True)
 
             messages = [str(message) for message in list(response.context['messages'])]
             self.assertCountEqual(error_messages, messages)

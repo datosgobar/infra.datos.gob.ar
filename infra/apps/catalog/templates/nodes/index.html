@@ -4,10 +4,6 @@
 
 <h1>Nodos</h1>
 
-<div class="container">
-    <a class="catalogs" href="{% url 'home' %}">Volver</a>
-</div>
-
 
 <div class="container">
     <div class="row">
@@ -15,7 +11,7 @@
             <ul>
                 <li>
                     {% for node in object_list %}
-                        <a class="catalogs" href="{% url 'catalog:node_catalogs' id=node.id %}">Nodo: {{ node }} </a>
+                        <a class="catalogs" href="{% url 'catalog:node' node_id=node.id %}">{{ node }} </a>
                     {% endfor %}
                 </li>
             </ul>
