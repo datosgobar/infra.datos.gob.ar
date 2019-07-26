@@ -1,12 +1,12 @@
 # coding=utf-8
 import os
-from django.http import Http404, HttpResponseRedirect
-from django.urls import reverse
 
 from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import ValidationError
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from django.urls import reverse_lazy
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import FormView
@@ -18,23 +18,22 @@ from infra.apps.catalog.models import CatalogUpload, Node, Distribution
 from infra.apps.catalog.validator.url_or_file import URLOrFileValidator
 
 
-class CatalogView(ListView):
-    model = CatalogUpload
-    template_name = "index.html"
-
-
 class AddCatalogView(FormView):
-    template_name = "add.html"
+    template_name = "add_catalog.html"
     form_class = CatalogForm
-    success_url = reverse_lazy('catalog:upload_success')
+    success_url = None
 
     def post(self, request, *args, **kwargs):
+        node_id = self.kwargs.get('node_id')
+        self.success_url = reverse_lazy('catalog:upload_success', kwargs={'node_id': node_id})
         form = CatalogForm(request.POST, request.FILES)
         if not form.is_valid():
             return self.form_invalid(form)
 
         try:
-            catalog = CatalogUpload.create_from_url_or_file(form.cleaned_data)
+            raw_data = form.cleaned_data
+            raw_data['node'] = Node.objects.get(pk=node_id)
+            catalog = CatalogUpload.create_from_url_or_file(raw_data)
         except ValidationError as e:
             messages.error(request, e)
             return self.form_invalid(form)
@@ -43,6 +42,11 @@ class AddCatalogView(FormView):
         for error_message in validation_error_messages:
             messages.info(request, error_message)
         return self.form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(AddCatalogView, self).get_context_data(**kwargs)
+        context['node_id'] = self.kwargs.get('node_id')
+        return context
 
     def form_invalid(self, form):
         response = super().form_invalid(form)
@@ -56,7 +60,7 @@ class AddDistribution(TemplateView):
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         status = 200
-        node = self._get_node(kwargs['node'])
+        node = self._get_node(kwargs['node_id'])
 
         try:
             context['form'] = DistributionForm(node=node)
@@ -69,7 +73,7 @@ class AddDistribution(TemplateView):
 
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
-        node = self._get_node(kwargs['node'])
+        node = self._get_node(kwargs['node_id'])
         form = DistributionForm(request.POST, request.FILES, node=node)
         context['form'] = form
         if not self._valid_form(form):
@@ -120,25 +124,29 @@ class AddDistribution(TemplateView):
         return self.success_url(node)
 
     def success_url(self, node):
-        return HttpResponseRedirect(reverse('catalog:node_catalogs', kwargs={'id': node.id}))
+        return HttpResponseRedirect(reverse('catalog:node', kwargs={'node_id': node.id}))
 
 
 class ListDistributions(ListView):
     model = Distribution
-    template_name = "list_distributions.html"
+    template_name = "node_distributions.html"
 
     def get_queryset(self):
-        node = self.kwargs['node']
+        node = self.kwargs['node_id']
         return self.model.objects.filter(node=node)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ListDistributions, self).get_context_data(object_list=object_list, **kwargs)
-        context['node'] = Node.objects.get(id=self.kwargs['node'])
+        context['node'] = Node.objects.get(id=self.kwargs['node_id'])
         return context
 
 
 class CatalogUploadSuccess(TemplateView):
     template_name = "catalog_success.html"
+
+    def get(self, request, *args, **kwargs):
+        params_dict = {'node_id': self.kwargs.get('node_id')}
+        return render(request, self.template_name, params_dict)
 
 
 class NodeListView(ListView):
@@ -151,7 +159,7 @@ class NodeUploadsView(ListView):
     template_name = "nodes/uploads.html"
 
     def get(self, request, *args, **kwargs):
-        node_id = self.kwargs['id']
+        node_id = self.kwargs['node_id']
         node_name = Node.objects.get(pk=node_id).identifier
         node_uploads = self.model.objects.filter(node=node_id).order_by('-uploaded_at')
         base_url = settings.CATALOG_SERVING_URL

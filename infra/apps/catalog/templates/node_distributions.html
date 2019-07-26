@@ -4,8 +4,8 @@
 {% block content %}
 <h1>Distribuciones para {{ node }}</h1>
 <div class="content">
-<a class="catalogs" href="{% url 'catalog:node_catalogs' id=node.id%}">Volver</a>
-<a class="catalogs" href="{% url 'catalog:add_distribution' node=node.id %}">Agregar distribución</a>
+<a class="catalogs" href="{% url 'catalog:node' node_id=node.id%}">Volver</a>
+<a class="catalogs" href="{% url 'catalog:add_distribution' node_id=node.id %}">Agregar distribución</a>
     </div>
     <br/>
 {% for distribution in object_list %}
