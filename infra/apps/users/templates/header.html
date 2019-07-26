@@ -1,7 +1,7 @@
 {% load static %}
 
 <div class="header-container">
-    <img src="{% static 'img/logo-secretaria-header.png' %}" alt="logo secretaria"/>
+    <a href="{% url 'home' %}"><img src="{% static 'img/logo-secretaria-header.png' %}" alt="logo secretaria"/></a>
     <div class="logout">{% if not request.user.is_anonymous %}
         <p>Hola, {{ request.user.username }}. <a href="{% url 'logout' %}">Salir</a></p>{% endif %}
     </div>
