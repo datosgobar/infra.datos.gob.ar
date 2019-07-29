@@ -30,7 +30,6 @@ class DistributionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         node = kwargs.pop('node')
-        instance = kwargs.get('instance')
         super(DistributionForm, self).__init__(*args, **kwargs)
         latest = node.get_latest_catalog_upload()
         datasets = [(x['identifier'], x['identifier']) for x in latest.get_datasets()]
