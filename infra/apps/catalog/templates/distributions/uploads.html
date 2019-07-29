@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<h1>Distribución {{ identifier }}</h1>
+<h1>Distribución {{ identifier }} ({{ node_identifier }})</h1>
 
 <a class="catalogs" href="{% url 'catalog:node_distributions' node_id=node_id %}">Volver</a>
 

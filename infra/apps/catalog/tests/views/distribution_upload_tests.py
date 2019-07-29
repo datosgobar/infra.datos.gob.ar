@@ -29,3 +29,8 @@ def test_older_versions_listed(client, distribution):
 
     response = _call(client, distribution)
     assert str(other.uploaded_at) in response.content.decode('utf-8')
+
+
+def test_catalog_identifier_in_page(client, distribution):
+    response = _call(client, distribution)
+    assert distribution.node.identifier in response.content.decode('utf-8')

@@ -206,4 +206,5 @@ class DistributionUploads(ListView):
                                                                     **kwargs)
         context['identifier'] = self.identifier()
         context['node_id'] = self.node_id()
+        context['node_identifier'] = Node.objects.get(id=self.node_id()).identifier
         return context
