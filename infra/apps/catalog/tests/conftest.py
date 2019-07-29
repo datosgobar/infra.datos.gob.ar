@@ -11,13 +11,7 @@ from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
 
 @pytest.fixture
 def catalog():
-    with open_catalog('data.json') as catalog_fd:
-        model = CatalogUpload(format=CatalogUpload.FORMAT_JSON,
-                              file=File(catalog_fd),
-                              node=_node())
-        model.save()
-
-    return model
+    return _catalog()
 
 
 @pytest.fixture
@@ -42,7 +36,7 @@ def mock_request():
 
 
 def _node():
-    return Node.objects.create(identifier='test_id')
+    return Node.objects.get_or_create(identifier='test_id')[0]
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -56,11 +50,22 @@ def media_root():
 
 @pytest.fixture
 def distribution():
+    _catalog()
     with open_catalog('test_data.csv') as distribution_fd:
         model = Distribution(file=File(distribution_fd),
                              node=_node(),
                              identifier="125.1",
                              dataset_identifier="125")
+        model.save()
+
+    return model
+
+
+def _catalog():
+    with open_catalog('data.json') as catalog_fd:
+        model = CatalogUpload(format=CatalogUpload.FORMAT_JSON,
+                              file=File(catalog_fd),
+                              node=_node())
         model.save()
 
     return model
