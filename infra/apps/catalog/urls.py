@@ -21,9 +21,12 @@ urlpatterns = [
          catalog_views.ListDistributions.as_view(),
          name='node_distributions'),
     path('<int:node_id>/distributions/add/',
-         catalog_views.AddDistribution.as_view(),
+         catalog_views.AddDistributionView.as_view(),
          name='add_distribution'),
     path('<int:node_id>/distributions/<str:identifier>/',
          catalog_views.DistributionUploads.as_view(),
          name='distribution_uploads'),
+    path('<int:node_id>/distributions/<int:dist_id>/',
+         catalog_views.EditDistributionView.as_view(),
+         name='distribution')
 ]

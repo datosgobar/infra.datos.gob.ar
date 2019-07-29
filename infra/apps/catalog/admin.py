@@ -14,4 +14,9 @@ class NodeAdmin(admin.ModelAdmin):
     pass
 
 
+@admin.register(models.Distribution)
+class DistributionAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(models.CatalogUpload, CatalogAdmin)
