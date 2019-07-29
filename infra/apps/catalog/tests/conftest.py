@@ -13,13 +13,7 @@ from infra.apps.users.models import User
 
 @pytest.fixture
 def catalog():
-    with open_catalog('data.json') as catalog_fd:
-        model = CatalogUpload(format=CatalogUpload.FORMAT_JSON,
-                              file=File(catalog_fd),
-                              node=_node())
-        model.save()
-
-    return model
+    return _catalog()
 
 
 @pytest.fixture
@@ -44,7 +38,7 @@ def mock_request():
 
 
 def _node():
-    return Node.objects.create(identifier='test_id')
+    return Node.objects.get_or_create(identifier='test_id')[0]
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -58,6 +52,7 @@ def media_root():
 
 @pytest.fixture
 def distribution():
+    _catalog()
     with open_catalog('test_data.csv') as distribution_fd:
         model = Distribution(file=File(distribution_fd),
                              node=_node(),
@@ -78,9 +73,9 @@ def admin_client():
 
 @pytest.fixture
 def logged_client():
-    user = _user()
+    logged_user = _user()
     client = Client()
-    client.login(username=user.username, password='password')
+    client.login(username=logged_user.username, password='password')
     return client
 
 
@@ -97,3 +92,13 @@ def _user():
         test_user.set_password('password')
         test_user.save()
     return test_user
+
+
+def _catalog():
+    with open_catalog('data.json') as catalog_fd:
+        model = CatalogUpload(format=CatalogUpload.FORMAT_JSON,
+                              file=File(catalog_fd),
+                              node=_node())
+        model.save()
+
+    return model

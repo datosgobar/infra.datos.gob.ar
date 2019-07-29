@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 from django.core.files import File
 from django.db import models
@@ -29,6 +30,7 @@ class Distribution(models.Model):
              update_fields=None):
         self.node.get_latest_catalog_upload()  # Validación de que hay un upload
         super(Distribution, self).save(force_insert, force_update, using, update_fields)
+        self.file.storage.save_as_latest(self)
 
     @classmethod
     def create_from_url(cls, url, node, dataset_id, identifier):
@@ -40,3 +42,11 @@ class Distribution(models.Model):
 
     def __str__(self):
         return self.identifier
+
+    @property
+    def file_name(self):  # Temporary!
+        return 'latest.data'
+
+    def file_name_with_date(self):
+        path = Path(self.file.name)
+        return path.stem

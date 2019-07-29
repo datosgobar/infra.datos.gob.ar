@@ -20,8 +20,6 @@ def test_logged_in_user_can_access_node_pages(user, logged_client, node):
     for view in CATALOG_VIEWS:
         response = logged_client.get(reverse(view, kwargs={'node_id': node.id}))
         assert response.status_code == 200
-    node.admins.clear()
-    node.save()
 
 
 def test_anonymous_user_requires_login(client, node):

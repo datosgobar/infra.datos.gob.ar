@@ -146,7 +146,19 @@ class ListDistributions(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ListDistributions, self).get_context_data(object_list=object_list, **kwargs)
         context['node'] = Node.objects.get(id=self.kwargs['node_id'])
+        context['object_list'] = \
+            self.last_three_versions_of_each_distribution(context['object_list'])
         return context
+
+    def last_three_versions_of_each_distribution(self, queryset):
+        qs = {}
+        for distribution in queryset:
+            qs.setdefault(distribution.identifier, []).append(distribution)
+
+        for distributions in qs.values():
+            distributions.sort(key=lambda x: (x.uploaded_at, x.id), reverse=True)
+            del distributions[3:]
+        return qs
 
 
 class CatalogUploadSuccess(LoginRequiredMixin, UserIsNodeAdminMixin, TemplateView):
@@ -184,3 +196,28 @@ class NodeUploadsView(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
             'object_list': node_uploads
         }
         return render(request, self.template_name, params_dict)
+
+
+class DistributionUploads(ListView):
+    model = Distribution
+    template_name = 'distributions/uploads.html'
+
+    def node_id(self):
+        return self.kwargs['node_id']
+
+    def identifier(self):
+        return self.kwargs['identifier']
+
+    def get_queryset(self):
+        return (self.model.objects
+                .filter(node=self.node_id(),
+                        identifier=self.identifier())
+                .order_by('-uploaded_at'))
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(DistributionUploads, self).get_context_data(object_list=object_list,
+                                                                    **kwargs)
+        context['identifier'] = self.identifier()
+        context['node_id'] = self.node_id()
+        context['node_identifier'] = Node.objects.get(id=self.node_id()).identifier
+        return context
