@@ -138,10 +138,11 @@ class ListDistributions(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ListDistributions, self).get_context_data(object_list=object_list, **kwargs)
         context['node'] = Node.objects.get(id=self.kwargs['node_id'])
-        context['object_list'] = self.distributions(context['object_list'])
+        context['object_list'] = \
+            self.last_three_versions_of_each_distribution(context['object_list'])
         return context
 
-    def distributions(self, queryset):
+    def last_three_versions_of_each_distribution(self, queryset):
         qs = {}
         for distribution in queryset:
             qs.setdefault(distribution.identifier, []).append(distribution)
