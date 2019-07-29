@@ -97,13 +97,11 @@ class DistributionUpserter(TemplateView):
         return self.success_url(node)
 
     def create_from_file(self, node, form):
-        model, _ = self.model.objects.get_or_create(
+        model, _ = self.model.objects.update_or_create(
             node=node,
-            identifier=form.cleaned_data['distribution_identifier'])
-
-        model.file = form.cleaned_data['file']
-        model.dataset_identifier = form.cleaned_data['dataset_identifier']
-        model.save()
+            identifier=form.cleaned_data['distribution_identifier'],
+            defaults={'file': form.cleaned_data['file'],
+                      'dataset_identifier': form.cleaned_data['dataset_identifier']})
 
         return self.success_url(node)
 

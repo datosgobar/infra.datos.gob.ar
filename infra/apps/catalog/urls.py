@@ -28,5 +28,5 @@ urlpatterns = [
          name='distribution_uploads'),
     path('<int:node_id>/distributions/<int:dist_id>/',
          catalog_views.EditDistributionView.as_view(),
-         name='distribution')
+         name='edit_distribution')
 ]
