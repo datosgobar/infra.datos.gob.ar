@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 from django.core.files import File
 from django.db import models
@@ -47,6 +48,5 @@ class Distribution(models.Model):
         return 'latest.data'
 
     def file_name_with_date(self):
-        from pathlib import Path
-        p = Path(self.file.name)
-        return p.stem
+        path = Path(self.file.name)
+        return path.stem

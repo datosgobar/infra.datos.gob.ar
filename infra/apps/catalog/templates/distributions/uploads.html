@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Distribución {{ identifier }}</h1>
+
+<a class="catalogs" href="{% url 'catalog:node_distributions' node_id=node_id %}">Volver</a>
+
+<a href="{% url 'catalog:add_distribution' node_id=node_id %}">Subir nueva versión</a>
+
+<h3>Archivos actuales</h3>
+<div class="container">
+    <a class="catalogs" href="{% get_media_prefix  %}{{ object_list.0.file.name }}" download="{{ object_list.0.file_name }}">{{ object_list.0.file_name }}</a>
+</div>
+
+<h3>Versiones anteriores</h3>
+<div class="container">
+    {% for distribution in object_list %}
+        <a class="catalogs" href="{% get_media_prefix  %}{{ distribution.file.name }}" download="{{ distribution.file_name }}">{{ distribution.file_name }} ({{ distribution.uploaded_at }})</a>
+    {% endfor %}
+</div>
+
+{% endblock %}

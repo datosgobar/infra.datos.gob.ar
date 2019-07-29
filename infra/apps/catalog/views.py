@@ -183,3 +183,27 @@ class NodeUploadsView(ListView):
             'object_list': node_uploads
         }
         return render(request, self.template_name, params_dict)
+
+
+class DistributionUploads(ListView):
+    model = Distribution
+    template_name = 'distributions/uploads.html'
+
+    def node_id(self):
+        return self.kwargs['node_id']
+
+    def identifier(self):
+        return self.kwargs['identifier']
+
+    def get_queryset(self):
+        return (self.model.objects
+                .filter(node=self.node_id(),
+                        identifier=self.identifier())
+                .order_by('-uploaded_at'))
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(DistributionUploads, self).get_context_data(object_list=object_list,
+                                                                    **kwargs)
+        context['identifier'] = self.identifier()
+        context['node_id'] = self.node_id()
+        return context
