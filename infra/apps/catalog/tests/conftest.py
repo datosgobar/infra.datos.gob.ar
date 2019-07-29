@@ -4,9 +4,11 @@ import pytest
 import requests_mock
 from django.conf import settings
 from django.core.files import File
+from django.test import Client
 
 from infra.apps.catalog.models import CatalogUpload, Node, Distribution
 from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
+from infra.apps.users.models import User
 
 
 @pytest.fixture
@@ -64,3 +66,34 @@ def distribution():
         model.save()
 
     return model
+
+
+@pytest.fixture
+def admin_client():
+    admin = User.objects.create_superuser('superuser', 'email@test.com', 'password')
+    client = Client()
+    client.login(username=admin.username, password='password')
+    return client
+
+
+@pytest.fixture
+def logged_client():
+    user = _user()
+    client = Client()
+    client.login(username=user.username, password='password')
+    return client
+
+
+@pytest.fixture
+def user():
+    return _user()
+
+
+def _user():
+    try:
+        test_user = User.objects.get(username='user')
+    except User.DoesNotExist:
+        test_user = User(username='user', email='email@test.com')
+        test_user.set_password('password')
+        test_user.save()
+    return test_user

@@ -4,19 +4,26 @@ from django.test import TestCase, Client
 from django.urls import reverse
 
 from infra.apps.catalog.models import CatalogUpload
-from infra.apps.catalog.tests.conftest import _node
+from infra.apps.catalog.tests.conftest import _node, _user
 from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
 
 
 class TestCatalogViews(TestCase):
-    client = Client()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = _user()
+        cls.client = Client()
 
     def setUp(self) -> None:
         self.node = _node()
+        self.node.admins.add(self.user)
+        self.node.save()
+        self.client.login(username='user', password='password')
 
     def test_form_submit_with_valid_data_redirects_to_success_page(self):
         with open_catalog('valid_data.json') as sample:
-            form_data = {'format': 'json', 'node_id': self.node.id, 'file': sample}
+            form_data = {'format': 'json', 'node': self.node.identifier, 'file': sample}
             response = self.client.post(
                 reverse('catalog:add_catalog', kwargs={'node_id': self.node.id}),
                 form_data)
@@ -27,7 +34,9 @@ class TestCatalogViews(TestCase):
 
     def test_catalog_is_created_when_submitted_form_is_valid(self):
         with open_catalog('valid_data.json') as sample:
-            form_data = {'format': 'json', 'node_id': self.node.id, 'file': sample}
+            form_data = {'format': 'json',
+                         'node': self.node.identifier,
+                         'file': sample}
             self.client.post(
                 reverse('catalog:add_catalog', kwargs={'node_id': self.node.id}),
                 form_data)
@@ -36,7 +45,7 @@ class TestCatalogViews(TestCase):
     @requests_mock.mock()
     def test_returns_400_if_catalog_url_not_found(self, mock):
         mock.get('https://fakeurl.com/data.json', text="Testing text", status_code=404)
-        data_dict = {'format': 'json', 'node': self.node,
+        data_dict = {'format': 'json', 'node': self.node.identifier,
                      'url': 'https://fakeurl.com/data.json'}
         response = self.client.post(
             reverse('catalog:add_catalog', kwargs={'node_id': self.node.id}),
@@ -46,7 +55,7 @@ class TestCatalogViews(TestCase):
 
     def test_redirects_even_if_catalog_is_not_valid(self):
         with open_catalog('data.json') as sample:
-            form_data = {'format': 'json', 'node_id': self.node.id, 'file': sample}
+            form_data = {'format': 'json', 'node': self.node.identifier, 'file': sample}
             response = self.client.post(
                 reverse('catalog:add_catalog', kwargs={'node_id': self.node.id}),
                 form_data)
@@ -72,7 +81,7 @@ class TestCatalogViews(TestCase):
             "is not valid under any of the given schemas",
         ]
         with open_catalog('data.json') as sample:
-            form_data = {'format': 'json', 'node_id': self.node.id, 'file': sample}
+            form_data = {'format': 'json', 'node': self.node.identifier, 'file': sample}
             response = self.client.post(
                 reverse('catalog:add_catalog', kwargs={'node_id': self.node.id}),
                 form_data,

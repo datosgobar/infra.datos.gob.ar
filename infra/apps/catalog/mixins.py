@@ -7,6 +7,8 @@ class UserIsNodeAdminMixin(UserPassesTestMixin):
 
     def test_func(self):
         user = self.request.user
+        if user.is_superuser:
+            return True
         node_id = self.kwargs['node_id']
         try:
             node = Node.objects.get(id=node_id)

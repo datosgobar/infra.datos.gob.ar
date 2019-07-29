@@ -21,7 +21,7 @@ from infra.apps.catalog.models import CatalogUpload, Node, Distribution
 from infra.apps.catalog.validator.url_or_file import URLOrFileValidator
 
 
-class AddCatalogView(LoginRequiredMixin, FormView):
+class AddCatalogView(LoginRequiredMixin, UserIsNodeAdminMixin, FormView):
     template_name = "catalogs/add_catalog.html"
     form_class = CatalogForm
     success_url = None
@@ -63,7 +63,7 @@ class AddCatalogView(LoginRequiredMixin, FormView):
 
 
 class AddDistribution(LoginRequiredMixin, UserIsNodeAdminMixin, TemplateView):
-    template_name = 'add_distribution.html'
+    template_name = 'distributions/add_distribution.html'
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
@@ -149,7 +149,7 @@ class ListDistributions(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
         return context
 
 
-class CatalogUploadSuccess(LoginRequiredMixin, TemplateView):
+class CatalogUploadSuccess(LoginRequiredMixin, UserIsNodeAdminMixin, TemplateView):
     template_name = "catalogs/catalog_success.html"
 
     def get(self, request, *args, **kwargs):
