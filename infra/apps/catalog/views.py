@@ -3,6 +3,7 @@ import os
 
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
@@ -12,13 +13,15 @@ from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import FormView
 from requests import RequestException
 
-from infra.apps.catalog.exceptions.catalog_not_uploaded_error import CatalogNotUploadedError
+from infra.apps.catalog.exceptions.catalog_not_uploaded_error import \
+    CatalogNotUploadedError
 from infra.apps.catalog.forms import CatalogForm, DistributionForm
+from infra.apps.catalog.mixins import UserIsNodeAdminMixin
 from infra.apps.catalog.models import CatalogUpload, Node, Distribution
 from infra.apps.catalog.validator.url_or_file import URLOrFileValidator
 
 
-class AddCatalogView(FormView):
+class AddCatalogView(LoginRequiredMixin, UserIsNodeAdminMixin, FormView):
     template_name = "catalogs/add_catalog.html"
     form_class = CatalogForm
     success_url = None
@@ -205,7 +208,7 @@ class AddDistributionVersionView(DistributionUpserter):
         return True
 
 
-class ListDistributions(ListView):
+class ListDistributions(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
     model = Distribution
     template_name = "distributions/node_distributions.html"
 
@@ -231,7 +234,7 @@ class ListDistributions(ListView):
         return qs
 
 
-class CatalogUploadSuccess(TemplateView):
+class CatalogUploadSuccess(LoginRequiredMixin, UserIsNodeAdminMixin, TemplateView):
     template_name = "catalogs/catalog_success.html"
 
     def get(self, request, *args, **kwargs):
@@ -239,12 +242,18 @@ class CatalogUploadSuccess(TemplateView):
         return render(request, self.template_name, params_dict)
 
 
-class NodeListView(ListView):
+class NodeListView(LoginRequiredMixin, ListView):
     model = Node
     template_name = "nodes/index.html"
 
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_superuser:
+            return Node.objects.all()
+        return user.node_set.all()
 
-class NodeUploadsView(ListView):
+
+class NodeUploadsView(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
     model = CatalogUpload
     template_name = "nodes/uploads.html"
 

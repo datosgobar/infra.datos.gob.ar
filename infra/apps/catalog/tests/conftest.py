@@ -3,7 +3,9 @@ import os
 import pytest
 import requests_mock
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.files import File
+from django.test import Client
 
 from infra.apps.catalog.models import CatalogUpload, Node, Distribution
 from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
@@ -60,6 +62,37 @@ def distribution():
         model.save()
 
     return model
+
+
+@pytest.fixture
+def admin_client():
+    admin = get_user_model().objects.create_superuser('superuser', 'email@test.com', 'password')
+    client = Client()
+    client.login(username=admin.username, password='password')
+    return client
+
+
+@pytest.fixture
+def logged_client():
+    logged_user = _user()
+    client = Client()
+    client.login(username=logged_user.username, password='password')
+    return client
+
+
+@pytest.fixture
+def user():
+    return _user()
+
+
+def _user():
+    try:
+        test_user = get_user_model().objects.get(username='user')
+    except get_user_model().DoesNotExist:
+        test_user = get_user_model()(username='user', email='email@test.com')
+        test_user.set_password('password')
+        test_user.save()
+    return test_user
 
 
 def _catalog():
