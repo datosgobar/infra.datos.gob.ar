@@ -27,15 +27,6 @@ class CatalogForm(forms.ModelForm):
         nodes = self.user.node_set.all()
         return [(node.identifier, node.identifier) for node in nodes]
 
-    def clean_node(self):
-        try:
-            node = Node.objects.get(identifier=self.cleaned_data['node'])
-        except Node.DoesNotExist:
-            raise ValidationError('No existe nodo con ese identifier')
-        if self.user not in node.admins.all():
-            raise ValidationError('El usuario no es administrador del nodo')
-        return node
-
 
 class DistributionForm(forms.Form):
 
