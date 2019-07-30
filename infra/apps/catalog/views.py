@@ -57,8 +57,67 @@ class AddCatalogView(LoginRequiredMixin, UserIsNodeAdminMixin, FormView):
         return response
 
 
-class AddDistribution(LoginRequiredMixin, UserIsNodeAdminMixin, TemplateView):
-    template_name = 'distributions/add_distribution.html'
+class DistributionUpserter(TemplateView):
+    model = Distribution
+    template_name = 'distributions/distribution_form.html'
+
+    def post_error(self, context):
+        return self.render_to_response(context, status=400)
+
+    def _get_node(self, node_id):
+        try:
+            return Node.objects.get(id=node_id)
+        except Node.DoesNotExist:
+            raise Http404
+
+    def _valid_form(self, form, request):
+        if not form.is_valid():
+            return False
+        try:
+            URLOrFileValidator(form.cleaned_data['url'], form.cleaned_data['file']).validate()
+        except ValidationError:
+            return False
+
+        return True
+
+    def validate_file_fields(self, file, url):
+        if not file and not url:
+            raise ValidationError(
+                "Se tiene que ingresar por lo menos un archivo o una URL válida.")
+        if file and url:
+            raise ValidationError("No se pueden ingresar un archivo y una URL a la vez.")
+
+    def create_from_url(self, request, context, node, form):
+        try:
+            raw_data = {'dataset_identifier': form.cleaned_data['dataset_identifier'],
+                        'file_name': form.cleaned_data['file_name'],
+                        'identifier': form.cleaned_data['distribution_identifier'],
+                        'node': node,
+                        'url': form.cleaned_data['url']}
+            self.model.create_from_url(raw_data)
+        except RequestException:
+            messages.error(request, 'Error descargando la distribución desde la URL especificada')
+            return self.post_error(context)
+
+        return self.success_url(node)
+
+    def create_from_file(self, node, form):
+        self.model.objects.create(
+            node=node,
+            identifier=form.cleaned_data['distribution_identifier'],
+            file=form.cleaned_data['file'],
+            dataset_identifier=form.cleaned_data['dataset_identifier'],
+            file_name=form.cleaned_data['file_name']
+        )
+
+        return self.success_url(node)
+
+    def success_url(self, node):
+        return HttpResponseRedirect(
+            reverse('catalog:node_distributions', kwargs={'node_id': node.id}))
+
+
+class AddDistributionView(DistributionUpserter):
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
@@ -79,7 +138,7 @@ class AddDistribution(LoginRequiredMixin, UserIsNodeAdminMixin, TemplateView):
         node = self._get_node(kwargs['node_id'])
         form = DistributionForm(request.POST, request.FILES, node=node)
         context['form'] = form
-        if not self._valid_form(form):
+        if not self._valid_form(form, request):
             return self.post_error(context)
 
         if form.cleaned_data['url']:
@@ -87,47 +146,66 @@ class AddDistribution(LoginRequiredMixin, UserIsNodeAdminMixin, TemplateView):
 
         return self.create_from_file(node, form)
 
-    def post_error(self, context):
-        return self.render_to_response(context, status=400)
 
-    def _get_node(self, node_id):
+class AddDistributionVersionView(DistributionUpserter):
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        dist_id = self.kwargs.get('identifier')
+        status = 200
+        node = self._get_node(kwargs['node_id'])
+
         try:
-            return Node.objects.get(id=node_id)
-        except Node.DoesNotExist:
-            raise Http404
+            distribution = self.get_last_distribution(dist_id, node)
+            context['form'] = DistributionForm(
+                node=node,
+                instance=distribution,
+                initial={'distribution_identifier': distribution.identifier}
+            )
+        except CatalogNotUploadedError:
+            status = 400
+            msg = f'No se encontraron catálogos subidos para el nodo: {node.identifier}'
+            messages.error(request, msg)
+        except self.model.DoesNotExist:
+            status = 404
+            msg = f'No se encontró la distribución {dist_id} para el nodo: {node.identifier}'
+            messages.error(request, msg)
 
-    def _valid_form(self, form):
+        return self.render_to_response(context, status=status)
+
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        node = self._get_node(kwargs['node_id'])
+        dist_id = self.kwargs.get('identifier')
+        distribution = self.get_last_distribution(dist_id, node)
+        form = DistributionForm(request.POST, request.FILES, node=node, instance=distribution)
+        context['form'] = form
+        if not self._valid_form(form, request):
+            return self.post_error(context)
+
+        if form.cleaned_data['url']:
+            return self.create_from_url(request, context, node, form)
+
+        return self.create_from_file(node, form)
+
+    def get_last_distribution(self, dist_id, node):
+        distribution = self.model.objects.filter(identifier=dist_id, node=node). \
+            order_by('uploaded_at').last()
+        if distribution:
+            distribution.file = None
+            return distribution
+        raise self.model.DoesNotExist
+
+    def _valid_form(self, form, request):
         if not form.is_valid():
             return False
         try:
-            URLOrFileValidator(form.cleaned_data['url'], form.cleaned_data['file']).validate()
+            URLOrFileValidator(form.cleaned_data['url'],
+                               form.cleaned_data['file'] or form.instance.file).validate()
         except ValidationError:
             return False
 
         return True
-
-    def create_from_url(self, request, context, node, form):
-        try:
-            Distribution.create_from_url(form.cleaned_data['url'],
-                                         node,
-                                         form.cleaned_data['dataset_identifier'],
-                                         form.cleaned_data['distribution_identifier'])
-        except RequestException:
-            messages.error(request, 'Error descargando la distribución desde la URL especificada')
-            return self.post_error(context)
-
-        return self.success_url(node)
-
-    def create_from_file(self, node, form):
-        Distribution.objects.create(node=node,
-                                    file=form.cleaned_data['file'],
-                                    dataset_identifier=form.cleaned_data['dataset_identifier'],
-                                    identifier=form.cleaned_data['distribution_identifier'])
-
-        return self.success_url(node)
-
-    def success_url(self, node):
-        return HttpResponseRedirect(reverse('catalog:node', kwargs={'node_id': node.id}))
 
 
 class ListDistributions(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):

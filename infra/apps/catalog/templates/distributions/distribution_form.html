@@ -17,7 +17,9 @@
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_ul }}
+        <table border="1">
+    {{ form }}
+        </table>
     <input type="submit" value="Agregar">
 </form>
 {% endblock %}

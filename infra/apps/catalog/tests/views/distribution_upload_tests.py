@@ -25,7 +25,8 @@ def test_older_versions_listed(client, distribution):
             other = distribution.node.distribution_set \
                 .create(file=File(fd),
                         identifier=distribution.identifier,
-                        dataset_identifier=distribution.dataset_identifier)
+                        dataset_identifier=distribution.dataset_identifier,
+                        file_name='test_data.csv')
 
     response = _call(client, distribution)
     assert str(other.uploaded_at) in response.content.decode('utf-8')
