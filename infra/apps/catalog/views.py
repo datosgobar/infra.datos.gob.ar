@@ -86,11 +86,12 @@ class DistributionUpserter(TemplateView):
 
     def create_from_url(self, request, context, node, form):
         try:
-            self.model.create_from_url(form.cleaned_data['url'],
-                                       node,
-                                       form.cleaned_data['dataset_identifier'],
-                                       form.cleaned_data['file_name'],
-                                       form.cleaned_data['distribution_identifier'])
+            raw_data = {'dataset_identifier': form.cleaned_data['dataset_identifier'],
+                        'file_name': form.cleaned_data['file_name'],
+                        'identifier': form.cleaned_data['distribution_identifier'],
+                        'node': node,
+                        'url': form.cleaned_data['url']}
+            self.model.create_from_url(raw_data)
         except RequestException:
             messages.error(request, 'Error descargando la distribución desde la URL especificada')
             return self.post_error(context)

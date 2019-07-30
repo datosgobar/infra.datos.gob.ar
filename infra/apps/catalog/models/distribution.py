@@ -34,13 +34,13 @@ class Distribution(models.Model):
         self.file.storage.save_as_latest(self)
 
     @classmethod
-    def create_from_url(cls, url, node, dataset_id, file_name, identifier):
-        file = File(temp_file_from_url(url))
+    def create_from_url(cls, raw_data):
+        file = File(temp_file_from_url(raw_data['url']))
         return cls.objects.create(file=file,
-                                  node=node,
-                                  dataset_identifier=dataset_id,
-                                  file_name=file_name,
-                                  identifier=identifier)
+                                  node=raw_data['node'],
+                                  dataset_identifier=raw_data['dataset_identifier'],
+                                  file_name=raw_data['file_name'],
+                                  identifier=raw_data['identifier'])
 
     def __str__(self):
         return self.identifier
