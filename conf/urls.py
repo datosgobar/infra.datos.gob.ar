@@ -21,6 +21,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path, include
 
 from infra.apps.users import views as user_views
+from infra.apps.users.views import InfraLoginView
 
 admin.site.login_template = 'registration/login.html'
 
@@ -30,7 +31,7 @@ urlpatterns = [
     path('', user_views.home, name='home'),
     path('nodes/', include('infra.apps.catalog.urls')),
     path('django-des/', include(des_urls)),
-    path('ingresar/', auth_views.LoginView.as_view(), name='login'),
+    path('ingresar/', InfraLoginView.as_view(), name='login'),
     path('logout/', auth_views.logout_then_login, name='logout')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
