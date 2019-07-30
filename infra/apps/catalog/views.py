@@ -97,7 +97,7 @@ class DistributionUpserter(TemplateView):
         return self.success_url(node)
 
     def create_from_file(self, node, form):
-        model, _ = self.model.objects.update_or_create(
+        self.model.objects.update_or_create(
             node=node,
             identifier=form.cleaned_data['distribution_identifier'],
             defaults={'file': form.cleaned_data['file'],
@@ -144,12 +144,12 @@ class EditDistributionView(DistributionUpserter):
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
-        dist_id = self.kwargs.get('dist_id')
+        dist_id = self.kwargs.get('identifier')
         status = 200
         node = self._get_node(kwargs['node_id'])
 
         try:
-            distribution = self.model.objects.filter(id=dist_id)[0]
+            distribution = self.get_last_distribution(dist_id, node)
             context['form'] = DistributionForm(
                 node=node,
                 instance=distribution,
@@ -159,7 +159,7 @@ class EditDistributionView(DistributionUpserter):
             status = 400
             msg = f'No se encontraron catálogos subidos para el nodo: {node.identifier}'
             messages.error(request, msg)
-        except IndexError:
+        except self.model.DoesNotExist:
             status = 404
             msg = f'No se encontró la distribución {dist_id} para el nodo: {node.identifier}'
             messages.error(request, msg)
@@ -169,8 +169,8 @@ class EditDistributionView(DistributionUpserter):
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         node = self._get_node(kwargs['node_id'])
-        dist_id = self.kwargs.get('dist_id')
-        distribution = self.model.objects.filter(id=dist_id)[0]
+        dist_id = self.kwargs.get('identifier')
+        distribution = self.get_last_distribution(dist_id, node)
         form = DistributionForm(request.POST, request.FILES, node=node, instance=distribution)
         context['form'] = form
         if not self._valid_form(form, request):
@@ -180,6 +180,13 @@ class EditDistributionView(DistributionUpserter):
             return self.create_from_url(request, context, node, form)
 
         return self.create_from_file(node, form)
+
+    def get_last_distribution(self, dist_id, node):
+        distribution = self.model.objects.filter(identifier=dist_id, node=node). \
+            order_by('uploaded_at').last()
+        if distribution:
+            return distribution
+        raise self.model.DoesNotExist
 
     def _valid_form(self, form, request):
         if not form.is_valid():
