@@ -28,3 +28,9 @@ def test_logout_correctly_logs_user_out(user):
     CLIENT.get(reverse('logout'))
     response = CLIENT.get('/')
     assert response.status_code == 302 and resolve(response.url.split("?")[0]).url_name == 'login'
+
+
+def test_logged_in_user_gets_redirected_when_entering_login_page(user):
+    CLIENT.force_login(user)
+    response = CLIENT.get(reverse('login'))
+    assert response.status_code == 302

@@ -5,13 +5,12 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>
 {% endblock %}
 
-{% block content %}
+{% block body %}
+    <body>
 <div class="login">
     <div class="l-wrapper">
         <div class="head-wrapper">
             <h4>Infra.datos.gob.ar</h4>
-            <!-- <h4>Sistema de monitoreo de apertura</h4> -->
-            <!-- <p class="catalog-title">catalog title</p> -->
         </div>
         <p>Ingresá a tu cuenta</p>
         {% if form.errors and not form.non_field_errors %}
@@ -48,4 +47,5 @@
         </form>
     </div>
 </div>
+    </body>
 {% endblock %}
