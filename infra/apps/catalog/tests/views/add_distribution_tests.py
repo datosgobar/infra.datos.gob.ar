@@ -31,6 +31,13 @@ def test_post_invalid_data(admin_client, catalog):
     assert response.status_code == 400
 
 
+def test_post_with_neither_url_nor_file(admin_client, catalog):
+    form_data = {'dataset_identifier': "125", 'distribution_identifier': "125.1"}
+
+    response = admin_client.post(_add_url(catalog.node), form_data)
+    assert response.status_code == 400
+
+
 def test_post_both_url_and_file(admin_client, catalog, requests_mock):
     url = 'https://fakeurl.com/data.csv'
     requests_mock.get(url,

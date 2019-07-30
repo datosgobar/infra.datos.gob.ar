@@ -75,7 +75,8 @@ class DistributionUpserter(TemplateView):
             return False
         try:
             URLOrFileValidator(form.cleaned_data['url'], form.cleaned_data['file']).validate()
-        except ValidationError:
+        except ValidationError as e:
+            messages.error(request, e)
             return False
 
         return True
@@ -195,17 +196,6 @@ class AddDistributionVersionView(DistributionUpserter):
             distribution.file = None
             return distribution
         raise self.model.DoesNotExist
-
-    def _valid_form(self, form, request):
-        if not form.is_valid():
-            return False
-        try:
-            URLOrFileValidator(form.cleaned_data['url'],
-                               form.cleaned_data['file'] or form.instance.file).validate()
-        except ValidationError:
-            return False
-
-        return True
 
 
 class ListDistributions(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
