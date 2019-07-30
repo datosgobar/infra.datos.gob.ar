@@ -91,7 +91,24 @@ def test_post_new_version_twice_generates_two_instances(client, catalog):
 
         sample.seek(0)
         client.post(_add_version_url(catalog.node, form_data['distribution_identifier']), form_data)
-    assert len(Distribution.objects.all()) == 2
+    assert Distribution.objects.count() == 2
+
+
+def test_new_version_form_contains_previous_data(client, catalog):
+    with open_catalog('test_data.csv') as sample:
+        form_data = {'file': sample,
+                     'dataset_identifier': "125",
+                     'distribution_identifier': "an_easily_findable_distribution_identifier",
+                     'file_name': 'an_easily_findable_file_name.csv'}
+
+        client.post(_add_url(catalog.node), form_data)
+
+        sample.seek(0)
+        response = client.get(_add_version_url(catalog.node, form_data['distribution_identifier']))
+    response_content = response.content.decode('utf-8')
+    assert "125" in response_content
+    assert "an_easily_findable_distribution_identifier" in response_content
+    assert "an_easily_findable_file_name.csv" in response_content
 
 
 def _add_url(node):
