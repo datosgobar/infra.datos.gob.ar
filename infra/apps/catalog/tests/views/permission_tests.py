@@ -2,6 +2,7 @@ import pytest
 from django.contrib.auth import get_user_model
 from django.test import Client
 from django.urls import reverse
+from infra.apps.catalog.mixins import UserIsNodeAdminMixin
 
 pytestmark = pytest.mark.django_db
 
@@ -11,6 +12,29 @@ CATALOG_VIEWS = [
         'catalog:upload_success',
         'catalog:node_distributions',
         ]
+
+
+def test_admin_user_can_access_all_nodes(node):
+    admin = get_user_model().objects.create_superuser('superuser', 'email@test.com', 'password')
+    mixin = UserIsNodeAdminMixin()
+    assert mixin.check_user_is_node_admin(admin, node.id)
+
+
+def test_user_cannot_modify_if_not_node_admin(user, node):
+    mixin = UserIsNodeAdminMixin()
+    assert not mixin.check_user_is_node_admin(user, node.id)
+
+
+def test_user_can_modify_if_node_admin(user, node):
+    node.admins.add(user)
+    node.save()
+    mixin = UserIsNodeAdminMixin()
+    assert mixin.check_user_is_node_admin(user, node.id)
+
+
+def test_user_cannot_modify_non_existing_node(user):
+    mixin = UserIsNodeAdminMixin()
+    assert not mixin.check_user_is_node_admin(user, 1)
 
 
 def test_logged_in_user_can_access_node_pages(user, logged_client, node):

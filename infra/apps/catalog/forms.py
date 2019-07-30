@@ -1,8 +1,7 @@
 # coding=utf-8
 from django import forms
-from django.core.exceptions import ValidationError
 
-from infra.apps.catalog.models import CatalogUpload, Node
+from infra.apps.catalog.models import CatalogUpload
 
 FORMAT_OPTIONS = [
         ('json', 'JSON'),
