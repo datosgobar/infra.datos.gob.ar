@@ -25,6 +25,7 @@ class DistributionForm(forms.ModelForm):
         fields = ['distribution_identifier', 'file']
 
     file = forms.FileField(required=False)
+    file_name = forms.CharField(required=True)
     url = forms.URLField(required=False)
     distribution_identifier = forms.CharField()
 
@@ -35,3 +36,4 @@ class DistributionForm(forms.ModelForm):
         datasets = [(x['identifier'], x['identifier']) for x in latest.get_datasets()]
         self.fields['dataset_identifier'] = \
             forms.ChoiceField(choices=datasets, initial=self.instance.dataset_identifier)
+        self.fields['file_name'].initial = self.instance.file_name

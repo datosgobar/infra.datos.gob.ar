@@ -89,6 +89,7 @@ class DistributionUpserter(TemplateView):
             self.model.create_from_url(form.cleaned_data['url'],
                                        node,
                                        form.cleaned_data['dataset_identifier'],
+                                       form.cleaned_data['file_name'],
                                        form.cleaned_data['distribution_identifier'])
         except RequestException:
             messages.error(request, 'Error descargando la distribución desde la URL especificada')
@@ -97,11 +98,13 @@ class DistributionUpserter(TemplateView):
         return self.success_url(node)
 
     def create_from_file(self, node, form):
-        self.model.objects.update_or_create(
+        self.model.objects.create(
             node=node,
             identifier=form.cleaned_data['distribution_identifier'],
-            defaults={'file': form.cleaned_data['file'],
-                      'dataset_identifier': form.cleaned_data['dataset_identifier']})
+            file=form.cleaned_data['file'],
+            dataset_identifier=form.cleaned_data['dataset_identifier'],
+            file_name=form.cleaned_data['file_name']
+        )
 
         return self.success_url(node)
 
@@ -140,7 +143,7 @@ class AddDistributionView(DistributionUpserter):
         return self.create_from_file(node, form)
 
 
-class EditDistributionView(DistributionUpserter):
+class AddDistributionVersionView(DistributionUpserter):
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
@@ -185,6 +188,7 @@ class EditDistributionView(DistributionUpserter):
         distribution = self.model.objects.filter(identifier=dist_id, node=node). \
             order_by('uploaded_at').last()
         if distribution:
+            distribution.file = None
             return distribution
         raise self.model.DoesNotExist
 

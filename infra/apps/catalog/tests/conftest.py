@@ -55,7 +55,8 @@ def distribution():
         model = Distribution(file=File(distribution_fd),
                              node=_node(),
                              identifier="125.1",
-                             dataset_identifier="125")
+                             dataset_identifier="125",
+                             file_name="test_data.csv")
         model.save()
 
     return model

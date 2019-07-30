@@ -21,6 +21,7 @@ class Distribution(models.Model):
     node = models.ForeignKey(to=Node, on_delete=models.CASCADE, unique_for_date='uploaded_at')
     uploaded_at = models.DateField(auto_now_add=True)
     dataset_identifier = models.CharField(max_length=64)
+    file_name = models.CharField(max_length=800)
     identifier = models.CharField(max_length=64)
     file = models.FileField(upload_to=distribution_file_path,
                             storage=DistributionStorage(),
@@ -33,19 +34,16 @@ class Distribution(models.Model):
         self.file.storage.save_as_latest(self)
 
     @classmethod
-    def create_from_url(cls, url, node, dataset_id, identifier):
+    def create_from_url(cls, url, node, dataset_id, file_name, identifier):
         file = File(temp_file_from_url(url))
         return cls.objects.create(file=file,
                                   node=node,
                                   dataset_identifier=dataset_id,
+                                  file_name=file_name,
                                   identifier=identifier)
 
     def __str__(self):
         return self.identifier
-
-    @property
-    def file_name(self):  # Temporary!
-        return 'latest.data'
 
     def file_name_with_date(self):
         path = Path(self.file.name)

@@ -49,7 +49,9 @@ def test_create_from_url(client, catalog, requests_mock):
                       text='test_content')
 
     form_data = {'url': url,
-                 'dataset_identifier': "125", 'distribution_identifier': "125.1"}
+                 'dataset_identifier': "125",
+                 'distribution_identifier': "125.1",
+                 'file_name': "data.csv"}
 
     client.post(_url(catalog.node), form_data)
     assert Distribution.objects.get().identifier == "125.1"
@@ -70,7 +72,9 @@ def test_create_from_url_404(client, catalog, requests_mock):
 def test_create_from_file(client, catalog):
     with open_catalog('test_data.csv') as sample:
         form_data = {'file': sample,
-                     'dataset_identifier': "125", 'distribution_identifier': "125.1"}
+                     'dataset_identifier': "125",
+                     'distribution_identifier': "125.1",
+                     'file_name': 'test_data.csv'}
 
         client.post(_url(catalog.node), form_data)
     assert Distribution.objects.get().identifier == "125.1"
