@@ -18,10 +18,6 @@ class CatalogForm(forms.ModelForm):
     format = forms.CharField(label='Formato', widget=forms.Select(choices=FORMAT_OPTIONS))
     url = forms.URLField(required=False)
 
-    def __init__(self, *args, **kwargs):
-        #self.user = kwargs.pop('user')
-        super(CatalogForm, self).__init__(*args, **kwargs)
-
 
 class DistributionForm(forms.Form):
 
