@@ -175,6 +175,8 @@ class NodeListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         user = self.request.user
+        if user.is_superuser:
+            return Node.objects.all()
         return user.node_set.all()
 
 
