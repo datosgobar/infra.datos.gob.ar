@@ -1,8 +1,7 @@
 import pytest
+from django.contrib.auth import get_user_model
 from django.test import Client
 from django.urls import reverse
-
-from infra.apps.users.models import User
 
 pytestmark = pytest.mark.django_db
 
@@ -36,7 +35,7 @@ def test_superuser_can_access_all_pages(admin_client, node):
 
 
 def test_non_admin_user_gets_forbidden_http_response(node):
-    new_user = User(username='user', email='email@test.com')
+    new_user = get_user_model()(username='user', email='email@test.com')
     new_user.set_password('password')
     new_user.save()
     new_client = Client()
