@@ -18,12 +18,13 @@ class CatalogForm(forms.ModelForm):
     file = forms.FileField(required=False)
     format = forms.CharField(label='Formato', widget=forms.Select(choices=FORMAT_OPTIONS))
     url = forms.URLField(required=False)
-    node = forms.ChoiceField(required=True)
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')
         super(CatalogForm, self).__init__(*args, **kwargs)
-        self.fields['node'].choices = self.get_user_nodes()
+        if not self.user.is_superuser:
+            self.fields['node'] = forms.ChoiceField(required=True)
+            self.fields['node'].choices = self.get_user_nodes()
 
     def get_user_nodes(self):
         nodes = self.user.node_set.all()
