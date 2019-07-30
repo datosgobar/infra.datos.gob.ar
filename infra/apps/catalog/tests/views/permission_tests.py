@@ -41,7 +41,8 @@ def test_logged_in_user_can_access_node_pages(user, logged_client, node):
     node.admins.add(user)
     node.save()
     for view in CATALOG_VIEWS:
-        response = logged_client.get(reverse(view, kwargs={'node_id': node.id}))
+        rev = reverse(view, kwargs={'node_id': node.id})
+        response = logged_client.get(rev)
         assert response.status_code == 200
 
 

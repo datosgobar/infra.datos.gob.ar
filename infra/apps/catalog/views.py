@@ -26,15 +26,10 @@ class AddCatalogView(LoginRequiredMixin, UserIsNodeAdminMixin, FormView):
     form_class = CatalogForm
     success_url = None
 
-    def get_form_kwargs(self):
-        kwargs = super(AddCatalogView, self).get_form_kwargs()
-        kwargs['user'] = self.request.user
-        return kwargs
-
     def post(self, request, *args, **kwargs):
         node_id = self.kwargs.get('node_id')
         self.success_url = reverse_lazy('catalog:upload_success', kwargs={'node_id': node_id})
-        form = CatalogForm(request.POST, request.FILES, user=self.request.user)
+        form = CatalogForm(request.POST, request.FILES)
         if not form.is_valid():
             return self.form_invalid(form)
 

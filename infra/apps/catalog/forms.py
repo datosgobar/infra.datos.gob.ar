@@ -19,12 +19,8 @@ class CatalogForm(forms.ModelForm):
     url = forms.URLField(required=False)
 
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user')
+        #self.user = kwargs.pop('user')
         super(CatalogForm, self).__init__(*args, **kwargs)
-
-    def get_user_nodes(self):
-        nodes = self.user.node_set.all()
-        return [(node.identifier, node.identifier) for node in nodes]
 
 
 class DistributionForm(forms.Form):
