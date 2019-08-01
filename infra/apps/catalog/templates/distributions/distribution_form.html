@@ -17,6 +17,7 @@
 </div>
 {% endif %}
 
+{% if form %}
 <div class="col-sm-6 col-sm-offset-3">
     <form class="custom-form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -52,5 +53,6 @@
         </div>
         <input class="btn btn-success" type="submit" value="Agregar">
     </form>
-    </div>
+</div>
+{% endif %}
 {% endblock %}

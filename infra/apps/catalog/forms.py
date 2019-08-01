@@ -14,7 +14,8 @@ class CatalogForm(forms.ModelForm):
         model = CatalogUpload
         fields = ['format', 'file']
 
-    file = forms.FileField(required=False, widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+    file = forms.FileField(required=False,
+                           widget=forms.FileInput(attrs={'class': 'form-control-file'}))
     format = forms.CharField(label='Formato', widget=forms.Select(attrs={'class': 'form-control'},
                                                                   choices=FORMAT_OPTIONS))
     url = forms.URLField(required=False, widget=forms.URLInput(attrs={'class': 'form-control'}))
@@ -25,10 +26,13 @@ class DistributionForm(forms.ModelForm):
         model = Distribution
         fields = ['distribution_identifier', 'file']
 
-    file = forms.FileField(required=False, widget=forms.FileInput(attrs={'class': 'form-control-file'}))
-    file_name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    file = forms.FileField(required=False,
+                           widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+    file_name = forms.CharField(required=True,
+                                widget=forms.TextInput(attrs={'class': 'form-control'}))
     url = forms.URLField(required=False, widget=forms.URLInput(attrs={'class': 'form-control'}))
-    distribution_identifier = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    distribution_identifier = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     def __init__(self, *args, **kwargs):
         node = kwargs.pop('node')
