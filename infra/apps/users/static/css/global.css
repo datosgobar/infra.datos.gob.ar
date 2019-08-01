@@ -39,6 +39,7 @@ header .header-container .logout {
 
 .main-content {
  padding-top: 80px;
+ text-align: center;
 }
 
 a.catalogs {
@@ -46,6 +47,16 @@ a.catalogs {
   width: fit-content;
 }
 
-div.container {
-  margin: 10px 0;
+.custom-form {
+    padding: 20px 0px;
+    border: 1px solid #bfbfbf;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
+
+.general-container {
+    padding: 30px 0px;
+    border: 1px solid #bfbfbf;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
 }
