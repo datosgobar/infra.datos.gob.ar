@@ -12,8 +12,8 @@ from infra.apps.catalog.storage.distribution_storage import \
 
 def distribution_file_path(instance, _filename=None):
     directory = distribution_directory(instance)
-    name, extension = instance.file.name.split('/')[-1].rsplit('.', maxsplit=1)
-    final_name = f'{name}-{instance.uploaded_at}.{extension}'
+    extension = instance.file.name.split('/')[-1].rsplit('.', maxsplit=1)[-1]
+    final_name = f'{instance.file_name}-{instance.uploaded_at}.{extension}'
     return os.path.join(directory, final_name)
 
 
