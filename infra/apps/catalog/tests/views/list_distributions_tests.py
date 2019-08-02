@@ -27,5 +27,9 @@ def test_distribution_list_download_link(user, distribution, logged_client):
                                          kwargs={
                                              'node_id': distribution.node.id}
                                          ))
-    download_attribute = 'download="test_data.csv"'
-    assert download_attribute in response.content.decode('utf-8')
+    href = '/media/catalog/test_id/dataset/125/distribution/125.1' \
+           '/download/test_data.csv'
+    filename = 'test_data.csv'
+    download_anchor = f'<a href="{href}" download="{filename}">' \
+                      f'{filename}</a>'
+    assert download_anchor in response.content.decode('utf-8')
