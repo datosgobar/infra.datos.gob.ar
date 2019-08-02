@@ -17,3 +17,15 @@ def test_link_to_detail_page(user, distribution, logged_client):
         'identifier': distribution.identifier
     })
     assert detail_url in response.content.decode('utf-8')
+
+
+def test_distribution_list_download_link(user, distribution, logged_client):
+    node = distribution.node
+    node.admins.add(user)
+    node.save()
+    response = logged_client.get(reverse('catalog:node_distributions',
+                                         kwargs={
+                                             'node_id': distribution.node.id}
+                                         ))
+    download_attribute = 'download="test_data.csv"'
+    assert download_attribute in response.content.decode('utf-8')
