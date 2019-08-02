@@ -10,13 +10,13 @@
 
 <h3>Archivos actuales</h3>
 <div class="container">
-    <a class="catalogs" href="{% get_media_prefix  %}{{ object_list.0.file.name }}" download="{{ object_list.0.file_name }}">{{ object_list.0.file_name }}</a>
+    <a class="catalogs" href="{% get_media_prefix  %}{{ object_list.0.file_path }}" download="{{ object_list.0.file_name }}">{{ object_list.0.file_name }}</a>
 </div>
 
 <h3>Versiones anteriores</h3>
 <div class="container">
     {% for distribution in object_list %}
-        <a class="catalogs" href="{% get_media_prefix  %}{{ distribution.file.name }}" download="{{ distribution.file_name }}">{{ distribution.file_name }} ({{ distribution.uploaded_at }})</a>
+        <a class="catalogs" href="{% get_media_prefix  %}{{ distribution.file.name }}" download="{{ distribution.file_name_with_date }}">{{ distribution.file_name }} ({{ distribution.uploaded_at }})</a>
     {% endfor %}
 </div>
 

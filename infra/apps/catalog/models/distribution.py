@@ -48,3 +48,7 @@ class Distribution(models.Model):
     def file_name_with_date(self):
         path = Path(self.file.name)
         return path.stem
+
+    def file_path(self):
+        path = Path(self.file.name)
+        return path.with_name(self.file_name)
