@@ -1,8 +1,10 @@
 import os
+from pathlib import Path
 
 import pytest
 from django.conf import settings
 from django.core.files import File
+from freezegun import freeze_time
 
 from infra.apps.catalog.exceptions.catalog_not_uploaded_error import CatalogNotUploadedError
 from infra.apps.catalog.models.distribution import Distribution
@@ -75,3 +77,27 @@ def test_file_saved_as_latest(catalog):
                                        '125.1',
                                        'download',
                                        distribution.file_name))
+
+
+def test_upload_distribution_filename_with_extension(catalog):
+    with freeze_time('2019-01-01'):
+        with open_catalog('test_data.csv') as distribution:
+            Distribution.objects.create(node=catalog.node,
+                                        dataset_identifier='125',
+                                        file_name='file_with_extension.csv',
+                                        identifier='125.1',
+                                        file=File(distribution))
+        dist_filename = Path(Distribution.objects.first().file.name).name
+    assert dist_filename == 'file_with_extension-2019-01-01.csv'
+
+
+def test_upload_distribution_filename_without_extension(catalog):
+    with freeze_time('2019-01-01'):
+        with open_catalog('test_data.csv') as distribution:
+            Distribution.objects.create(node=catalog.node,
+                                        dataset_identifier='125',
+                                        file_name='file_without_extension',
+                                        identifier='125.1',
+                                        file=File(distribution))
+        dist_filename = Path(Distribution.objects.first().file.name).name
+    assert dist_filename == 'file_without_extension-2019-01-01'

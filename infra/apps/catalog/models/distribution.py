@@ -12,8 +12,11 @@ from infra.apps.catalog.storage.distribution_storage import \
 
 def distribution_file_path(instance, _filename=None):
     directory = distribution_directory(instance)
-    name, extension = instance.file.name.split('/')[-1].rsplit('.', maxsplit=1)
-    final_name = f'{name}-{instance.uploaded_at}.{extension}'
+    decomposed_name = instance.file_name.rsplit('.', maxsplit=1)
+    final_name = f'{decomposed_name[0]}-{instance.uploaded_at}'
+    if len(decomposed_name) > 1:
+        # filename includes extension
+        final_name += f'.{decomposed_name[-1]}'
     return os.path.join(directory, final_name)
 
 
@@ -47,4 +50,8 @@ class Distribution(models.Model):
 
     def file_name_with_date(self):
         path = Path(self.file.name)
-        return path.stem
+        return path.name
+
+    def file_path(self):
+        path = Path(self.file.name)
+        return path.with_name(self.file_name)
