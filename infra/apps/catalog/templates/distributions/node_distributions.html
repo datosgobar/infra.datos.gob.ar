@@ -2,15 +2,29 @@
 {% load static %}
 
 {% block content %}
-<h1>Distribuciones para {{ node }}</h1>
-<div class="content">
-<a class="catalogs" href="{% url 'catalog:node' node_id=node.id%}">Volver</a>
-<a class="catalogs" href="{% url 'catalog:add_distribution' node_id=node.id %}">Agregar distribución</a>
-    </div>
-    <br/>
-{% for id, distributions in object_list.items %}
+<h1 class="text-primary">Distribuciones para {{ node }}</h1>
+
+<div>
+    <a class="btn btn-primary btn-sm" href="{% url 'catalog:node' node_id=node.id%}">Volver</a>
+</div>
+
+<div class="col-sm-6 col-sm-offset-3 general-container">
+    {% for id, distributions in object_list.items %}
     <p>
-        <a href="{% url 'catalog:distribution_uploads' node_id=node.id identifier=distributions.0.identifier%}">Distribución: {{ id }}</a> ({% for distribution in distributions %}<a href="{% get_media_prefix  %}{% if forloop.first %}{{ distribution.file_path }}" download="{{ distribution.file_name }}">{{ distribution.file_name }}{% else %}{{ distribution.file.name }}" download="{{ distribution.file_name_with_date }}">{{ distribution.file_name_with_date }}{% endif %}</a>{% if not forloop.last %} | {% endif %}{% endfor %})
+        <a class="" href="{% url 'catalog:distribution_uploads' node_id=node.id identifier=distributions.0.identifier%}">
+            Distribución: {{ id }}
+        </a>
+        ({% for distribution in distributions %}
+            <a href="{% get_media_prefix  %}{% if forloop.first %}
+                {{ distribution.file_path }}" download="{{ distribution.file_name }}">{{ distribution.file_name }}
+            {% else %}
+                {{ distribution.file.name }}" download="{{ distribution.file_name_with_date }}">{{ distribution.file_name_with_date }}{% endif %}
+            </a>{% if not forloop.last %} | {% endif %}
+        {% endfor %})
     </p>
-{% endfor %}
+    {% endfor %}
+    <a class="btn btn-primary" href="{% url 'catalog:add_distribution' node_id=node.id %}">Agregar distribución</a>
+</div>
+    <br/>
+
 {% endblock %}

@@ -1,29 +1,47 @@
 {% extends 'base.html' %}
 
+{% block styles %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/nodes_styles.css' %}"/>
+{% endblock %}
+
 {% block content %}
-
-<h1>Catálogos del nodo {{ node_name }}</h1>
-
-<a class="catalogs" href="{% url 'catalog:nodes' %}">Volver</a>
-
-<a href="{% url 'catalog:add_catalog' node_id=node_id %}">Subir nueva versión</a>
-
-<h3>Distribuciones</h3>
-<a href="{% url 'catalog:node_distributions' node_id=node_id %}">Ver distribuciones</a>
-
-<h3>Archivos actuales</h3>
-<div class="container">
-    <a href="{{ base_url }}{{ node_name }}/data.json" download="data.json">data.json</a>
-    {% if has_xlsx %}
-        <a class="catalogs" href="{{ base_url }}{{ node_name }}/catalog.xlsx" download="catalog.xlsx">catalog.xlsx</a>
-    {% endif %}
+<h1 class="text-primary">Catálogos del nodo {{ node_name }}</h1>
+<div>
+    <a class="btn btn-primary btn-sm" href="{% url 'catalog:nodes' %}">Volver</a>
 </div>
 
-<h3>Versiones anteriores</h3>
-<div class="container">
-    {% for catalog in object_list %}
-        <a class="catalogs" href="/{% if 'media' in base_url %}media/{% endif %}{{ catalog.file }}" download="{{ catalog.file }}">{{ catalog.uploaded_at }} ({{ catalog.format }}) </a>
-    {% endfor %}
-</div>
+<div class="col-sm-8 col-sm-offset-2 container general-container">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <a class="btn btn-primary" href="{% url 'catalog:add_catalog' node_id=node_id %}">Subir nueva versión</a>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <h3 class="text-primary">Distribuciones</h3>
+            <a class="btn btn-primary" href="{% url 'catalog:node_distributions' node_id=node_id %}">Ver distribuciones</a>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <h3 class="text-primary">Archivos actuales</h3>
+                <a class="btn btn-link" href="{{ base_url }}{{ node_name }}/data.json" download="data.json">data.json</a>
+                {% if has_xlsx %}
+                    <a class="btn btn-link" href="{{ base_url }}{{ node_name }}/catalog.xlsx" download="catalog.xlsx">catalog.xlsx</a>
+                {% endif %}
+        </div>
+
+        <div class="col-sm-6">
+            <h3 class="text-primary">Versiones anteriores</h3>
+                {% for catalog in object_list %}
+                    <a class="btn btn-primary btn-sm" href="/{% if 'media' in base_url %}media/{% endif %}{{ catalog.file }}" download="{{ catalog.file }}">{{ catalog.uploaded_at }} ({{ catalog.format }}) </a>
+                {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}

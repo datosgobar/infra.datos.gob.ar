@@ -1,0 +1,32 @@
+.nodes-header {
+    text-align: center;
+    height: 125px;
+}
+
+.nodes-list {
+    list-style-type: none;
+}
+
+.nodes-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 5px;
+  padding: 0;
+  height: 200px;
+}
+
+.nodes-list div.node-panel {
+  width: 23%;
+  height: 50px;
+  margin: 1px 1%;
+  text-align: center;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nodes-list div.node-panel .panel {
+    height: 75px;
+    width: 250px;
+}

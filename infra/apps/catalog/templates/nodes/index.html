@@ -1,20 +1,30 @@
 {% extends 'base.html' %}
 
+{% block styles %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/nodes_styles.css' %}"/>
+{% endblock %}
+
 {% block content %}
-
-<h1>Nodos</h1>
-
-
 <div class="container">
+
+    <div class="nodes-header">
+        <h3 class="text-primary">Nodos</h3>
+    </div>
+
     <div class="row">
-        <div class="col-sm-12">
-            <ul>
-                <li>
-                    {% for node in object_list %}
-                        <a class="catalogs" href="{% url 'catalog:node' node_id=node.id %}">{{ node }} </a>
-                    {% endfor %}
-                </li>
-            </ul>
+        <div class="col-sm-12 nodes-list-container">
+            <div class="nodes-list">
+                {% for node in object_list %}
+                <div class="node-panel">
+                    <a class="panel panel-default" href="{% url 'catalog:node' node_id=node.id %}">
+                        <div class="panel-body">
+                            <h3>{{ node }}</h3>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>

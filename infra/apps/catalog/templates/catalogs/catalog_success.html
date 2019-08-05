@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Éxito</h1>
+<h1 class="text-success">Éxito</h1>
 
-<a href="{% url 'catalog:node' node_id=node_id %}">Volver al nodo</a>
+<a class="btn btn-primary btn-sm" href="{% url 'catalog:node' node_id=node_id %}">Volver al nodo</a>
 
 {% if messages %}
 <div class="info">
