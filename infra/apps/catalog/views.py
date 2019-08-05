@@ -253,10 +253,6 @@ class NodeUploadsView(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
         node_uploads = self.model.objects.filter(node=node_id).order_by('-uploaded_at')
         base_url = settings.CATALOG_SERVING_URL
         has_xlsx = os.path.isfile(os.path.join(base_url, node_name, 'catalog.xlsx')[1:])
-
-        for catalog in node_uploads:
-            catalog.uploaded_at = catalog.uploaded_at.strftime('%Y-%m-%d')
-
         params_dict = {
             'node_id': node_id,
             'base_url': base_url,
