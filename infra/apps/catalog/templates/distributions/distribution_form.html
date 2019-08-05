@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Agregar distribución</h1>
+<h1 class="text-primary">Agregar distribución</h1>
 
-<a href="{% url 'catalog:node_distributions' node_id=node_id %}">Volver</a>
+<div>
+    <a class="btn btn-primary btn-sm" href="{% url 'catalog:node_distributions' node_id=node_id %}">Volver</a>
+</div>
 
 {% if messages %}
 <div class="errors">
@@ -15,11 +17,42 @@
 </div>
 {% endif %}
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-        <table border="1">
-    {{ form }}
-        </table>
-    <input type="submit" value="Agregar">
-</form>
+{% if form %}
+<div class="col-sm-6 col-sm-offset-3">
+    <form class="custom-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 form-group item-form">
+                <strong class="col-sm-1">{{ form.distribution_identifier.label }}</strong>
+                {{ form.distribution_identifier }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 form-group item-form">
+                <strong class="col-sm-2">{{ form.file.label }}</strong>
+                {{ form.file }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 form-group item-form">
+                <strong class="col-sm-1">{{ form.file_name.label }}</strong>
+                {{ form.file_name }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 form-group item-form">
+                <strong class="col-sm-1">{{ form.url.label }}</strong>
+                {{ form.url }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 form-group item-form">
+                <strong class="col-sm-1">{{ form.dataset_identifier.label }}</strong>
+                {{ form.dataset_identifier }}
+            </div>
+        </div>
+        <input class="btn btn-success" type="submit" value="Agregar">
+    </form>
+</div>
+{% endif %}
 {% endblock %}

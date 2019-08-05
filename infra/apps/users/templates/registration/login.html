@@ -28,8 +28,8 @@
         {% endif %}
         <form action="{{ app_path }}" method="post" id="login-form">
             {% csrf_token %}
-            <label for="{{ form.username.id_for_label }}">{{form.username.label_tag}}{{ form.username }}
-            <label for="{{ form.password.id_for_label }}">{{form.password.label_tag}}{{ form.password }}
+            <label class="login-label" for="{{ form.username.id_for_label }}">{{form.username.label_tag}}{{ form.username }}</label>
+            <label class="login-label" for="{{ form.password.id_for_label }}">{{form.password.label_tag}}{{ form.password }}</label>
             <input type="hidden" name="next" value="{{ next }}"/>
             {% url 'admin_password_reset' as password_reset_url %}
             <table>
