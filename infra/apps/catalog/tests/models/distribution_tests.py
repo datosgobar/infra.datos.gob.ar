@@ -88,7 +88,7 @@ def test_upload_distribution_filename_with_extension(catalog):
                                         identifier='125.1',
                                         file=File(distribution))
         dist_filename = Path(Distribution.objects.first().file.name).name
-    assert 'file_with_extension-2019-01-01.csv' == dist_filename
+    assert dist_filename == 'file_with_extension-2019-01-01.csv'
 
 
 def test_upload_distribution_filename_without_extension(catalog):
@@ -100,4 +100,4 @@ def test_upload_distribution_filename_without_extension(catalog):
                                         identifier='125.1',
                                         file=File(distribution))
         dist_filename = Path(Distribution.objects.first().file.name).name
-    assert 'file_without_extension-2019-01-01' == dist_filename
+    assert dist_filename == 'file_without_extension-2019-01-01'
