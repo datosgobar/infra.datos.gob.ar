@@ -23,6 +23,8 @@ class CatalogDataValidator:
 
     def validate_format(self, url, file, _format):
         file_format = (url or file.name).split('.')[-1]
+        if len(file_format) > 4:
+            file_format = (url or file.name).split("format=")[1][:4]
         if file_format != _format:
             raise ValidationError("El formato ingresado no coincide con el del archivo.")
         return file_format
