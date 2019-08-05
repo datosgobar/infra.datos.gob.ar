@@ -50,7 +50,7 @@ class Distribution(models.Model):
 
     def file_name_with_date(self):
         path = Path(self.file.name)
-        return path.stem
+        return path.name
 
     def file_path(self):
         path = Path(self.file.name)
