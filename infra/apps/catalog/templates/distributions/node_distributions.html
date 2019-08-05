@@ -15,8 +15,10 @@
             Distribución: {{ id }}
         </a>
         ({% for distribution in distributions %}
-            <a href="{% get_media_prefix  %}{{ distribution.file.name }}">
-                {% if forloop.first %}{{ distribution.file_name }}{% else %}{{ distribution.file_name_with_date }}{% endif %}
+            <a href="{% get_media_prefix  %}{% if forloop.first %}{{ distribution.file_path }}"
+                 download="{{ distribution.file_name }}">{{ distribution.file_name }}
+            {% else %}{{ distribution.file.name }}"
+                download="{{ distribution.file_name_with_date }}">{{ distribution.file_name_with_date }}{% endif %}
             </a>{% if not forloop.last %} | {% endif %}
         {% endfor %})
     </p>
