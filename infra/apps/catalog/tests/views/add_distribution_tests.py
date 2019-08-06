@@ -113,7 +113,8 @@ def test_new_version_form_contains_previous_data(client, catalog):
         sample.seek(0)
         response = client.get(_add_version_url(catalog.node, form_data['distribution_identifier']))
     response_content = response.content.decode('utf-8')
-    assert "Índice de Precios Internos Básicos al por Mayor (IPIB) hasta cuatro dígitos" in response_content
+    assert "Índice de Precios Internos Básicos al por Mayor (IPIB) " \
+           "hasta cuatro dígitos" in response_content
     assert "an_easily_findable_distribution_identifier" in response_content
     assert "an_easily_findable_file_name.csv" in response_content
 
