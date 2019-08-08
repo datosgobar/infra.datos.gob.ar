@@ -3,10 +3,6 @@
 {% block content %}
 <h1 class="text-primary">Agregar distribución</h1>
 
-<div>
-    <a class="btn btn-primary btn-sm" href="{% url 'catalog:node_distributions' node_id=node_id %}">Volver</a>
-</div>
-
 {% if messages %}
 <div class="errors">
     {% for message in messages %}
@@ -18,47 +14,53 @@
 {% endif %}
 
 {% if form %}
-<div class="col-sm-6 col-sm-offset-3">
-    <form class="custom-form" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 form-group item-form">
-                <strong class="col-sm-1">{{ form.distribution_identifier.label }}</strong>
-                {{ form.distribution_identifier }}
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <form class="custom-form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 form-group item-form">
+                    <strong class="col-sm-1">{{ form.distribution_identifier.label }}</strong>
+                    {{ form.distribution_identifier }}
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <strong>Podés cargar un archivo, o usar una URL</strong>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <strong>Podés cargar un archivo, o usar una URL</strong>
+                </div>
             </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 form-group item-form">
-                <strong class="col-sm-2">{{ form.file.label }}</strong>
-                {{ form.file }}
+            <br>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 form-group item-form">
+                    <strong class="col-sm-2">{{ form.file.label }}</strong>
+                    {{ form.file }}
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 form-group item-form">
-                <strong class="col-sm-1">{{ form.url.label }}</strong>
-                {{ form.url }}
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 form-group item-form">
+                    <strong class="col-sm-1">{{ form.url.label }}</strong>
+                    {{ form.url }}
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 form-group item-form">
-                <strong class="col-sm-1">{{ form.file_name.label }}</strong>
-                {{ form.file_name }}
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 form-group item-form">
+                    <strong class="col-sm-1">{{ form.file_name.label }}</strong>
+                    {{ form.file_name }}
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 form-group item-form">
-                <strong class="col-sm-1">{{ form.dataset_identifier.label }}</strong>
-                {{ form.dataset_identifier }}
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 form-group item-form">
+                    <strong class="col-sm-1">{{ form.dataset_identifier.label }}</strong>
+                    {{ form.dataset_identifier }}
+                </div>
             </div>
-        </div>
-        <input class="btn btn-success" type="submit" value="Agregar">
-    </form>
+            <input class="btn btn-success" type="submit" value="Agregar">
+        </form>
+    </div>
 </div>
+<br>
 {% endif %}
+<div class="row">
+    <a class="btn btn-primary btn-sm" href="{% url 'catalog:node_distributions' node_id=node_id %}">Volver</a>
+</div>
 {% endblock %}

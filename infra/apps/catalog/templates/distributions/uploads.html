@@ -8,29 +8,32 @@
 {% block content %}
 
 <h1 class="text-primary">Distribución {{ identifier }} ({{ node_identifier }})</h1>
-<div>
-    <a class="btn btn-primary btn-sm" href="{% url 'catalog:node_distributions' node_id=node_id %}">Volver</a>
+
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2 container general-container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3 class="text-primary">Distribución actual</h3>
+                <a class="btn btn-link" href="{% get_media_prefix  %}{{ object_list.0.file_path }}" download="{{ object_list.0.file_name }}">{{ object_list.0.file_name }}</a>
+            </div>
+
+            <div class="col-sm-6">
+                <h3 class="text-primary">Versiones anteriores</h3>
+                {% for distribution in object_list %}
+                    <a class="btn btn-primary btn-sm" href="{% get_media_prefix  %}{{ distribution.file.name }}" download="{{ distribution.file_name_with_date }}">{{ distribution.file_name }} ({{ distribution.uploaded_at|date:"Y-m-d" }})</a>
+            {% endfor %}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <a class="btn btn-primary" href="{% url 'catalog:add_distribution_version' node_id=node_id identifier=identifier %}">Subir nueva distribución</a>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div class="col-sm-8 col-sm-offset-2 container general-container">
-    <div class="row">
-        <div class="col-sm-6">
-            <h3 class="text-primary">Distribución actual</h3>
-            <a class="btn btn-link" href="{% get_media_prefix  %}{{ object_list.0.file_path }}" download="{{ object_list.0.file_name }}">{{ object_list.0.file_name }}</a>
-        </div>
-
-        <div class="col-sm-6">
-            <h3 class="text-primary">Versiones anteriores</h3>
-            {% for distribution in object_list %}
-                <a class="btn btn-primary btn-sm" href="{% get_media_prefix  %}{{ distribution.file.name }}" download="{{ distribution.file_name_with_date }}">{{ distribution.file_name }} ({{ distribution.uploaded_at|date:"Y-m-d" }})</a>
-        {% endfor %}
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-sm-8 col-sm-offset-2">
-            <a class="btn btn-primary" href="{% url 'catalog:add_distribution_version' node_id=node_id identifier=identifier %}">Subir nueva distribución</a>
-        </div>
-    </div>
+<br>
+<div class="row">
+    <a class="btn btn-primary btn-sm" href="{% url 'catalog:node_distributions' node_id=node_id %}">Volver</a>
 </div>
 {% endblock %}
