@@ -4,6 +4,7 @@ import pytest
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.files import File
+from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.db import IntegrityError
 from django.utils import timezone
 
@@ -38,12 +39,40 @@ def test_catalog_can_only_have_valid_formats(node):
         catalog = CatalogUpload(format='inva', node=node)
         catalog.save()
 
+def test_create_from_not_valid_file(node):
+    filename = 'simple.json'
+    with open_catalog(filename) as sample:
+        file_size = os.path.getsize(sample.name)
+        file_data = TemporaryUploadedFile(filename, None, file_size, None)
+        data_dict = {'format': 'json', 'node': node, 'file': file_data}
+        with pytest.raises(ValidationError):
+            CatalogUpload.create_from_url_or_file(data_dict)
 
-def test_create_from_url_or_file(node):
-    with open_catalog('simple.json') as sample:
-        data_dict = {'format': 'json', 'node': node, 'file': sample}
+
+def test_create_from_file(node):
+    filename = 'data.json'
+    with open_catalog(filename) as sample:
+        file_size = os.path.getsize(sample.name)
+        sample.seek(0)
+        file_data = TemporaryUploadedFile(filename, None, file_size, None)
+        data_dict = {'format': 'json', 'node': node, 'file': file_data}
         catalog = CatalogUpload.create_from_url_or_file(data_dict)
-        assert catalog.file.read() == b'{"identifier": "test"}'
+        assert b'dataset' in catalog.file.read()
+
+
+def test_create_from_not_valid_url(node):
+    url = "http://www.google.com"
+    data_dict = {'format': 'json', 'node': node,
+                 'url': url}
+    with pytest.raises(ValidationError):
+        CatalogUpload.create_from_url_or_file(data_dict)
+
+
+def test_create_from_valid_url(node):
+    url = "http://infra.datos.gob.ar/catalog/sspm/data.json"
+    data_dict = {'format': 'json', 'node': node,
+                 'url': url}
+    CatalogUpload.create_from_url_or_file(data_dict)
 
 
 @pytest.mark.freeze_time('2019-01-01')
@@ -82,11 +111,11 @@ def test_catalog_unique_by_date_and_node(catalog):
 
 
 def test_same_day_multiple_catalog_uploads(node):
-    with open_catalog('simple.json') as sample:
+    with open_catalog('data.json') as sample:
         data_dict = {'format': 'json', 'node': node, 'file': sample}
         CatalogUpload.create_from_url_or_file(data_dict)
 
-    with open_catalog('simple.json') as sample:
+    with open_catalog('data.json') as sample:
         data_dict = {'format': 'json', 'node': node, 'file': sample}
         CatalogUpload.create_from_url_or_file(data_dict)
 

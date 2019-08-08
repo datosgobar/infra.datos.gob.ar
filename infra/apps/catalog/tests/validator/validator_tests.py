@@ -36,27 +36,28 @@ def test_fails_when_response_is_not_successful(node, requests_mock):
 def test_returns_correct_data_when_specifying_url(node, requests_mock):
     requests_mock.get('https://fakeurl.com/data.json', text="Testing text")
     data_dict = {'format': 'json', 'node': node,
-                 'url': 'https://fakeurl.com/data.json'}
+                 'url': 'https://datos.gob.ar/data.json'}
     validator = CatalogDataValidator()
     data = validator.get_and_validate_data(data_dict)
     assert data['file'].read() == b"Testing text"
 
 
 def test_returns_correct_data_when_specifying_url_with_explicit_format(node, requests_mock):
-    requests_mock.get("https://fakeurl.com/export?format=xlsx&foo", text="Testing text")
+    requests_mock.get("https://fakeurl.com/data.json", text="Testing text")
     data_dict = {'format': 'xlsx', 'node': node,
-                 'url': 'https://fakeurl.com/export?format=xlsx&foo'}
+                 'url': 'https://docs.google.com/spreadsheets/d/'
+                        '1gsDvRqLCCCIMPAB1NsIx978qrBmo24_6lzdYo0_Qijg/export?format=xlsx'}
     validator = CatalogDataValidator()
     data = validator.get_and_validate_data(data_dict)
     assert data['file'].read() == b"Testing text"
 
 
 def test_returns_correct_data_when_uploading_file(node):
-    with open_catalog('simple.json') as sample:
+    with open_catalog('data.json') as sample:
         data_dict = {'format': 'json', 'node': node, 'file': sample}
         validator = CatalogDataValidator()
         data = validator.get_and_validate_data(data_dict)
-        assert data['file'].read() == b'{"identifier": "test"}'
+        assert b'dataset' in data['file'].read()
 
 
 def test_invalid_url(node, requests_mock):
