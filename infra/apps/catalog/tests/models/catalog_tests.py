@@ -1,4 +1,5 @@
 import os
+import stat
 
 import pytest
 from django.conf import settings
@@ -145,3 +146,18 @@ def test_validate_returns_error_message_if_catalog_is_not_valid(node):
 
     for error_message in error_messages:
         assert error_message in validation_result
+
+
+def test_upload_file_permissions(catalog):
+    # As per https://stackoverflow.com/questions/5337070/how-can-i-get-a-files-permission-mask
+    mask = oct(os.stat(catalog.file.path)[stat.ST_MODE])[-3:]
+    assert mask == '664'
+
+
+def test_latest_file_permissions(catalog):
+    path = os.path.join(settings.MEDIA_ROOT,
+                        'catalog',
+                        catalog.node.identifier,
+                        'data.json')
+    mask = oct(os.stat(path)[stat.ST_MODE])[-3:]
+    assert mask == '664'

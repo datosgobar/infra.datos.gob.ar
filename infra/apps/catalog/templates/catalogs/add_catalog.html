@@ -3,10 +3,6 @@
 {% block content %}
 <h1 class="text-primary">Agregar catálogo</h1>
 
-<div>
-    <a class="btn btn-primary btn-sm" href="{% url 'catalog:node' node_id=node_id %}">Volver</a>
-</div>
-
 {% if messages %}
 <div class="errors col-sm-6 col-sm-offset-3">
     {% for message in messages %}
@@ -17,28 +13,40 @@
 </div>
 {% endif %}
 
-<div class="col-sm-6 col-sm-offset-3">
-    <form class="custom-form" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 form-group item-form">
-                <strong class="col-sm-1">{{ form.format.label }}</strong>
-                {{ form.format }}
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <form class="custom-form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 form-group item-form">
+                    <strong class="col-sm-1">{{ form.format.label }}</strong>
+                    {{ form.format }}
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 form-group item-form">
-                <strong class="col-sm-2">{{ form.file.label }}</strong>
-                {{ form.file }}
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <strong>Podés cargar un archivo, o usar una URL</strong>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 form-group item-form">
-                <strong class="col-sm-1">{{ form.url.label }}</strong>
-                {{ form.url }}
+            <br>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 form-group item-form">
+                    <strong class="col-sm-2">{{ form.file.label }}</strong>
+                    {{ form.file }}
+                </div>
             </div>
-        </div>
-        <input class="btn btn-success" type="submit" value="Agregar">
-    </form>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 form-group item-form">
+                    <strong class="col-sm-1">{{ form.url.label }}</strong>
+                    {{ form.url }}
+                </div>
+            </div>
+            <input class="btn btn-success" type="submit" value="Agregar">
+        </form>
+    </div>
+</div>
+<br>
+<div class="row">
+    <a class="btn btn-primary btn-sm" href="{% url 'catalog:node' node_id=node_id %}">Volver</a>
 </div>
 {% endblock %}
