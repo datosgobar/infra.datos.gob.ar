@@ -1,0 +1,21 @@
+{% load static %}<div class="row">
+    <div id="file-or-url" class="col-md-8 col-md-offset-2">
+        <strong>Podés cargar un archivo, o usar una URL</strong>
+        <button id="file-button" class="btn" type="button">Archivo</button>
+        <button id="url-button" class="btn" type="button">URL</button>
+    </div>
+</div>
+<div id="file-field" class="row hidden">
+    <div class="col-md-8 col-md-offset-2 form-group item-form">
+        <strong class="col-sm-2">{{ form.file.label }}</strong>
+        {{ form.file }}
+    </div>
+</div>
+<div id="url-field" class="row hidden">
+    <div class="col-md-8 col-md-offset-2 form-group item-form">
+        <strong class="col-sm-1">{{ form.url.label }}</strong>
+        {{ form.url }}
+    </div>
+</div>
+
+    <script type="application/javascript" src="{% static 'file_or_url.js' %}"></script>
