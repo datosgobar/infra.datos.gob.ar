@@ -1,10 +1,10 @@
 # coding=utf-8
+import logging
 from django.core.exceptions import ValidationError
 from django.core.files import File
 from pydatajson import DataJson
 from pydatajson.custom_exceptions import NonParseableCatalog
 from requests import RequestException
-
 
 from infra.apps.catalog.helpers.temp_file_from_url import temp_file_from_url
 from infra.apps.catalog.validator.url_or_file import URLOrFileValidator
@@ -30,6 +30,9 @@ class CatalogDataValidator:
             DataJson(path, catalog_format=_format)
         except NonParseableCatalog:
             raise ValidationError("El catálogo ingresado no es válido")
+        except Exception:
+            raise ValidationError("El catálogo ingresado no es válido")
+            logging.getLogger(__file__).error()
 
     def download_file_from_url(self, url):
         try:
