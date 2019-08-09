@@ -30,9 +30,9 @@ class CatalogDataValidator:
             DataJson(path, catalog_format=_format)
         except NonParseableCatalog:
             raise ValidationError("El catálogo ingresado no es válido")
-        except Exception:
+        except Exception as e:
+            logging.getLogger(__file__).error(e)
             raise ValidationError("El catálogo ingresado no es válido")
-            logging.getLogger(__file__).error()
 
     def download_file_from_url(self, url):
         try:

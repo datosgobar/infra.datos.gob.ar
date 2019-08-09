@@ -75,3 +75,12 @@ def test_invalid_url(node, requests_mock):
     validator = CatalogDataValidator()
     with pytest.raises(ValidationError):
         validator.get_and_validate_data(data_dict)
+
+
+def test_raises_validation_error_if_catalog_is_not_valid(node):
+    with open_catalog('catalogo-justicia.xlsx') as sample:
+        temp_file = temp_uploaded_file(sample)
+        data_dict = {'format': 'xlsx', 'node': node, 'file': temp_file}
+        validator = CatalogDataValidator()
+        with pytest.raises(ValidationError):
+            validator.get_and_validate_data(data_dict)

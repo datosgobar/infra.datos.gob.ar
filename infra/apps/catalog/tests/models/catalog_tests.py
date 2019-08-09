@@ -45,7 +45,7 @@ def test_create_from_not_valid_file(node):
     with open_catalog('simple.json') as sample:
         temp_file = temp_uploaded_file(sample)
         data_dict = {'format': 'json', 'node': node, 'file': temp_file}
-        with pytest.raises(KeyError):
+        with pytest.raises(ValidationError):
             CatalogUpload.create_from_url_or_file(data_dict)
 
 
