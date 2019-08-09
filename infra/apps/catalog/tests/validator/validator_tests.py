@@ -1,10 +1,12 @@
 # coding=utf-8
+
 import pytest
 from django.core.exceptions import ValidationError
 from requests import RequestException
 
-from infra.apps.catalog.validator.catalog_data_validator import CatalogDataValidator
 from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
+from infra.apps.catalog.tests.helpers.temp_uploaded_file import temp_uploaded_file
+from infra.apps.catalog.validator.catalog_data_validator import CatalogDataValidator
 
 pytestmark = pytest.mark.django_db
 
@@ -34,27 +36,33 @@ def test_fails_when_response_is_not_successful(node, requests_mock):
 
 
 def test_returns_correct_data_when_specifying_url(node, requests_mock):
-    requests_mock.get('https://fakeurl.com/data.json', text="Testing text")
-    data_dict = {'format': 'json', 'node': node,
-                 'url': 'https://datos.gob.ar/data.json'}
-    validator = CatalogDataValidator()
-    data = validator.get_and_validate_data(data_dict)
-    assert data['file'].read() == b"Testing text"
+    with open_catalog('data.json') as sample:
+        text = sample.read()
+        requests_mock.get("https://datos.gob.ar/data.json", content=text)
+        data_dict = {'format': 'json', 'node': node, 'url': 'https://datos.gob.ar/data.json'}
+        validator = CatalogDataValidator()
+        data = validator.get_and_validate_data(data_dict)
+        assert data['file'].read() == text
 
 
 def test_returns_correct_data_when_specifying_url_with_explicit_format(node, requests_mock):
-    requests_mock.get("https://fakeurl.com/data.json", text="Testing text")
-    data_dict = {'format': 'xlsx', 'node': node,
-                 'url': 'https://docs.google.com/spreadsheets/d/'
-                        '1gsDvRqLCCCIMPAB1NsIx978qrBmo24_6lzdYo0_Qijg/export?format=xlsx'}
-    validator = CatalogDataValidator()
-    data = validator.get_and_validate_data(data_dict)
-    assert data['file'].read() == b"Testing text"
+    with open_catalog('xlsx_catalog.xlsx') as sample:
+        text = sample.read()
+        requests_mock.get('https://docs.google.com/spreadsheets/d/'
+                          '1gsDvRqLCCCIMPAB1NsIx978qrBmo24_6lzdYo0_Qijg/export?format=xlsx',
+                          content=text)
+        data_dict = {'format': 'xlsx', 'node': node,
+                     'url': 'https://docs.google.com/spreadsheets/d/'
+                            '1gsDvRqLCCCIMPAB1NsIx978qrBmo24_6lzdYo0_Qijg/export?format=xlsx'}
+        validator = CatalogDataValidator()
+        data = validator.get_and_validate_data(data_dict)
+        assert data['file'].read() == text
 
 
 def test_returns_correct_data_when_uploading_file(node):
     with open_catalog('data.json') as sample:
-        data_dict = {'format': 'json', 'node': node, 'file': sample}
+        temp_file = temp_uploaded_file(sample)
+        data_dict = {'format': 'json', 'node': node, 'file': temp_file}
         validator = CatalogDataValidator()
         data = validator.get_and_validate_data(data_dict)
         assert b'dataset' in data['file'].read()

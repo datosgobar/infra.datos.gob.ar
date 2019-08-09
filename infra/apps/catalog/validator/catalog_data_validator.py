@@ -24,8 +24,6 @@ class CatalogDataValidator:
         return {'node': raw_data['node'], 'format': file_format, 'file': File(file_handler)}
 
     def validate_format(self, url, file, _format):
-        if file:
-            print(file.temporary_file_path())
         path = file.temporary_file_path() if file else url
         try:
             DataJson(path, catalog_format=_format)

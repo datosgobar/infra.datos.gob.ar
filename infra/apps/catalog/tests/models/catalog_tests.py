@@ -4,12 +4,12 @@ import pytest
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.files import File
-from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.db import IntegrityError
 from django.utils import timezone
 
 from infra.apps.catalog.models import CatalogUpload
 from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
+from infra.apps.catalog.tests.helpers.temp_uploaded_file import temp_uploaded_file
 
 pytestmark = pytest.mark.django_db
 
@@ -39,23 +39,20 @@ def test_catalog_can_only_have_valid_formats(node):
         catalog = CatalogUpload(format='inva', node=node)
         catalog.save()
 
+
 def test_create_from_not_valid_file(node):
-    filename = 'simple.json'
-    with open_catalog(filename) as sample:
-        file_size = os.path.getsize(sample.name)
-        file_data = TemporaryUploadedFile(filename, None, file_size, None)
-        data_dict = {'format': 'json', 'node': node, 'file': file_data}
-        with pytest.raises(ValidationError):
+    with open_catalog('simple.json') as sample:
+        temp_file = temp_uploaded_file(sample)
+        data_dict = {'format': 'json', 'node': node, 'file': temp_file}
+        with pytest.raises(KeyError):
             CatalogUpload.create_from_url_or_file(data_dict)
 
 
 def test_create_from_file(node):
     filename = 'data.json'
     with open_catalog(filename) as sample:
-        file_size = os.path.getsize(sample.name)
-        sample.seek(0)
-        file_data = TemporaryUploadedFile(filename, None, file_size, None)
-        data_dict = {'format': 'json', 'node': node, 'file': file_data}
+        temp_file = temp_uploaded_file(sample)
+        data_dict = {'format': 'json', 'node': node, 'file': temp_file}
         catalog = CatalogUpload.create_from_url_or_file(data_dict)
         assert b'dataset' in catalog.file.read()
 
@@ -112,11 +109,13 @@ def test_catalog_unique_by_date_and_node(catalog):
 
 def test_same_day_multiple_catalog_uploads(node):
     with open_catalog('data.json') as sample:
-        data_dict = {'format': 'json', 'node': node, 'file': sample}
+        temp_file = temp_uploaded_file(sample)
+        data_dict = {'format': 'json', 'node': node, 'file': temp_file}
         CatalogUpload.create_from_url_or_file(data_dict)
 
     with open_catalog('data.json') as sample:
-        data_dict = {'format': 'json', 'node': node, 'file': sample}
+        temp_file = temp_uploaded_file(sample)
+        data_dict = {'format': 'json', 'node': node, 'file': temp_file}
         CatalogUpload.create_from_url_or_file(data_dict)
 
     assert CatalogUpload.objects.count() == 1
@@ -139,7 +138,8 @@ def test_validate_returns_error_message_if_catalog_is_not_valid(node):
     ]
 
     with open_catalog('data.json') as sample:
-        data_dict = {'format': 'json', 'node': node, 'file': sample}
+        temp_file = temp_uploaded_file(sample)
+        data_dict = {'format': 'json', 'node': node, 'file': temp_file}
         catalog_upload = CatalogUpload.create_from_url_or_file(data_dict)
         validation_result = catalog_upload.validate()
 
