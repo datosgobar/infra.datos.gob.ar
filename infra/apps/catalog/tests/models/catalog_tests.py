@@ -66,11 +66,13 @@ def test_create_from_not_valid_url(node):
         CatalogUpload.create_from_url_or_file(data_dict)
 
 
-def test_create_from_valid_url(node):
-    url = "http://infra.datos.gob.ar/catalog/sspm/data.json"
-    data_dict = {'format': 'json', 'node': node,
-                 'url': url}
-    CatalogUpload.create_from_url_or_file(data_dict)
+def test_create_from_valid_url(node, requests_mock):
+    with open_catalog('data.json') as sample:
+        requests_mock.get("https://datos.gob.ar/data.json", content=sample.read())
+        data_dict = {'format': 'json', 'node': node,
+                     'url': "https://datos.gob.ar/data.json"}
+        catalog = CatalogUpload.create_from_url_or_file(data_dict)
+        assert catalog is not None
 
 
 @pytest.mark.freeze_time('2019-01-01')

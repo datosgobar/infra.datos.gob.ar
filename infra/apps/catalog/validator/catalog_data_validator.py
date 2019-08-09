@@ -5,6 +5,7 @@ from pydatajson import DataJson
 from pydatajson.custom_exceptions import NonParseableCatalog
 from requests import RequestException
 
+
 from infra.apps.catalog.helpers.temp_file_from_url import temp_file_from_url
 from infra.apps.catalog.validator.url_or_file import URLOrFileValidator
 
@@ -27,8 +28,7 @@ class CatalogDataValidator:
         path = file.temporary_file_path() if file else url
         try:
             DataJson(path, catalog_format=_format)
-        except NonParseableCatalog as e:
-            print(e)
+        except NonParseableCatalog:
             raise ValidationError("El catálogo ingresado no es válido")
 
     def download_file_from_url(self, url):
