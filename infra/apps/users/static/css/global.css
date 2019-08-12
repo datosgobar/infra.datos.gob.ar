@@ -73,8 +73,3 @@ a.catalogs {
     color: #0072bb;
     font-weight: 600;
 }
-
-.breadcrumb.i-breadcrumb > li + li::before {
-    color: #0072bb;
-    content: ">";
-}
