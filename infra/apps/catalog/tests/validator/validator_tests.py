@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from requests import RequestException
 
 from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
-from infra.apps.catalog.tests.helpers.temp_uploaded_file import temp_uploaded_file
+from infra.apps.catalog.helpers.temp_uploaded_file import temp_uploaded_file
 from infra.apps.catalog.validator.catalog_data_validator import CatalogDataValidator
 
 pytestmark = pytest.mark.django_db

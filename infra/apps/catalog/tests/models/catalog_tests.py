@@ -10,7 +10,7 @@ from django.utils import timezone
 
 from infra.apps.catalog.models import CatalogUpload
 from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
-from infra.apps.catalog.tests.helpers.temp_uploaded_file import temp_uploaded_file
+from infra.apps.catalog.helpers.temp_uploaded_file import temp_uploaded_file
 
 pytestmark = pytest.mark.django_db
 
