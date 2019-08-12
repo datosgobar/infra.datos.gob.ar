@@ -47,13 +47,14 @@ class DistributionForm(forms.ModelForm):
             identifier = dataset['title'] + " - " + dataset['identifier']
             dist_identifiers.append(identifier)
             if dataset['identifier'] == self.instance.dataset_identifier:
-                initial_identifier = identifier
+                initial_identifier = dataset['identifier']
 
         self.fields['dataset_identifier'] = \
-            autocomplete.Select2ListChoiceField(
-                choice_list=dist_identifiers,
-                initial=initial_identifier,
-                widget=autocomplete.ListSelect2(
+            forms.ModelChoiceField(
+                queryset=Distribution.objects.all(),
+                # choice_list=dist_identifiers,
+                # initial=initial_identifier,
+                widget=autocomplete.ModelSelect2(
                     url=reverse(
                         'catalog:distribution-identifier-autocomplete',
                         kwargs={'node_id': node.id}

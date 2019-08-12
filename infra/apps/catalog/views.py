@@ -289,19 +289,21 @@ class DistributionUploads(ListView):
         return context
 
 
-class DistributionIdentifierAutocomplete(LoginRequiredMixin, autocomplete.Select2ListView):
+class DistributionIdentifierAutocomplete(LoginRequiredMixin, autocomplete.Select2QuerySetView):
+    # def get_result_label(self, item):
+    #  ---- aca poner el label del resultado ----
+    #     return item.full_name
+
+    # def get_selected_result_label(self, item):
+    #  ---- aca poner el valor del resultado ----
+    #     return item.short_name
 
     def node_id(self):
         return self.kwargs['node_id']
 
-    def get_list(self):
+    def get_queryset(self):
         node = Node.objects.get(id=self.node_id())
+        # TODO: devolver un QuerySet
         latest = node.get_latest_catalog_upload()
-        qs = []
-        for x in latest.get_datasets():
-            identifier_text = x['title'] + " - " + x['identifier']
 
-            if self.q.lower() in identifier_text.lower():
-                qs.append(identifier_text)
-
-        return qs
+        return node.catalogupload_set.all()
