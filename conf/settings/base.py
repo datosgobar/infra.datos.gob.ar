@@ -148,3 +148,7 @@ DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='infra.datos.gob.ar@moder
 AUTH_USER_MODEL = 'users.User'
 
 FILE_UPLOAD_PERMISSIONS = 0o664
+
+FILE_UPLOAD_HANDLERS = [
+    'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+]

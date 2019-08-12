@@ -63,3 +63,7 @@ a.catalogs {
 .form-control.form-control-select-two {
     padding: 0 8px;
 }
+
+#file-field input {
+    margin-top: 12px;
+}
