@@ -37,8 +37,12 @@ def mock_request():
     return requests_mock.mock()
 
 
+def _node_id():
+    return 'test_id'
+
+
 def _node():
-    return Node.objects.get_or_create(identifier='test_id')[0]
+    return Node.objects.get_or_create(identifier=_node_id())[0]
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -103,3 +107,22 @@ def _catalog():
         model.save()
 
     return model
+
+
+@pytest.fixture(autouse=True)
+def enable_db_access(db):
+    # pylint: disable=W0613,C0103
+    pass
+
+
+@pytest.fixture
+def catalog_dest():
+    dest_dir = os.path.join(settings.MEDIA_ROOT,
+                            'catalog',
+                            _node_id())
+    os.makedirs(dest_dir, exist_ok=True)
+    dest = os.path.join(dest_dir, 'data.json')
+
+    yield dest
+    if os.path.exists(dest):
+        os.remove(dest)
