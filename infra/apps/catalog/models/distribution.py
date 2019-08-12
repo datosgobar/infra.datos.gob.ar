@@ -52,6 +52,6 @@ class Distribution(models.Model):
         path = Path(self.file.name)
         return path.name
 
-    def file_path(self):
+    def file_path(self, with_date=False):
         path = Path(self.file.name)
-        return path.with_name(self.file_name)
+        return path.with_name(self.file_name_with_date() if with_date else self.file_name)

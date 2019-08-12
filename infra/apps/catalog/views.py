@@ -9,6 +9,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import FormView
 from requests import RequestException
@@ -103,15 +104,27 @@ class DistributionUpserter(TemplateView):
         return self.success_url(node)
 
     def create_from_file(self, node, form):
-        self.model.objects.create(
+        version = self.get_version_from_same_day(node, form.cleaned_data['distribution_identifier'])
+        if version:
+            os.remove(os.path.join(settings.MEDIA_ROOT, version.file_path()))
+            os.remove(os.path.join(settings.MEDIA_ROOT, version.file_path(with_date=True)))
+        self.model.objects.update_or_create(
             node=node,
             identifier=form.cleaned_data['distribution_identifier'],
-            file=form.cleaned_data['file'],
-            dataset_identifier=form.cleaned_data['dataset_identifier'],
-            file_name=form.cleaned_data['file_name']
+            uploaded_at=timezone.now().date(),
+            defaults={'dataset_identifier': form.cleaned_data['dataset_identifier'],
+                      'file': form.cleaned_data['file'],
+                      'file_name': form.cleaned_data['file_name']}
         )
 
         return self.success_url(node)
+
+    def get_version_from_same_day(self, node, dataset_identifier):
+        versions_from_today = self.model.objects.filter(
+            identifier=dataset_identifier,
+            node=node,
+            uploaded_at=timezone.now().date())
+        return versions_from_today[0] if versions_from_today else None
 
     def success_url(self, node):
         return HttpResponseRedirect(
