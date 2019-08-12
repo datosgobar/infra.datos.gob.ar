@@ -1,6 +1,7 @@
 # coding=utf-8
 import os
 
+from dal import autocomplete
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -286,3 +287,21 @@ class DistributionUploads(ListView):
         context['node_id'] = self.node_id()
         context['node_identifier'] = Node.objects.get(id=self.node_id()).identifier
         return context
+
+
+class DistributionIdentifierAutocomplete(LoginRequiredMixin, autocomplete.Select2ListView):
+
+    def node_id(self):
+        return self.kwargs['node_id']
+
+    def get_list(self):
+        node = Node.objects.get(id=self.node_id())
+        latest = node.get_latest_catalog_upload()
+        qs = []
+        for x in latest.get_datasets():
+            identifier_text = x['title'] + " - " + x['identifier']
+
+            if self.q.lower() in identifier_text.lower():
+                qs.append(identifier_text)
+
+        return qs

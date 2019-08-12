@@ -1,5 +1,7 @@
 # coding=utf-8
+from dal import autocomplete
 from django import forms
+from django.urls import reverse
 
 from infra.apps.catalog.models import CatalogUpload, Distribution
 
@@ -21,10 +23,14 @@ class CatalogForm(forms.ModelForm):
     url = forms.URLField(required=False, widget=forms.URLInput(attrs={'class': 'form-control'}))
 
 
+def get_choice_list():
+    return ['France', 'Fiji', 'Finland', 'Switzerland']
+
+
 class DistributionForm(forms.ModelForm):
     class Meta:
         model = Distribution
-        fields = ['distribution_identifier', 'file']
+        fields = ['identifier', 'file']
 
     file = forms.FileField(required=False,
                            widget=forms.FileInput(attrs={'class': 'form-control-file'}))
@@ -37,9 +43,14 @@ class DistributionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         node = kwargs.pop('node')
         super(DistributionForm, self).__init__(*args, **kwargs)
-        latest = node.get_latest_catalog_upload()
-        datasets = [(x['identifier'], x['identifier']) for x in latest.get_datasets()]
         self.fields['dataset_identifier'] = \
-            forms.ChoiceField(choices=datasets, initial=self.instance.dataset_identifier,
-                              widget=forms.Select(attrs={'class': 'form-control'}))
+            autocomplete.Select2ListChoiceField(
+                widget=autocomplete.ListSelect2(
+                    url=reverse(
+                        'catalog:distribution-identifier-autocomplete',
+                        kwargs={'node_id': node.id}
+                    ),
+                    attrs={'class': 'form-control form-control-select-two'}
+                )
+            )
         self.fields['file_name'].initial = self.instance.file_name
