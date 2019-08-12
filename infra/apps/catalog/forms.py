@@ -38,9 +38,21 @@ class DistributionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         node = kwargs.pop('node')
+        latest = node.get_latest_catalog_upload()
         super(DistributionForm, self).__init__(*args, **kwargs)
+
+        dist_identifiers = []
+        initial_identifier = ''
+        for dataset in latest.get_datasets():
+            identifier = dataset['title'] + " - " + dataset['identifier']
+            dist_identifiers.append(identifier)
+            if dataset['identifier'] == self.instance.dataset_identifier:
+                initial_identifier = identifier
+
         self.fields['dataset_identifier'] = \
             autocomplete.Select2ListChoiceField(
+                choice_list=dist_identifiers,
+                initial=initial_identifier,
                 widget=autocomplete.ListSelect2(
                     url=reverse(
                         'catalog:distribution-identifier-autocomplete',
