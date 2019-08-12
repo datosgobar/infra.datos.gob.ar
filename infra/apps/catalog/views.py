@@ -48,7 +48,9 @@ class AddCatalogView(LoginRequiredMixin, UserIsNodeAdminMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super(AddCatalogView, self).get_context_data(**kwargs)
-        context['node_id'] = self.kwargs.get('node_id')
+        node_id = self.kwargs.get('node_id')
+        context['node_id'] = node_id
+        context['node_identifier'] = Node.objects.get(id=node_id).identifier
         return context
 
     def form_invalid(self, form):
@@ -124,6 +126,7 @@ class AddDistributionView(DistributionUpserter):
         context = self.get_context_data(**kwargs)
         status = 200
         node = self._get_node(kwargs['node_id'])
+        context['node_identifier'] = node.identifier
 
         try:
             context['form'] = DistributionForm(node=node)
@@ -155,6 +158,7 @@ class AddDistributionVersionView(DistributionUpserter):
         dist_id = self.kwargs.get('identifier')
         status = 200
         node = self._get_node(kwargs['node_id'])
+        context['node_identifier'] = node.identifier
 
         try:
             distribution = self.get_last_distribution(dist_id, node)
@@ -228,7 +232,9 @@ class CatalogUploadSuccess(LoginRequiredMixin, UserIsNodeAdminMixin, TemplateVie
     template_name = "catalogs/catalog_success.html"
 
     def get(self, request, *args, **kwargs):
-        params_dict = {'node_id': self.kwargs.get('node_id')}
+        node_id = self.kwargs.get('node_id')
+        params_dict = {'node_id': node_id,
+                       'node_identifier': Node.objects.get(pk=node_id).identifier}
         return render(request, self.template_name, params_dict)
 
 

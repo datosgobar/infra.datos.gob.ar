@@ -37,7 +37,7 @@ header .header-container .logout {
 }
 
 .main-content {
- padding-top: 80px;
+ padding-top: 60px;
  text-align: center;
 }
 
@@ -58,4 +58,23 @@ a.catalogs {
     border: 1px solid #bfbfbf;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
+
+.i-breadcrumb {
+    padding-left: 40px;
+}
+
+.i-breadcrumb li {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.i-breadcrumb li a {
+    color: #0072bb;
+    font-weight: 600;
+}
+
+.breadcrumb.i-breadcrumb > li + li::before {
+    color: #0072bb;
+    content: ">";
 }
