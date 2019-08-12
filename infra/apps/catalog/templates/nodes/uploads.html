@@ -28,8 +28,14 @@
         </div>
         <br>
         <div class="row">
-            <div class="col-sm-8 col-sm-offset-2">
+            <div class="inline col-sm-8 col-sm-offset-2">
                 <a class="btn btn-primary" href="{% url 'catalog:add_catalog' node_id=node_id %}">Subir nuevo catálogo</a>
+                {% if user.is_superuser %}
+                    <form class='form-inline' action="{% url 'catalog:sync_catalog' node_id=node_id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="SYNC" class="btn btn-primary"/>
+                    </form>
+                {% endif %}
             </div>
         </div>
 

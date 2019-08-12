@@ -286,3 +286,27 @@ class DistributionUploads(ListView):
         context['node_id'] = self.node_id()
         context['node_identifier'] = Node.objects.get(id=self.node_id()).identifier
         return context
+
+
+class SyncCatalog(LoginRequiredMixin, TemplateView):
+    template_name = 'catalogs/catalog_success.html'
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
+
+    def get_context_data(self, **kwargs):
+        if not self.request.user.is_superuser:
+            return self.handle_no_permission()
+
+        node_id = self.kwargs['node_id']
+        node = Node.objects.get(pk=node_id)
+        catalog = node.sync()
+        for message in catalog.validate():
+            messages.info(self.request, message)
+
+        context = super(SyncCatalog, self).get_context_data(**kwargs)
+        context['node_id'] = node_id
+
+        return context

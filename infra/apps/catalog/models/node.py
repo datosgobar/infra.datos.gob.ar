@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 
 from infra.apps.catalog.exceptions.catalog_not_uploaded_error import CatalogNotUploadedError
+from infra.apps.catalog.models.catalog_upload import CatalogUpload
 from infra.apps.catalog.storage.paths import latest_json_catalog_path
 from infra.apps.catalog.helpers.temp_uploaded_file import temp_uploaded_file
 from infra.apps.catalog.validator.catalog_data_validator import CatalogDataValidator
@@ -30,4 +31,4 @@ class Node(models.Model):
             'format': 'json',
         })
 
-        return self.catalogupload_set.create(**catalog_data)
+        return CatalogUpload.update_or_create(catalog_data)
