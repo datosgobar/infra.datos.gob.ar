@@ -48,12 +48,9 @@ def test_returns_correct_data_when_specifying_url(node, requests_mock):
 def test_returns_correct_data_when_specifying_url_with_explicit_format(node, requests_mock):
     with open_catalog('xlsx_catalog.xlsx') as sample:
         text = sample.read()
-        requests_mock.get('https://docs.google.com/spreadsheets/d/'
-                          '1gsDvRqLCCCIMPAB1NsIx978qrBmo24_6lzdYo0_Qijg/export?format=xlsx',
-                          content=text)
+        requests_mock.get('https://fakeurl.com/export?format=xlsx', content=text)
         data_dict = {'format': 'xlsx', 'node': node,
-                     'url': 'https://docs.google.com/spreadsheets/d/'
-                            '1gsDvRqLCCCIMPAB1NsIx978qrBmo24_6lzdYo0_Qijg/export?format=xlsx'}
+                     'url': 'https://fakeurl.com/export?format=xlsx'}
         validator = CatalogDataValidator()
         data = validator.get_and_validate_data(data_dict)
         assert data['file'].read() == text
