@@ -23,10 +23,6 @@ class CatalogForm(forms.ModelForm):
     url = forms.URLField(required=False, widget=forms.URLInput(attrs={'class': 'form-control'}))
 
 
-def get_choice_list():
-    return ['France', 'Fiji', 'Finland', 'Switzerland']
-
-
 class DistributionForm(forms.ModelForm):
     class Meta:
         model = Distribution
