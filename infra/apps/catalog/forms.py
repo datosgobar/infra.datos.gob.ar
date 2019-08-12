@@ -26,7 +26,7 @@ class CatalogForm(forms.ModelForm):
 class DistributionForm(forms.ModelForm):
     class Meta:
         model = Distribution
-        fields = ['identifier', 'file']
+        fields = ['distribution_identifier', 'file']
 
     file = forms.FileField(required=False,
                            widget=forms.FileInput(attrs={'class': 'form-control-file'}))
