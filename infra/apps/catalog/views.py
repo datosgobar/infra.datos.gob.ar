@@ -318,5 +318,11 @@ class SyncCatalog(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(SyncCatalog, self).get_context_data(**kwargs)
         context['node_id'] = self.kwargs['node_id']
-
+        context['node_identifier'] = self.id_if_exists()
         return context
+
+    def id_if_exists(self):
+        try:
+            return Node.objects.get(id=self.kwargs['node_id']).identifier
+        except Node.DoesNotExist:
+            return None
