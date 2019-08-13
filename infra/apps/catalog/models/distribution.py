@@ -41,11 +41,6 @@ class Distribution(models.Model):
     @classmethod
     def update_or_create(cls, raw_data):
         file = raw_data.get('file') or File(temp_file_from_url(raw_data['url']))
-        version = cls.get_version_from_same_day(raw_data['node'],
-                                                raw_data['distribution_identifier'])
-        if version:
-            os.remove(os.path.join(settings.MEDIA_ROOT, version.file_path()))
-            os.remove(os.path.join(settings.MEDIA_ROOT, version.file_path(with_date=True)))
         distribution, _ = cls.objects.update_or_create(
             node=raw_data['node'],
             identifier=raw_data['distribution_identifier'],
