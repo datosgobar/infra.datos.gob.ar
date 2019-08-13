@@ -19,7 +19,6 @@ from infra.apps.catalog.exceptions.catalog_not_uploaded_error import \
 from infra.apps.catalog.forms import CatalogForm, DistributionForm
 from infra.apps.catalog.mixins import UserIsNodeAdminMixin
 from infra.apps.catalog.models import CatalogUpload, Node, Distribution
-from infra.apps.catalog.models.distribution import get_version_from_same_day
 from infra.apps.catalog.validator.url_or_file import URLOrFileValidator
 
 
@@ -105,7 +104,10 @@ class DistributionUpserter(TemplateView):
         return self.success_url(node)
 
     def create_from_file(self, node, form):
-        version = get_version_from_same_day(node, form.cleaned_data['distribution_identifier'])
+        version = Distribution.get_version_from_same_day(
+            node,
+            form.cleaned_data['distribution_identifier']
+        )
         if version:
             os.remove(os.path.join(settings.MEDIA_ROOT, version.file_path()))
             os.remove(os.path.join(settings.MEDIA_ROOT, version.file_path(with_date=True)))
