@@ -1,7 +1,6 @@
 # coding=utf-8
 import os
 
-from dal import autocomplete
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -287,23 +286,3 @@ class DistributionUploads(ListView):
         context['node_id'] = self.node_id()
         context['node_identifier'] = Node.objects.get(id=self.node_id()).identifier
         return context
-
-
-class DistributionIdentifierAutocomplete(LoginRequiredMixin, autocomplete.Select2QuerySetView):
-    # def get_result_label(self, item):
-    #  ---- aca poner el label del resultado ----
-    #     return item.full_name
-
-    # def get_selected_result_label(self, item):
-    #  ---- aca poner el valor del resultado ----
-    #     return item.short_name
-
-    def node_id(self):
-        return self.kwargs['node_id']
-
-    def get_queryset(self):
-        node = Node.objects.get(id=self.node_id())
-        # TODO: devolver un QuerySet
-        latest = node.get_latest_catalog_upload()
-
-        return node.catalogupload_set.all()
