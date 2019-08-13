@@ -15,9 +15,11 @@ from requests import RequestException
 
 from infra.apps.catalog.exceptions.catalog_not_uploaded_error import \
     CatalogNotUploadedError
+from infra.apps.catalog.exceptions.catalog_sync_error import CatalogSyncError
 from infra.apps.catalog.forms import CatalogForm, DistributionForm
 from infra.apps.catalog.mixins import UserIsNodeAdminMixin
 from infra.apps.catalog.models import CatalogUpload, Node, Distribution
+from infra.apps.catalog.sync import sync_catalog
 from infra.apps.catalog.validator.url_or_file import URLOrFileValidator
 
 
@@ -291,4 +293,30 @@ class DistributionUploads(ListView):
         context['identifier'] = self.identifier()
         context['node_id'] = self.node_id()
         context['node_identifier'] = Node.objects.get(id=self.node_id()).identifier
+        return context
+
+
+class SyncCatalog(LoginRequiredMixin, TemplateView):
+    template_name = 'catalogs/catalog_success.html'
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        if not self.request.user.is_superuser:
+            return self.handle_no_permission()
+
+        node_id = self.kwargs['node_id']
+        try:
+            sync_catalog(node_id)
+            status = 200
+        except CatalogSyncError as error:
+            messages.error(request, error)
+            status = 400
+
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context, status=status)
+
+    def get_context_data(self, **kwargs):
+        context = super(SyncCatalog, self).get_context_data(**kwargs)
+        context['node_id'] = self.kwargs['node_id']
+
         return context

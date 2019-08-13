@@ -10,7 +10,6 @@ from infra.apps.catalog.validator.catalog_data_validator import CatalogDataValid
 from infra.apps.catalog.helpers.file_name_for_format import file_name_for_format
 from infra.apps.catalog.storage.catalog_storage import CustomCatalogStorage
 from infra.apps.catalog.constants import CATALOG_ROOT
-from infra.apps.catalog.models.node import Node
 
 
 def catalog_file_path(instance, _filename=None):
@@ -34,7 +33,7 @@ class CatalogUpload(models.Model):
         (FORMAT_XLSX, 'XLSX'),
     ]
 
-    node = models.ForeignKey(to=Node, on_delete=models.CASCADE, unique_for_date='uploaded_at')
+    node = models.ForeignKey(to='Node', on_delete=models.CASCADE, unique_for_date='uploaded_at')
     format = models.CharField(max_length=4, blank=False, null=False, choices=FORMAT_OPTIONS)
     uploaded_at = models.DateField(auto_now_add=True)
     file = models.FileField(upload_to=catalog_file_path,
@@ -63,13 +62,18 @@ class CatalogUpload(models.Model):
     @classmethod
     def create_from_url_or_file(cls, raw_data):
         data = CatalogDataValidator().get_and_validate_data(raw_data)
-        with transaction.atomic():
-            cls.objects.filter(node=data['node'], uploaded_at=timezone.now().date()).delete()
-            catalog = cls.objects.create(**data)
+        catalog = cls.upsert(data)
 
         if not data.get('file').closed:
             data.get('file').close()
 
+        return catalog
+
+    @classmethod
+    def upsert(cls, data):
+        with transaction.atomic():
+            cls.objects.filter(node=data['node'], uploaded_at=timezone.now().date()).delete()
+            catalog = cls.objects.create(**data)
         return catalog
 
     def get_datasets(self):
