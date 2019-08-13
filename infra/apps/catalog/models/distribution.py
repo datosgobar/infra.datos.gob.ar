@@ -1,8 +1,10 @@
 import os
 from pathlib import Path
 
+from django.conf import settings
 from django.core.files import File
 from django.db import models
+from django.utils import timezone
 
 from infra.apps.catalog.helpers.temp_file_from_url import temp_file_from_url
 from infra.apps.catalog.models.node import Node
@@ -18,6 +20,14 @@ def distribution_file_path(instance, _filename=None):
         # filename includes extension
         final_name += f'.{decomposed_name[-1]}'
     return os.path.join(directory, final_name)
+
+
+def get_version_from_same_day(node, dataset_identifier):
+    versions_from_today = Distribution.objects.filter(
+        identifier=dataset_identifier,
+        node=node,
+        uploaded_at=timezone.now().date())
+    return versions_from_today[0] if versions_from_today else None
 
 
 class Distribution(models.Model):
@@ -39,11 +49,18 @@ class Distribution(models.Model):
     @classmethod
     def create_from_url(cls, raw_data):
         file = File(temp_file_from_url(raw_data['url']))
-        return cls.objects.create(file=file,
-                                  node=raw_data['node'],
-                                  dataset_identifier=raw_data['dataset_identifier'],
-                                  file_name=raw_data['file_name'],
-                                  identifier=raw_data['identifier'])
+        version = get_version_from_same_day(raw_data['node'], raw_data['distribution_identifier'])
+        if version:
+            os.remove(os.path.join(settings.MEDIA_ROOT, version.file_path()))
+            os.remove(os.path.join(settings.MEDIA_ROOT, version.file_path(with_date=True)))
+        return cls.objects.update_or_create(
+            node=raw_data['node'],
+            identifier=raw_data['distribution_identifier'],
+            uploaded_at=timezone.now().date(),
+            defaults={'dataset_identifier': raw_data['dataset_identifier'],
+                      'file': file,
+                      'file_name': raw_data['file_name']}
+        )
 
     def __str__(self):
         return self.identifier

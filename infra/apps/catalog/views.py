@@ -19,6 +19,7 @@ from infra.apps.catalog.exceptions.catalog_not_uploaded_error import \
 from infra.apps.catalog.forms import CatalogForm, DistributionForm
 from infra.apps.catalog.mixins import UserIsNodeAdminMixin
 from infra.apps.catalog.models import CatalogUpload, Node, Distribution
+from infra.apps.catalog.models.distribution import get_version_from_same_day
 from infra.apps.catalog.validator.url_or_file import URLOrFileValidator
 
 
@@ -93,7 +94,7 @@ class DistributionUpserter(TemplateView):
         try:
             raw_data = {'dataset_identifier': form.cleaned_data['dataset_identifier'],
                         'file_name': form.cleaned_data['file_name'],
-                        'identifier': form.cleaned_data['distribution_identifier'],
+                        'distribution_identifier': form.cleaned_data['distribution_identifier'],
                         'node': node,
                         'url': form.cleaned_data['url']}
             self.model.create_from_url(raw_data)
@@ -104,7 +105,7 @@ class DistributionUpserter(TemplateView):
         return self.success_url(node)
 
     def create_from_file(self, node, form):
-        version = self.get_version_from_same_day(node, form.cleaned_data['distribution_identifier'])
+        version = get_version_from_same_day(node, form.cleaned_data['distribution_identifier'])
         if version:
             os.remove(os.path.join(settings.MEDIA_ROOT, version.file_path()))
             os.remove(os.path.join(settings.MEDIA_ROOT, version.file_path(with_date=True)))
@@ -118,13 +119,6 @@ class DistributionUpserter(TemplateView):
         )
 
         return self.success_url(node)
-
-    def get_version_from_same_day(self, node, dataset_identifier):
-        versions_from_today = self.model.objects.filter(
-            identifier=dataset_identifier,
-            node=node,
-            uploaded_at=timezone.now().date())
-        return versions_from_today[0] if versions_from_today else None
 
     def success_url(self, node):
         return HttpResponseRedirect(
