@@ -66,10 +66,11 @@ a.catalogs {
 
 .i-breadcrumb li {
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 400;
+    color: #707070;
 }
 
 .i-breadcrumb li a {
     color: #0072bb;
-    font-weight: 600;
+    font-weight: 500;
 }
