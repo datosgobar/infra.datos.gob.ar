@@ -2,6 +2,7 @@ from io import BytesIO
 
 import pytest
 from django.urls import reverse
+from django.utils import timezone
 
 from infra.apps.catalog.models import Distribution
 from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
@@ -116,6 +117,22 @@ def test_new_version_form_contains_previous_data(client, catalog):
     assert "125" in response_content
     assert "an_easily_findable_distribution_identifier" in response_content
     assert "an_easily_findable_file_name.csv" in response_content
+
+
+def test_generated_file_paths_for_distribution(admin_client, catalog):
+    with open_catalog('test_data.csv') as sample:
+        form_data = {'file': sample,
+                     'dataset_identifier': "125",
+                     'distribution_identifier': "125.1",
+                     'file_name': 'test_data.csv'}
+
+        admin_client.post(_add_url(catalog.node), form_data)
+    distribution = Distribution.objects.get()
+    assert str(distribution.file_path()) == \
+           'catalog/test_id/dataset/125/distribution/125.1/download/test_data.csv'
+    assert str(distribution.file_path(with_date=True)) == \
+           f'catalog/test_id/dataset/125/distribution/125.1/download/test_data-' \
+           f'{timezone.now().date()}.csv'
 
 
 def _add_url(node):
