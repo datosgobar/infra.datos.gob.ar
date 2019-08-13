@@ -5,6 +5,13 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/nodes_styles.css' %}"/>
 {% endblock %}
 
+{% block breadcrumbs %}
+    <li>
+        <a href="{% url 'catalog:nodes' %}">Nodos</a>
+    </li>
+    <li>{{ node_name }}</li>
+{% endblock %}
+
 {% block content %}
 <h1 class="text-primary">Catálogo del nodo {{ node_name }}</h1>
 

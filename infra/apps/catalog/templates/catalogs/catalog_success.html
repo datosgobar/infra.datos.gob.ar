@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 
+{% block breadcrumbs %}
+    <li>
+        <a href="{% url 'catalog:nodes' %}">Nodos</a>
+    </li>
+    <li>
+        <a href="{% url 'catalog:node' node_id %}">{{ node_identifier }}</a>
+    </li>
+    <li>
+        <a href="{% url 'catalog:add_catalog' node_id %}">Agregar Catálogo</a>
+    </li>
+{% endblock %}
+
 {% block content %}
 <h1 class="text-success">Éxito</h1>
 
