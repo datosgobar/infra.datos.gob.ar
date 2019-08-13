@@ -10,6 +10,7 @@ from django.utils import timezone
 
 from infra.apps.catalog.models import CatalogUpload
 from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
+from infra.apps.catalog.tests.helpers.temp_uploaded_file import temp_uploaded_file
 
 pytestmark = pytest.mark.django_db
 
@@ -40,11 +41,38 @@ def test_catalog_can_only_have_valid_formats(node):
         catalog.save()
 
 
-def test_create_from_url_or_file(node):
+def test_create_from_not_valid_file(node):
     with open_catalog('simple.json') as sample:
-        data_dict = {'format': 'json', 'node': node, 'file': sample}
+        temp_file = temp_uploaded_file(sample)
+        data_dict = {'format': 'json', 'node': node, 'file': temp_file}
+        with pytest.raises(ValidationError):
+            CatalogUpload.create_from_url_or_file(data_dict)
+
+
+def test_create_from_file(node):
+    filename = 'data.json'
+    with open_catalog(filename) as sample:
+        temp_file = temp_uploaded_file(sample)
+        data_dict = {'format': 'json', 'node': node, 'file': temp_file}
         catalog = CatalogUpload.create_from_url_or_file(data_dict)
-        assert catalog.file.read() == b'{"identifier": "test"}'
+        assert b'dataset' in catalog.file.read()
+
+
+def test_create_from_not_valid_url(node):
+    url = "http://www.google.com"
+    data_dict = {'format': 'json', 'node': node,
+                 'url': url}
+    with pytest.raises(ValidationError):
+        CatalogUpload.create_from_url_or_file(data_dict)
+
+
+def test_create_from_valid_url(node, requests_mock):
+    with open_catalog('data.json') as sample:
+        requests_mock.get("https://datos.gob.ar/data.json", content=sample.read())
+        data_dict = {'format': 'json', 'node': node,
+                     'url': "https://datos.gob.ar/data.json"}
+        catalog = CatalogUpload.create_from_url_or_file(data_dict)
+        assert catalog is not None
 
 
 @pytest.mark.freeze_time('2019-01-01')
@@ -83,12 +111,14 @@ def test_catalog_unique_by_date_and_node(catalog):
 
 
 def test_same_day_multiple_catalog_uploads(node):
-    with open_catalog('simple.json') as sample:
-        data_dict = {'format': 'json', 'node': node, 'file': sample}
+    with open_catalog('data.json') as sample:
+        temp_file = temp_uploaded_file(sample)
+        data_dict = {'format': 'json', 'node': node, 'file': temp_file}
         CatalogUpload.create_from_url_or_file(data_dict)
 
-    with open_catalog('simple.json') as sample:
-        data_dict = {'format': 'json', 'node': node, 'file': sample}
+    with open_catalog('data.json') as sample:
+        temp_file = temp_uploaded_file(sample)
+        data_dict = {'format': 'json', 'node': node, 'file': temp_file}
         CatalogUpload.create_from_url_or_file(data_dict)
 
     assert CatalogUpload.objects.count() == 1
@@ -111,7 +141,8 @@ def test_validate_returns_error_message_if_catalog_is_not_valid(node):
     ]
 
     with open_catalog('data.json') as sample:
-        data_dict = {'format': 'json', 'node': node, 'file': sample}
+        temp_file = temp_uploaded_file(sample)
+        data_dict = {'format': 'json', 'node': node, 'file': temp_file}
         catalog_upload = CatalogUpload.create_from_url_or_file(data_dict)
         validation_result = catalog_upload.validate()
 

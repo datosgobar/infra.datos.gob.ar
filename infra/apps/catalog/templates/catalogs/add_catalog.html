@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block breadcrumbs %}
     <li>
@@ -11,52 +12,37 @@
 {% endblock %}
 
 {% block content %}
-<h1 class="text-primary">Agregar catálogo</h1>
+    <h1 class="text-primary">Agregar catálogo</h1>
 
-{% if messages %}
-<div class="errors col-sm-6 col-sm-offset-3">
-    {% for message in messages %}
-    <div class="alert alert-{{ message.tags }} alert-danger error">
-        {{ message|safe }}
-    </div>
-    {% endfor %}
-</div>
-{% endif %}
+    {% if messages %}
+        <div class="errors col-sm-6 col-sm-offset-3">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-danger error">
+                    {{ message|safe }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 
-<div class="row">
-    <div class="col-sm-6 col-sm-offset-3">
-        <form class="custom-form" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2 form-group item-form">
-                    <strong class="col-sm-1">{{ form.format.label }}</strong>
-                    {{ form.format }}
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <form class="custom-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 form-group item-form">
+                        <strong class="text-left col-sm-12">{{ form.format.label }}</strong>
+                        {{ form.format }}
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <strong>Podés cargar un archivo, o usar una URL</strong>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2 form-group item-form">
-                    <strong class="col-sm-2">{{ form.file.label }}</strong>
-                    {{ form.file }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2 form-group item-form">
-                    <strong class="col-sm-1">{{ form.url.label }}</strong>
-                    {{ form.url }}
-                </div>
-            </div>
-            <input class="btn btn-success" type="submit" value="Agregar">
-        </form>
+                {% include 'file_or_url.html' %}
+
+                <input class="btn btn-success" type="submit" value="Agregar">
+            </form>
+        </div>
     </div>
-</div>
-<br>
-<div class="row">
-    <a class="btn btn-primary btn-sm" href="{% url 'catalog:node' node_id=node_id %}">Volver</a>
-</div>
+    <br>
+    <div class="row">
+        <a class="btn btn-primary btn-sm" href="{% url 'catalog:node' node_id=node_id %}">Volver</a>
+    </div>
+    <script type="application/javascript" src="{% static 'file_or_url.js' %}"></script>
 {% endblock %}
