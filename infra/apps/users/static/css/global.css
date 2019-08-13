@@ -37,7 +37,7 @@ header .header-container .logout {
 }
 
 .main-content {
- padding-top: 60px;
+ padding-top: 15px;
  text-align: center;
 }
 
@@ -58,6 +58,10 @@ a.catalogs {
     border: 1px solid #bfbfbf;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
+
+.form-control.form-control-select-two {
+    padding: 0 8px;
 }
 
 #file-field input {

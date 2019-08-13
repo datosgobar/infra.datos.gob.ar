@@ -38,8 +38,10 @@ class DistributionForm(forms.ModelForm):
         node = kwargs.pop('node')
         super(DistributionForm, self).__init__(*args, **kwargs)
         latest = node.get_latest_catalog_upload()
-        datasets = [(x['identifier'], x['identifier']) for x in latest.get_datasets()]
+        datasets = [(dataset['identifier'], dataset['title'] + " - " + dataset['identifier'])
+                    for dataset in latest.get_datasets()]
         self.fields['dataset_identifier'] = \
             forms.ChoiceField(choices=datasets, initial=self.instance.dataset_identifier,
                               widget=forms.Select(attrs={'class': 'form-control'}))
+
         self.fields['file_name'].initial = self.instance.file_name
