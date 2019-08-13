@@ -1,0 +1,2 @@
+class CatalogSyncError(RuntimeError):
+    pass

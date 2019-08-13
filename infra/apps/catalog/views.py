@@ -15,6 +15,7 @@ from requests import RequestException
 
 from infra.apps.catalog.exceptions.catalog_not_uploaded_error import \
     CatalogNotUploadedError
+from infra.apps.catalog.exceptions.catalog_sync_error import CatalogSyncError
 from infra.apps.catalog.forms import CatalogForm, DistributionForm
 from infra.apps.catalog.mixins import UserIsNodeAdminMixin
 from infra.apps.catalog.models import CatalogUpload, Node, Distribution
@@ -298,11 +299,13 @@ class SyncCatalog(LoginRequiredMixin, TemplateView):
             return self.handle_no_permission()
 
         node_id = self.kwargs['node_id']
-        errors = sync_catalog(node_id)
-        for error in errors:
+        try:
+            sync_catalog(node_id)
+            status = 200
+        except CatalogSyncError as error:
             messages.error(request, error)
+            status = 400
 
-        status = 200 if not errors else 400
         context = self.get_context_data(**kwargs)
         return self.render_to_response(context, status=status)
 
