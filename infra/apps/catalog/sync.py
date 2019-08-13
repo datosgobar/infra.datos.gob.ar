@@ -11,7 +11,8 @@ def sync_catalog(node_id):
         raise CatalogSyncError("Catálogo consultado no existe")
 
     try:
-        node.sync()
+        catalog = node.sync()
+        return catalog.validate()
     except ValidationError as e:
         raise CatalogSyncError(f"Error de lectura del catálogo: {str(e)}")
     except FileNotFoundError:

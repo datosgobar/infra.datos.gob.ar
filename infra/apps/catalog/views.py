@@ -306,7 +306,9 @@ class SyncCatalog(LoginRequiredMixin, TemplateView):
 
         node_id = self.kwargs['node_id']
         try:
-            sync_catalog(node_id)
+            errors = sync_catalog(node_id)
+            for error in errors:
+                messages.info(request, error)
             status = 200
         except CatalogSyncError as error:
             messages.error(request, error)
