@@ -67,3 +67,17 @@ a.catalogs {
 #file-field input {
     margin-top: 12px;
 }
+.i-breadcrumb {
+    padding-left: 40px;
+}
+
+.i-breadcrumb li {
+    font-size: 18px;
+    font-weight: 400;
+    color: #707070;
+}
+
+.i-breadcrumb li a {
+    color: #0072bb;
+    font-weight: 500;
+}

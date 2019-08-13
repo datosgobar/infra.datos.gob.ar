@@ -5,6 +5,19 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/nodes_styles.css' %}"/>
 {% endblock %}
 
+{% block breadcrumbs %}
+    <li>
+        <a href="{% url 'catalog:nodes' %}">Nodos</a>
+    </li>
+    <li>
+        <a href="{% url 'catalog:node' node_id %}">{{ node_identifier }}</a>
+    </li>
+    <li>
+        <a href="{% url 'catalog:node_distributions' node_id %}">Distribuciones</a>
+    </li>
+    <li>{{ identifier }}</li>
+{% endblock %}
+
 {% block content %}
 
 <h1 class="text-primary">Distribución {{ identifier }} ({{ node_identifier }})</h1>
