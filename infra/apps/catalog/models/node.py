@@ -31,4 +31,4 @@ class Node(models.Model):
             'format': 'json',
         })
 
-        return CatalogUpload.update_or_create(catalog_data)
+        return CatalogUpload.upsert(catalog_data)

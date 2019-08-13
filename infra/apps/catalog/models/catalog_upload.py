@@ -62,7 +62,7 @@ class CatalogUpload(models.Model):
     @classmethod
     def create_from_url_or_file(cls, raw_data):
         data = CatalogDataValidator().get_and_validate_data(raw_data)
-        catalog = cls.update_or_create(data)
+        catalog = cls.upsert(data)
 
         if not data.get('file').closed:
             data.get('file').close()
@@ -70,7 +70,7 @@ class CatalogUpload(models.Model):
         return catalog
 
     @classmethod
-    def update_or_create(cls, data):
+    def upsert(cls, data):
         with transaction.atomic():
             cls.objects.filter(node=data['node'], uploaded_at=timezone.now().date()).delete()
             catalog = cls.objects.create(**data)
