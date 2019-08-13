@@ -18,6 +18,7 @@ from infra.apps.catalog.exceptions.catalog_not_uploaded_error import \
 from infra.apps.catalog.forms import CatalogForm, DistributionForm
 from infra.apps.catalog.mixins import UserIsNodeAdminMixin
 from infra.apps.catalog.models import CatalogUpload, Node, Distribution
+from infra.apps.catalog.sync import sync_catalog
 from infra.apps.catalog.validator.url_or_file import URLOrFileValidator
 
 
@@ -293,20 +294,20 @@ class SyncCatalog(LoginRequiredMixin, TemplateView):
     http_method_names = ['post']
 
     def post(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        return self.render_to_response(context)
-
-    def get_context_data(self, **kwargs):
         if not self.request.user.is_superuser:
             return self.handle_no_permission()
 
         node_id = self.kwargs['node_id']
-        node = Node.objects.get(pk=node_id)
-        catalog = node.sync()
-        for message in catalog.validate():
-            messages.info(self.request, message)
+        errors = sync_catalog(node_id)
+        for error in errors:
+            messages.error(request, error)
 
+        status = 200 if not errors else 400
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context, status=status)
+
+    def get_context_data(self, **kwargs):
         context = super(SyncCatalog, self).get_context_data(**kwargs)
-        context['node_id'] = node_id
+        context['node_id'] = self.kwargs['node_id']
 
         return context
