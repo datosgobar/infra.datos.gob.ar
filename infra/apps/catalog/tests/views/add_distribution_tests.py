@@ -87,7 +87,7 @@ def test_create_from_file(admin_client, catalog):
     assert Distribution.objects.get().identifier == "125.1"
 
 
-def test_post_new_version_twice_generates_two_instances(client, catalog):
+def test_posting_new_version_twice_persists_only_one_instance(client, catalog):
     with open_catalog('test_data.csv') as sample:
         form_data = {'file': sample,
                      'dataset_identifier': "125",
@@ -98,7 +98,7 @@ def test_post_new_version_twice_generates_two_instances(client, catalog):
 
         sample.seek(0)
         client.post(_add_version_url(catalog.node, form_data['distribution_identifier']), form_data)
-    assert Distribution.objects.count() == 2
+    assert Distribution.objects.count() == 1
 
 
 def test_new_version_form_contains_previous_data(client, catalog):

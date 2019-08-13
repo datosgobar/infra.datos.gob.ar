@@ -53,7 +53,7 @@ class Distribution(models.Model):
         if version:
             os.remove(os.path.join(settings.MEDIA_ROOT, version.file_path()))
             os.remove(os.path.join(settings.MEDIA_ROOT, version.file_path(with_date=True)))
-        return cls.objects.update_or_create(
+        distribution, _ = cls.objects.update_or_create(
             node=raw_data['node'],
             identifier=raw_data['distribution_identifier'],
             uploaded_at=timezone.now().date(),
@@ -61,6 +61,7 @@ class Distribution(models.Model):
                       'file': file,
                       'file_name': raw_data['file_name']}
         )
+        return distribution
 
     def __str__(self):
         return self.identifier
