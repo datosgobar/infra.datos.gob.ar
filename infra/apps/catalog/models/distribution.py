@@ -39,8 +39,8 @@ class Distribution(models.Model):
         self.file.storage.save_as_latest(self)
 
     @classmethod
-    def create_from_url(cls, raw_data):
-        file = File(temp_file_from_url(raw_data['url']))
+    def update_or_create(cls, raw_data):
+        file = raw_data.get('file') or File(temp_file_from_url(raw_data['url']))
         version = cls.get_version_from_same_day(raw_data['node'],
                                                 raw_data['distribution_identifier'])
         if version:
