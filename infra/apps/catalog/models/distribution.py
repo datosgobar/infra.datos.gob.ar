@@ -1,7 +1,6 @@
 import os
 from pathlib import Path
 
-from django.conf import settings
 from django.core.files import File
 from django.db import models
 from django.utils import timezone

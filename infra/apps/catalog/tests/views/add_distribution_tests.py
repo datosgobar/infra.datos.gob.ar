@@ -128,11 +128,11 @@ def test_generated_file_paths_for_distribution(admin_client, catalog):
 
         admin_client.post(_add_url(catalog.node), form_data)
     distribution = Distribution.objects.get()
-    assert str(distribution.file_path()) == \
-           'catalog/test_id/dataset/125/distribution/125.1/download/test_data.csv'
-    assert str(distribution.file_path(with_date=True)) == \
-           f'catalog/test_id/dataset/125/distribution/125.1/download/test_data-' \
-           f'{timezone.now().date()}.csv'
+    assert str(distribution.file_path()) == 'catalog/test_id/dataset/125/distribution/125.1/' \
+                                            'download/test_data.csv'
+    assert str(distribution.file_path(with_date=True)) == f'catalog/test_id/dataset/125/' \
+                                                          f'distribution/125.1/download/test_data' \
+                                                          f'-{timezone.now().date()}.csv'
 
 
 def _add_url(node):
