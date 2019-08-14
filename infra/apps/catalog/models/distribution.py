@@ -5,6 +5,7 @@ from django.core.files import File
 from django.db import models
 from django.utils import timezone
 
+from infra.apps.catalog.context_managers import distribution_file_handler
 from infra.apps.catalog.helpers.temp_file_from_url import temp_file_from_url
 from infra.apps.catalog.models.node import Node
 from infra.apps.catalog.storage.distribution_storage import \
@@ -40,14 +41,17 @@ class Distribution(models.Model):
     @classmethod
     def update_or_create(cls, raw_data):
         file = raw_data.get('file') or File(temp_file_from_url(raw_data['url']))
-        distribution, _ = cls.objects.update_or_create(
-            node=raw_data['node'],
-            identifier=raw_data['distribution_identifier'],
-            uploaded_at=timezone.now().date(),
-            defaults={'dataset_identifier': raw_data['dataset_identifier'],
-                      'file': file,
-                      'file_name': raw_data['file_name']}
-        )
+        same_day_version = cls.get_version_from_same_day(raw_data['node'],
+                                                raw_data['distribution_identifier'])
+        with distribution_file_handler(same_day_version, raw_data['file_name']):
+            distribution, _ = cls.objects.update_or_create(
+                node=raw_data['node'],
+                identifier=raw_data['distribution_identifier'],
+                uploaded_at=timezone.now().date(),
+                defaults={'dataset_identifier': raw_data['dataset_identifier'],
+                          'file': file,
+                          'file_name': raw_data['file_name']}
+            )
         return distribution
 
     @classmethod
