@@ -42,7 +42,7 @@ class Distribution(models.Model):
     def update_or_create(cls, raw_data):
         file = raw_data.get('file') or File(temp_file_from_url(raw_data['url']))
         same_day_version = cls.get_version_from_same_day(raw_data['node'],
-                                                raw_data['distribution_identifier'])
+                                                         raw_data['distribution_identifier'])
         with distribution_file_handler(same_day_version, raw_data['file_name']):
             distribution, _ = cls.objects.update_or_create(
                 node=raw_data['node'],
