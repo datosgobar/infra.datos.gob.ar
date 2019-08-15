@@ -14,3 +14,7 @@ def catalog_path(identifier, file_name):
 def latest_json_catalog_path(node_id):
     return os.path.join(settings.MEDIA_ROOT,
                         catalog_path(node_id, 'data.json'))
+
+
+def absolute_catalog_path(identifier, file_name):
+    return os.path.join(settings.MEDIA_ROOT, catalog_path(identifier, file_name))
