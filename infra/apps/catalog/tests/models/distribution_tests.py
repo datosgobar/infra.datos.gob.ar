@@ -41,10 +41,10 @@ def test_read_from_url(catalog, requests_mock):
 
     raw_data = {'dataset_identifier': '125',
                 'file_name': 'data.csv',
-                'identifier': "125.1",
+                'distribution_identifier': "125.1",
                 'node': catalog.node,
                 'url': url}
-    distribution = Distribution.create_from_url(raw_data)
+    distribution = Distribution.update_or_create(raw_data)
     assert distribution.file.read() == b'test_content'
 
 

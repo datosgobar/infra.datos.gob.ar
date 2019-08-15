@@ -92,28 +92,18 @@ class DistributionUpserter(TemplateView):
         if file and url:
             raise ValidationError("No se pueden ingresar un archivo y una URL a la vez.")
 
-    def create_from_url(self, request, context, node, form):
+    def generate_distribution(self, form, node, request, context):
         try:
             raw_data = {'dataset_identifier': form.cleaned_data['dataset_identifier'],
                         'file_name': form.cleaned_data['file_name'],
-                        'identifier': form.cleaned_data['distribution_identifier'],
+                        'distribution_identifier': form.cleaned_data['distribution_identifier'],
+                        'file': form.cleaned_data['file'],
                         'node': node,
                         'url': form.cleaned_data['url']}
-            self.model.create_from_url(raw_data)
+            self.model.update_or_create(raw_data)
         except RequestException:
             messages.error(request, 'Error descargando la distribución desde la URL especificada')
             return self.post_error(context)
-
-        return self.success_url(node)
-
-    def create_from_file(self, node, form):
-        self.model.objects.create(
-            node=node,
-            identifier=form.cleaned_data['distribution_identifier'],
-            file=form.cleaned_data['file'],
-            dataset_identifier=form.cleaned_data['dataset_identifier'],
-            file_name=form.cleaned_data['file_name']
-        )
 
         return self.success_url(node)
 
@@ -147,10 +137,7 @@ class AddDistributionView(DistributionUpserter):
         if not self._valid_form(form, request):
             return self.post_error(context)
 
-        if form.cleaned_data['url']:
-            return self.create_from_url(request, context, node, form)
-
-        return self.create_from_file(node, form)
+        return self.generate_distribution(form, node, request, context)
 
 
 class AddDistributionVersionView(DistributionUpserter):
@@ -190,10 +177,7 @@ class AddDistributionVersionView(DistributionUpserter):
         if not self._valid_form(form, request):
             return self.post_error(context)
 
-        if form.cleaned_data['url']:
-            return self.create_from_url(request, context, node, form)
-
-        return self.create_from_file(node, form)
+        return self.generate_distribution(form, node, request, context)
 
     def get_last_distribution(self, dist_id, node):
         distribution = self.model.objects.filter(identifier=dist_id, node=node). \

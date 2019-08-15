@@ -3,7 +3,9 @@ from pathlib import Path
 
 from django.core.files import File
 from django.db import models
+from django.utils import timezone
 
+from infra.apps.catalog.context_managers import distribution_file_handler
 from infra.apps.catalog.helpers.temp_file_from_url import temp_file_from_url
 from infra.apps.catalog.models.node import Node
 from infra.apps.catalog.storage.distribution_storage import \
@@ -37,13 +39,28 @@ class Distribution(models.Model):
         self.file.storage.save_as_latest(self)
 
     @classmethod
-    def create_from_url(cls, raw_data):
-        file = File(temp_file_from_url(raw_data['url']))
-        return cls.objects.create(file=file,
-                                  node=raw_data['node'],
-                                  dataset_identifier=raw_data['dataset_identifier'],
-                                  file_name=raw_data['file_name'],
-                                  identifier=raw_data['identifier'])
+    def update_or_create(cls, raw_data):
+        file = raw_data.get('file') or File(temp_file_from_url(raw_data['url']))
+        same_day_version = cls.get_version_from_same_day(raw_data['node'],
+                                                         raw_data['distribution_identifier'])
+        with distribution_file_handler(same_day_version, raw_data['file_name']):
+            distribution, _ = cls.objects.update_or_create(
+                node=raw_data['node'],
+                identifier=raw_data['distribution_identifier'],
+                uploaded_at=timezone.now().date(),
+                defaults={'dataset_identifier': raw_data['dataset_identifier'],
+                          'file': file,
+                          'file_name': raw_data['file_name']}
+            )
+        return distribution
+
+    @classmethod
+    def get_version_from_same_day(cls, node, distribution_identifier):
+        versions_from_today = Distribution.objects.filter(
+            identifier=distribution_identifier,
+            node=node,
+            uploaded_at=timezone.now().date())
+        return versions_from_today[0] if versions_from_today else None
 
     def __str__(self):
         return self.identifier
@@ -52,6 +69,6 @@ class Distribution(models.Model):
         path = Path(self.file.name)
         return path.name
 
-    def file_path(self):
+    def file_path(self, with_date=False):
         path = Path(self.file.name)
-        return path.with_name(self.file_name)
+        return path.with_name(self.file_name_with_date() if with_date else self.file_name)
