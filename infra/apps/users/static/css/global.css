@@ -12,8 +12,6 @@ header {
   height: 75px;
   margin-left: 0;
   margin-right: 0;
-  padding-left: 15px;
-  padding-right: 15px;
   top: 0;
   width: 100%;
   z-index: 4;
@@ -25,6 +23,7 @@ header .header-container {
   width: 95%;
   align-content: center;
   display: flex;
+  padding: 0 15px;
 }
 
 header .header-container img {
