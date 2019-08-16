@@ -68,7 +68,6 @@ class TestCatalogViews(TestCase):
                 reverse('catalog:add_catalog', kwargs={'node_id': self.node.id}),
                 form_data,
                 follow=True)
-            print(response)
             self.assertIsNotNone(response.context['messages'])
 
     def test_view_messages_includes_error_messages_from_validator(self):

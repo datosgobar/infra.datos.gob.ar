@@ -10,7 +10,8 @@ from pydatajson.writers import write_xlsx_catalog, write_json_catalog
 
 from infra.apps.catalog.validator.catalog_data_validator import CatalogDataValidator
 from infra.apps.catalog.helpers.file_name_for_format import file_name_for_format
-from infra.apps.catalog.storage.catalog_storage import CustomCatalogStorage
+from infra.apps.catalog.storage.catalog_storage import CustomCatalogStorage, CustomJsonCatalogStorage, \
+    CustomExcelCatalogStorage
 from infra.apps.catalog.constants import CATALOG_ROOT
 
 
@@ -47,10 +48,10 @@ class CatalogUpload(models.Model):
     format = models.CharField(max_length=4, blank=False, null=False, choices=FORMAT_OPTIONS)
     uploaded_at = models.DateField(auto_now_add=True)
     json_file = models.FileField(upload_to=json_catalog_file_path,
-                                 storage=CustomCatalogStorage(),
+                                 storage=CustomJsonCatalogStorage(),
                                  null=True, blank=True)
     xlsx_file = models.FileField(upload_to=xlsx_catalog_file_path,
-                                 storage=CustomCatalogStorage(),
+                                 storage=CustomExcelCatalogStorage(),
                                  null=True, blank=True)
 
     def __init__(self, *args, **kwargs):
@@ -60,43 +61,46 @@ class CatalogUpload(models.Model):
     @property
     def datajson(self):
         if not self._datajson:
-            self._datajson = DataJson(self.json_file.file.name)
+            file_field = self.json_file if self.json_file else self.xlsx_file
+            self._datajson = DataJson(file_field.file.name)
 
         return self._datajson
 
     def __str__(self):
         return self.node.identifier
 
-    def clean(self):
-        # No existen ninguno de los dos archivos aun (no hubo save)
-        if not self.json_file:
-            data = DataJson(self.xlsx_file.path)
-            path = os.path.join(settings.MEDIA_ROOT, xlsx_catalog_file_path(self))
-            write_json_catalog(data, path)
-            with open(path, 'r') as json_file:
-                self.json_file = File(json_file)
-
-        elif not self.xlsx_file:
-            data = DataJson(self.json_file.path)
-            path = os.path.join(settings.MEDIA_ROOT, json_catalog_file_path(self))
-            write_xlsx_catalog(data, path)
-            with open(path, 'r') as xlsx_file:
-                self.xlsx_file = File(xlsx_file)
-
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         self.full_clean()
         super(CatalogUpload, self).save(force_insert, force_update, using, update_fields)
+        if not self.json_file:
+            data = DataJson(os.path.join(settings.MEDIA_ROOT, xlsx_catalog_file_path(self)))
+            path = os.path.join(settings.MEDIA_ROOT, json_catalog_file_path(self))
+            write_json_catalog(data, path)
+            with open(path, 'rb+') as json_file:
+                self.json_file = File(json_file)
+        # este caso (catalogo subido como archivo, formato json, creando manualmente el xlsx) funciona!
+        elif not self.xlsx_file:
+            data = DataJson(os.path.join(settings.MEDIA_ROOT, json_catalog_file_path(self)))
+            path = os.path.join(settings.MEDIA_ROOT, xlsx_catalog_file_path(self))
+            write_xlsx_catalog(data, path)
+            with open(path, 'rb+') as xlsx_file:
+                self.xlsx_file.save(xlsx_file.name, File(xlsx_file))
+                self.xlsx_file.storage.save_as_latest(self)
+                self.json_file.storage.save_as_latest(self)
+
+
         self.json_file.storage.save_as_latest(self)
-        self.xlsx_file.storage.save_as_latest(self)
+        #self.xlsx_file.storage.save_as_latest(self)
 
     @classmethod
     def create_from_url_or_file(cls, raw_data):
         data = CatalogDataValidator().get_and_validate_data(raw_data)
         catalog = cls.upsert(data)
 
-        if not data.get('file').closed:
-            data.get('file').close()
+        file_field = 'json_file' if data['format'] == 'json' else 'xlsx_file'
+        if not data.get(file_field).closed:
+            data.get(file_field).close()
 
         return catalog
 
@@ -112,7 +116,8 @@ class CatalogUpload(models.Model):
 
     def validate(self):
         error_messages = []
-        file_path = os.path.join(settings.MEDIA_ROOT, self.json_file.name)
+        file_field = self.json_file if self.json_file else self.xlsx_file
+        file_path = os.path.join(settings.MEDIA_ROOT, file_field.name)
 
         try:
             data_json = DataJson(file_path)
