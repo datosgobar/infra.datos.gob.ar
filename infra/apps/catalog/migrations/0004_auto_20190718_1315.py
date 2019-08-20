@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='catalogupload',
             name='file',
-            field=models.FileField(default=(b'#'), storage=infra.apps.catalog.storage.catalog_storage.CustomCatalogStorage(), upload_to=infra.apps.catalog.models.catalog_upload.catalog_file_path),
+            field=models.FileField(default=(b'#'), storage='infra.apps.catalog.storage.catalog_storage.CustomCatalogStorage', upload_to=infra.apps.catalog.models.catalog_upload.catalog_file_path),
             preserve_default=False,
         ),
     ]

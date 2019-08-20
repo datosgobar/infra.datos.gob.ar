@@ -9,6 +9,8 @@ def temp_file_from_url(url):
 
     file_content = response.content
     name = response.url.rsplit('/', maxsplit=1)[-1]
+    if not name:
+        name = response.url.rsplit('/')[-2]
     fd = open(f'/{tempfile.gettempdir()}/{name}', 'wb+')
     fd.write(file_content)
     fd.seek(0)

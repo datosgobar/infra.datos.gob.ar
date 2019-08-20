@@ -19,11 +19,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='catalogupload',
             name='json_file',
-            field=models.FileField(blank=True, null=True, storage=infra.apps.catalog.storage.catalog_storage.CustomCatalogStorage(), upload_to=infra.apps.catalog.models.catalog_upload.json_catalog_file_path),
+            field=models.FileField(blank=True, null=True, storage=infra.apps.catalog.storage.catalog_storage.CustomJsonCatalogStorage(), upload_to=infra.apps.catalog.models.catalog_upload.json_catalog_file_path),
         ),
         migrations.AddField(
             model_name='catalogupload',
             name='xlsx_file',
-            field=models.FileField(blank=True, null=True, storage=infra.apps.catalog.storage.catalog_storage.CustomCatalogStorage(), upload_to=infra.apps.catalog.models.catalog_upload.xlsx_catalog_file_path),
+            field=models.FileField(blank=True, null=True, storage=infra.apps.catalog.storage.catalog_storage.CustomExcelCatalogStorage(), upload_to=infra.apps.catalog.models.catalog_upload.xlsx_catalog_file_path),
         ),
     ]
