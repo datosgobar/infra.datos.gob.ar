@@ -88,3 +88,16 @@ class TestCatalogViews(TestCase):
 
             messages = [str(message) for message in list(response.context['messages'])]
             self.assertCountEqual(error_messages, messages)
+
+    def test_created_catalog_has_both_file_formats(self):
+        with open_catalog('valid_data.json') as sample:
+            form_data = {'format': 'json',
+                         'node': self.node.identifier,
+                         'file': sample}
+            self.client.post(
+                reverse('catalog:add_catalog', kwargs={'node_id': self.node.id}),
+                form_data)
+            self.assertEqual(1, CatalogUpload.objects.count())
+            catalog = CatalogUpload.objects.first()
+            self.assertIsNotNone(catalog.json_file)
+            self.assertIsNotNone(catalog.xlsx_file)
