@@ -6,9 +6,9 @@ from django.core.files import File
 from django.db import models, transaction
 from django.utils import timezone
 from pydatajson import DataJson
-from pydatajson.writers import write_xlsx_catalog, write_json_catalog
 
 from infra.apps.catalog.constants import CATALOG_ROOT
+from infra.apps.catalog.helpers.create_new_file import create_new_file
 from infra.apps.catalog.helpers.file_name_for_format import file_name_for_format
 from infra.apps.catalog.storage.catalog_storage import CustomJsonCatalogStorage, \
     CustomExcelCatalogStorage
@@ -75,15 +75,7 @@ class CatalogUpload(models.Model):
         super(CatalogUpload, self).save(force_insert, force_update, using, update_fields)
 
         if not self.json_file or not self.xlsx_file:
-            get_existing_file_path = json_catalog_file_path if self.json_file \
-                else xlsx_catalog_file_path
-            get_new_file_path = xlsx_catalog_file_path if self.json_file \
-                else json_catalog_file_path
-            write_new_file = write_xlsx_catalog if self.json_file else write_json_catalog
-
-            data = DataJson(os.path.join(settings.MEDIA_ROOT, get_existing_file_path(self)))
-            path = os.path.join(settings.MEDIA_ROOT, get_new_file_path(self))
-            write_new_file(data, path)
+            path = create_new_file(self)
             with open(path, 'rb+') as new_file:
                 if self.json_file:
                     self.xlsx_file.save(new_file.name, File(new_file))
