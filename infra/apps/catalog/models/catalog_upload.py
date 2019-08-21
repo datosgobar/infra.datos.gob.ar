@@ -2,7 +2,6 @@
 import os
 
 from django.conf import settings
-from django.core.files import File
 from django.db import models, transaction
 from django.utils import timezone
 from pydatajson import DataJson
@@ -59,14 +58,7 @@ class CatalogUpload(models.Model):
         super(CatalogUpload, self).save(force_insert, force_update, using, update_fields)
 
         if not self.json_file or not self.xlsx_file:
-            path = create_new_file(self)
-            with open(path, 'rb+') as new_file:
-                if self.json_file:
-                    self.xlsx_file.save(new_file.name, File(new_file))
-                else:
-                    self.json_file.save(new_file.name, File(new_file))
-                self.xlsx_file.storage.save_as_latest(self)
-                self.json_file.storage.save_as_latest(self)
+            create_new_file(self)
 
     @classmethod
     def create_from_url_or_file(cls, raw_data):
