@@ -1,6 +1,12 @@
 Versiones
 =========
 
+0.0.4 (21-08-19)
+-------------------
+
+* Fix a subidas de distribuciones el mismo día no pisandose
+
+
 0.0.3 (13-08-19)
 -------------------
 
