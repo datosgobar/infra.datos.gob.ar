@@ -7,28 +7,12 @@ from django.db import models, transaction
 from django.utils import timezone
 from pydatajson import DataJson
 
-from infra.apps.catalog.constants import CATALOG_ROOT
+from infra.apps.catalog.helpers.catalog_file_paths import json_catalog_file_path, \
+    xlsx_catalog_file_path
 from infra.apps.catalog.helpers.create_new_file import create_new_file
-from infra.apps.catalog.helpers.file_name_for_format import file_name_for_format
 from infra.apps.catalog.storage.catalog_storage import CustomJsonCatalogStorage, \
     CustomExcelCatalogStorage
 from infra.apps.catalog.validator.catalog_data_validator import CatalogDataValidator
-
-
-def catalog_file_path(instance, file_format, _filename=None):
-    file_name = file_name_for_format(file_format)
-
-    return os.path.join(CATALOG_ROOT,
-                        instance.node.identifier,
-                        f'{file_name}-{instance.uploaded_at}.{file_format}')
-
-
-def json_catalog_file_path(instance, _filename=None):
-    return catalog_file_path(instance, 'json')
-
-
-def xlsx_catalog_file_path(instance, _filename=None):
-    return catalog_file_path(instance, 'xlsx')
 
 
 class CatalogUpload(models.Model):

@@ -4,7 +4,8 @@ from django.conf import settings
 from pydatajson import DataJson
 from pydatajson.writers import write_xlsx_catalog, write_json_catalog
 
-from infra.apps.catalog.models.catalog_upload import json_catalog_file_path, xlsx_catalog_file_path
+from infra.apps.catalog.helpers.catalog_file_paths import json_catalog_file_path, \
+    xlsx_catalog_file_path
 
 
 def create_new_file(instance):
