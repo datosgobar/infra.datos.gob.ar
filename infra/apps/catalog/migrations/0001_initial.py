@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('identifier', models.CharField(default='', max_length=20, unique=True)),
                 ('format', models.CharField(max_length=4)),
-                ('file', models.FileField(blank=True, null=True, storage='infra.apps.catalog.storage.catalog_storage.CutomCatalogStorage', upload_to=catalog_file_path)),
+                ('file', models.FileField(blank=True, null=True, storage='infra.apps.catalog.storage.catalog_storage.CustomCatalogStorage', upload_to=catalog_file_path)),
             ],
         ),
     ]

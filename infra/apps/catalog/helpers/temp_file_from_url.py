@@ -1,3 +1,4 @@
+import os
 import tempfile
 
 import requests
@@ -8,7 +9,7 @@ def temp_file_from_url(url):
     response.raise_for_status()
 
     file_content = response.content
-    name = response.url.rsplit('/', maxsplit=1)[-1]
+    name = os.path.basename(response.url)
     if not name:
         name = response.url.rsplit('/')[-2]
     fd = open(f'/{tempfile.gettempdir()}/{name}', 'wb+')
