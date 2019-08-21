@@ -2,16 +2,33 @@
 import os
 
 from django.conf import settings
+from django.core.files import File
 from django.db import models, transaction
 from django.utils import timezone
 from pydatajson import DataJson
+from pydatajson.writers import write_xlsx_catalog, write_json_catalog
 
-from infra.apps.catalog.helpers.catalog_file_paths import json_catalog_file_path, \
-    xlsx_catalog_file_path
-from infra.apps.catalog.helpers.create_new_file import create_new_file
+from infra.apps.catalog.constants import CATALOG_ROOT
+from infra.apps.catalog.helpers.file_name_for_format import file_name_for_format
 from infra.apps.catalog.storage.catalog_storage import CustomJsonCatalogStorage, \
     CustomExcelCatalogStorage
 from infra.apps.catalog.validator.catalog_data_validator import CatalogDataValidator
+
+
+def catalog_file_path(instance, file_format, _filename=None):
+    file_name = file_name_for_format(file_format)
+
+    return os.path.join(CATALOG_ROOT,
+                        instance.node.identifier,
+                        f'{file_name}-{instance.uploaded_at}.{file_format}')
+
+
+def json_catalog_file_path(instance, _filename=None):
+    return catalog_file_path(instance, 'json')
+
+
+def xlsx_catalog_file_path(instance, _filename=None):
+    return catalog_file_path(instance, 'xlsx')
 
 
 class CatalogUpload(models.Model):
@@ -58,7 +75,7 @@ class CatalogUpload(models.Model):
         super(CatalogUpload, self).save(force_insert, force_update, using, update_fields)
 
         if not self.json_file or not self.xlsx_file:
-            create_new_file(self)
+            self.create_new_file()
 
     @classmethod
     def create_from_url_or_file(cls, raw_data):
@@ -101,3 +118,21 @@ class CatalogUpload(models.Model):
             error_messages = [error['message'] for error in errors]
 
         return error_messages
+
+    def create_new_file(self):
+        get_existing_file_path = json_catalog_file_path if self.json_file \
+            else xlsx_catalog_file_path
+        get_new_file_path = xlsx_catalog_file_path if self.json_file \
+            else json_catalog_file_path
+        write_new_file = write_xlsx_catalog if self.json_file else write_json_catalog
+
+        data = DataJson(os.path.join(settings.MEDIA_ROOT, get_existing_file_path(self)))
+        path = os.path.join(settings.MEDIA_ROOT, get_new_file_path(self))
+        write_new_file(data, path)
+        with open(path, 'rb+') as new_file:
+            if self.json_file:
+                self.xlsx_file.save(new_file.name, File(new_file))
+            else:
+                self.json_file.save(new_file.name, File(new_file))
+        self.xlsx_file.storage.save_as_latest(self)
+        self.json_file.storage.save_as_latest(self)
