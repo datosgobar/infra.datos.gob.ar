@@ -18,9 +18,9 @@ def catalog():
 
 @pytest.fixture
 def xlsx_catalog():
-    with open_catalog('catalogo-justicia.xlsx') as catalog_fd:
+    with open_catalog('catalogo-justicia_valido.xlsx') as catalog_fd:
         model = CatalogUpload(format=CatalogUpload.FORMAT_XLSX,
-                              file=File(catalog_fd),
+                              xlsx_file=File(catalog_fd),
                               node=_node())
         model.save()
 
@@ -102,7 +102,7 @@ def _user():
 def _catalog():
     with open_catalog('data.json') as catalog_fd:
         model = CatalogUpload(format=CatalogUpload.FORMAT_JSON,
-                              file=File(catalog_fd),
+                              json_file=File(catalog_fd),
                               node=_node())
         model.save()
 

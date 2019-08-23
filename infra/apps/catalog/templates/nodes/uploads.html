@@ -20,16 +20,24 @@
         <div class="row">
             <div class="col-sm-6">
                 <h3 class="text-primary">Catálogo actual</h3>
+                {% if has_json %}
                     <a class="btn btn-link" href="{{ base_url }}{{ node_name }}/data.json" download="data.json">data.json</a>
-                    {% if has_xlsx %}
-                        <a class="btn btn-link" href="{{ base_url }}{{ node_name }}/catalog.xlsx" download="catalog.xlsx">catalog.xlsx</a>
-                    {% endif %}
+                {% endif %}
+                {% if has_xlsx %}
+                    <a class="btn btn-link" href="{{ base_url }}{{ node_name }}/catalog.xlsx" download="catalog.xlsx">catalog.xlsx</a>
+                {% endif %}
+                {% if not has_json and not has_xlsx %}
+                    <small>No hay catálogos subidos</small>
+                {% endif %}
             </div>
 
             <div class="col-sm-6">
                 <h3 class="text-primary">Versiones anteriores</h3>
                     {% for catalog in object_list %}
-                        <a class="btn btn-primary btn-sm" href="/{% if 'media' in base_url %}media/{% endif %}{{ catalog.file }}" download="{{ catalog.file }}">{{ catalog.uploaded_at|date:"Y-m-d" }} ({{ catalog.format }}) </a>
+                        <a class="btn btn-primary btn-sm" href="/{% if 'media' in base_url %}media/{% endif %}{{ catalog.json_file }}" download="{{ catalog.json_file }}">{{ catalog.uploaded_at|date:"Y-m-d" }} (JSON) </a>
+                        <a class="btn btn-primary btn-sm" href="/{% if 'media' in base_url %}media/{% endif %}{{ catalog.xlsx_file }}" download="{{ catalog.xlsx_file }}">{{ catalog.uploaded_at|date:"Y-m-d" }} (XLSX) </a>
+                    {% empty %}
+                        <small>No hay versiones anteriores disponibles</small>
                     {% endfor %}
             </div>
         </div>

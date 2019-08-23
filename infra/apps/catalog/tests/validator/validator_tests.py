@@ -42,7 +42,7 @@ def test_returns_correct_data_when_specifying_url(node, requests_mock):
         data_dict = {'format': 'json', 'node': node, 'url': 'https://datos.gob.ar/data.json'}
         validator = CatalogDataValidator()
         data = validator.get_and_validate_data(data_dict)
-        assert data['file'].read() == text
+        assert data['json_file'].read() == text
 
 
 def test_returns_correct_data_when_specifying_url_with_explicit_format(node, requests_mock):
@@ -53,7 +53,7 @@ def test_returns_correct_data_when_specifying_url_with_explicit_format(node, req
                      'url': 'https://fakeurl.com/export?format=xlsx'}
         validator = CatalogDataValidator()
         data = validator.get_and_validate_data(data_dict)
-        assert data['file'].read() == text
+        assert data['xlsx_file'].read() == text
 
 
 def test_returns_correct_data_when_uploading_file(node):
@@ -62,7 +62,7 @@ def test_returns_correct_data_when_uploading_file(node):
         data_dict = {'format': 'json', 'node': node, 'file': temp_file}
         validator = CatalogDataValidator()
         data = validator.get_and_validate_data(data_dict)
-        assert b'dataset' in data['file'].read()
+        assert b'dataset' in data['json_file'].read()
 
 
 def test_invalid_url(node, requests_mock):

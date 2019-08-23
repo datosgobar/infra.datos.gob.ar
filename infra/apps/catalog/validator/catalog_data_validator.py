@@ -1,5 +1,6 @@
 # coding=utf-8
 import logging
+
 from django.core.exceptions import ValidationError
 from django.core.files import File
 from pydatajson import DataJson
@@ -22,7 +23,9 @@ class CatalogDataValidator:
         if url:
             file_handler = self.download_file_from_url(url)
 
-        return {'node': raw_data['node'], 'format': file_format, 'file': File(file_handler)}
+        file_field = 'json_file' if file_format == 'json' else 'xlsx_file'
+
+        return {'node': raw_data['node'], 'format': file_format, file_field: File(file_handler)}
 
     def validate_format(self, url, file, _format):
         path = file.temporary_file_path() if file else url

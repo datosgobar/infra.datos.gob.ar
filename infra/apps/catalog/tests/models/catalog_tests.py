@@ -17,20 +17,20 @@ pytestmark = pytest.mark.django_db
 
 def test_catalog_saves_to_identifier_path(catalog):
     path = f'catalog/{catalog.node.identifier}/data'
-    assert path in CatalogUpload.objects.first().file.name
+    assert path in CatalogUpload.objects.first().json_file.name
 
 
 def test_catalog_format_saved_in_file(catalog):
-    assert catalog.format in CatalogUpload.objects.first().file.name
+    assert catalog.format in CatalogUpload.objects.first().json_file.name
 
 
 @pytest.mark.freeze_time('2019-01-01')
 def test_upload_date_saved_in_catalog_file(catalog):
-    assert str(catalog.uploaded_at) in CatalogUpload.objects.first().file.name
+    assert str(catalog.uploaded_at) in CatalogUpload.objects.first().json_file.name
 
 
 def test_catalog_identifiers_unique(catalog):
-    with pytest.raises(ValidationError):
+    with pytest.raises(IntegrityError):
         CatalogUpload.objects.create(node=catalog.node,
                                      format=CatalogUpload.FORMAT_JSON)
 
@@ -55,7 +55,7 @@ def test_create_from_file(node):
         temp_file = temp_uploaded_file(sample)
         data_dict = {'format': 'json', 'node': node, 'file': temp_file}
         catalog = CatalogUpload.create_from_url_or_file(data_dict)
-        assert b'dataset' in catalog.file.read()
+        assert b'dataset' in catalog.json_file.read()
 
 
 def test_create_from_not_valid_url(node):
@@ -81,17 +81,17 @@ def test_catalog_uploaded_at(catalog):
 
 
 def test_xlsx_format_file_name(xlsx_catalog):
-    name = xlsx_catalog.file.name.split('/')[-1]
+    name = xlsx_catalog.xlsx_file.name.split('/')[-1]
     assert 'catalog' in name
 
 
 def test_json_format_file_name(catalog):
-    name = catalog.file.name.split('/')[-1]
+    name = catalog.json_file.name.split('/')[-1]
     assert 'data' in name
 
 
 def test_xlsx_format_file_name_no_data(xlsx_catalog):
-    name = xlsx_catalog.file.name.split('/')[-1]
+    name = xlsx_catalog.xlsx_file.name.split('/')[-1]
     assert 'data' not in name
 
 
@@ -107,7 +107,7 @@ def test_catalog_unique_by_date_and_node(catalog):
         with pytest.raises(IntegrityError):
             CatalogUpload.objects.create(node=catalog.node,
                                          format=CatalogUpload.FORMAT_JSON,
-                                         file=File(sample))
+                                         json_file=File(sample))
 
 
 def test_same_day_multiple_catalog_uploads(node):
@@ -152,7 +152,7 @@ def test_validate_returns_error_message_if_catalog_is_not_valid(node):
 
 def test_upload_file_permissions(catalog):
     # As per https://stackoverflow.com/questions/5337070/how-can-i-get-a-files-permission-mask
-    mask = oct(os.stat(catalog.file.path)[stat.ST_MODE])[-3:]
+    mask = oct(os.stat(catalog.json_file.path)[stat.ST_MODE])[-3:]
     assert mask == '664'
 
 
@@ -163,3 +163,13 @@ def test_latest_file_permissions(catalog):
                         'data.json')
     mask = oct(os.stat(path)[stat.ST_MODE])[-3:]
     assert mask == '664'
+
+
+def test_catalog_upload_creates_both_formats(node):
+    filename = 'data.json'
+    with open_catalog(filename) as sample:
+        temp_file = temp_uploaded_file(sample)
+        data_dict = {'format': 'json', 'node': node, 'file': temp_file}
+        catalog = CatalogUpload.create_from_url_or_file(data_dict)
+        assert catalog.json_file is not None
+        assert catalog.xlsx_file is not None

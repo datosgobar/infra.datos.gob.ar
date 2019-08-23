@@ -2,22 +2,33 @@
 import os
 
 from django.conf import settings
+from django.core.files import File
 from django.db import models, transaction
 from django.utils import timezone
 from pydatajson import DataJson
+from pydatajson.writers import write_xlsx_catalog, write_json_catalog
 
-from infra.apps.catalog.validator.catalog_data_validator import CatalogDataValidator
-from infra.apps.catalog.helpers.file_name_for_format import file_name_for_format
-from infra.apps.catalog.storage.catalog_storage import CustomCatalogStorage
 from infra.apps.catalog.constants import CATALOG_ROOT
+from infra.apps.catalog.helpers.file_name_for_format import file_name_for_format
+from infra.apps.catalog.storage.catalog_storage import CustomJsonCatalogStorage, \
+    CustomExcelCatalogStorage
+from infra.apps.catalog.validator.catalog_data_validator import CatalogDataValidator
 
 
-def catalog_file_path(instance, _filename=None):
-    file_name = file_name_for_format(instance)
+def catalog_file_path(instance, file_format, _filename=None):
+    file_name = file_name_for_format(file_format)
 
     return os.path.join(CATALOG_ROOT,
                         instance.node.identifier,
-                        f'{file_name}-{instance.uploaded_at}.{instance.format}')
+                        f'{file_name}-{instance.uploaded_at}.{file_format}')
+
+
+def json_catalog_file_path(instance, _filename=None):
+    return catalog_file_path(instance, 'json')
+
+
+def xlsx_catalog_file_path(instance, _filename=None):
+    return catalog_file_path(instance, 'xlsx')
 
 
 class CatalogUpload(models.Model):
@@ -36,8 +47,12 @@ class CatalogUpload(models.Model):
     node = models.ForeignKey(to='Node', on_delete=models.CASCADE, unique_for_date='uploaded_at')
     format = models.CharField(max_length=4, blank=False, null=False, choices=FORMAT_OPTIONS)
     uploaded_at = models.DateField(auto_now_add=True)
-    file = models.FileField(upload_to=catalog_file_path,
-                            storage=CustomCatalogStorage())
+    json_file = models.FileField(upload_to=json_catalog_file_path,
+                                 storage=CustomJsonCatalogStorage(),
+                                 null=True, blank=True)
+    xlsx_file = models.FileField(upload_to=xlsx_catalog_file_path,
+                                 storage=CustomExcelCatalogStorage(),
+                                 null=True, blank=True)
 
     def __init__(self, *args, **kwargs):
         super(CatalogUpload, self).__init__(*args, **kwargs)
@@ -46,7 +61,8 @@ class CatalogUpload(models.Model):
     @property
     def datajson(self):
         if not self._datajson:
-            self._datajson = DataJson(self.file.file.name)
+            file_field = self.json_file if self.json_file else self.xlsx_file
+            self._datajson = DataJson(file_field.file.name)
 
         return self._datajson
 
@@ -57,15 +73,18 @@ class CatalogUpload(models.Model):
              update_fields=None):
         self.full_clean()
         super(CatalogUpload, self).save(force_insert, force_update, using, update_fields)
-        self.file.storage.save_as_latest(self)
+
+        if not self.json_file or not self.xlsx_file:
+            self.create_new_file()
 
     @classmethod
     def create_from_url_or_file(cls, raw_data):
         data = CatalogDataValidator().get_and_validate_data(raw_data)
         catalog = cls.upsert(data)
 
-        if not data.get('file').closed:
-            data.get('file').close()
+        file_field = 'json_file' if data['format'] == 'json' else 'xlsx_file'
+        if not data.get(file_field).closed:
+            data.get(file_field).close()
 
         return catalog
 
@@ -81,7 +100,8 @@ class CatalogUpload(models.Model):
 
     def validate(self):
         error_messages = []
-        file_path = os.path.join(settings.MEDIA_ROOT, self.file.name)
+        file_field = self.json_file if self.json_file else self.xlsx_file
+        file_path = os.path.join(settings.MEDIA_ROOT, file_field.name)
 
         try:
             data_json = DataJson(file_path)
@@ -98,3 +118,21 @@ class CatalogUpload(models.Model):
             error_messages = [error['message'] for error in errors]
 
         return error_messages
+
+    def create_new_file(self):
+        get_existing_file_path = json_catalog_file_path if self.json_file \
+            else xlsx_catalog_file_path
+        get_new_file_path = xlsx_catalog_file_path if self.json_file \
+            else json_catalog_file_path
+        write_new_file = write_xlsx_catalog if self.json_file else write_json_catalog
+
+        data = DataJson(os.path.join(settings.MEDIA_ROOT, get_existing_file_path(self)))
+        path = os.path.join(settings.MEDIA_ROOT, get_new_file_path(self))
+        write_new_file(data, path)
+        with open(path, 'rb+') as new_file:
+            if self.json_file:
+                self.xlsx_file.save(new_file.name, File(new_file))
+            else:
+                self.json_file.save(new_file.name, File(new_file))
+        self.xlsx_file.storage.save_as_latest(self)
+        self.json_file.storage.save_as_latest(self)
