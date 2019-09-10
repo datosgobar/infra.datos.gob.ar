@@ -243,12 +243,12 @@ class NodeUploadsView(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
         node_id = self.kwargs['node_id']
         node_name = Node.objects.get(pk=node_id).identifier
         node_uploads = self.model.objects.filter(node=node_id).order_by('-uploaded_at')
-        base_url = settings.CATALOG_SERVING_URL
-        has_json = os.path.isfile(os.path.join(base_url, node_name, 'data.json')[1:])
-        has_xlsx = os.path.isfile(os.path.join(base_url, node_name, 'catalog.xlsx')[1:])
+        base_path = os.path.join(settings.MEDIA_ROOT, settings.CATALOG_MEDIA_DIR)
+        has_json = os.path.isfile(os.path.join(base_path, node_name, 'data.json'))
+        has_xlsx = os.path.isfile(os.path.join(base_path, node_name, 'catalog.xlsx'))
         params_dict = {
             'node_id': node_id,
-            'base_url': base_url,
+            'base_url': f'{settings.MEDIA_URL}/catalog/',
             'node_name': node_name,
             'has_json': has_json,
             'has_xlsx': has_xlsx,
