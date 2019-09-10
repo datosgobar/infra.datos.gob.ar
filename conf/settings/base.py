@@ -133,7 +133,7 @@ MEDIA_ROOT = BASE_DIR('media')
 MEDIA_URL = '/media/'
 STATIC_ROOT = BASE_DIR('static')
 STATIC_URL = '/static/'
-CATALOG_SERVING_URL = f'{MEDIA_URL}catalog/'
+CATALOG_MEDIA_DIR = 'catalog'
 
 SITE_ID = 1
 
