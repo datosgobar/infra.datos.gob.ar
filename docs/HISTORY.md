@@ -1,6 +1,12 @@
 Versiones
 =========
 
+0.0.6 (10-09-19)
+-------------------
+
+* Fix a últimas versiones de los catálogos no mostrándose
+
+
 0.0.5 (23-08-19)
 -------------------
 
