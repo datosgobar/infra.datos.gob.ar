@@ -1,6 +1,12 @@
 Versiones
 =========
 
+0.0.5 (23-08-19)
+-------------------
+
+* Duplicación de catálogos: Ahora al subirse una versión JSON, se crea la XLSX automáticamente, y viceversa
+
+
 0.0.4 (21-08-19)
 -------------------
 
