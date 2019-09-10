@@ -248,7 +248,7 @@ class NodeUploadsView(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
         has_xlsx = os.path.isfile(os.path.join(base_path, node_name, 'catalog.xlsx'))
         params_dict = {
             'node_id': node_id,
-            'base_url': f'{settings.MEDIA_URL}/catalog/',
+            'base_url': f'{settings.MEDIA_URL}catalog/',
             'node_name': node_name,
             'has_json': has_json,
             'has_xlsx': has_xlsx,
