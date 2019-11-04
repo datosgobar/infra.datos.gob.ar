@@ -3,49 +3,70 @@
 
 {% block styles %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/new_styles.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/flex_styles.css' %}"/>
 {% endblock %}
 
 {% block body %}
 <body>
-<div class="login">
-    <div class="l-wrapper">
-        <div class="head-wrapper">
-            <h4>Infra.datos.gob.ar</h4>
-        </div>
-        <p>Ingresá a tu cuenta</p>
-        {% if form.errors and not form.non_field_errors %}
-        <p class="errornote">
-        {% if form.errors.items|length == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}{% endif %}
-        </p>
-        {% endif %}
 
-        {% if form.non_field_errors %}
-        {% for error in form.non_field_errors %}
-        <p class="errornote">
-            {{ error }}
-        </p>
-        {% endfor %}
-        {% endif %}
-        <form action="{{ app_path }}" method="post" id="login-form">
-            {% csrf_token %}
-            <label class="login-label" for="{{ form.username.id_for_label }}">{{form.username.label_tag}}{{ form.username }}</label>
-            <label class="login-label" for="{{ form.password.id_for_label }}">{{form.password.label_tag}}{{ form.password }}</label>
-            <input type="hidden" name="next" value="{{ next }}"/>
-            {% url 'admin_password_reset' as password_reset_url %}
-            <table>
-              <tr>
-                <td><!-- Espacio para el tilde de recordarme -->
-                </td>
-                <td>
-                  <div class="password-reset-link">
-                    <a href="{{ password_reset_url }}">Olvidé mi contraseña</a>
-                  </div>
-                </td>
-              </tr>
-            </table>
-            <input type="submit" value="{% trans 'Ingresar' %}"/>
-        </form>
+<section>
+    <div class="container">
+		<div class="m-b-2">
+			<div class="row d-flex justify-content-center">
+				<div class="col-xs-12 col-md-5">
+					<h4 class="activities-sidbar">Bienvenidos a Infra.datos.gob.ar</h4>
+                </div>
+            </div>
+        </div>
+		<div class="row d-flex justify-content-center">
+			<div class="col-xs-12 col-md-5">
+                {% if form.errors%}
+				<div id="errores" aria-live="polite" class="alert alert-danger">
+                    {% if not form.non_field_errors %}
+                        <p class="errornote">
+                        {% if form.errors.items|length == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}{% endif %}
+                        </p>
+
+                    {% else %}
+                        {% for error in form.non_field_errors %}
+                        <p class="errornote">
+                            {{ error }}
+                        </p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                {% endif %}
+                <form action="{{ app_path }}" method="post" id="login-form">
+                    {% csrf_token %}
+
+					<div class="form-group item-form">
+						<label>Usuario</label>
+						<input type="text" name="user" class="form-control" placeholder="Usuario">
+                    </div>
+					<div class="form-group item-form">
+						<label class="pull-left">Contraseña</label>
+						<a href="#" class="no-text-decoration pull-right d-flex justify-content-start align-items-center">
+						    <i class="fa fa-eye fa-fw"></i>
+						    <span>&nbsp;Mostrar</span>
+						</a>
+                        <input type="password" name="password" class="form-control" placeholder="Contraseña">
+                    </div>
+                    <div class="form-group item-form">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox">Recordarme
+                            </label>
+                        </div>
+                    </div>
+                    <input class="btn btn-success m-b-3" type="submit" value="{% trans 'INGRESAR' %}"/>
+                </form>
+                {% url 'admin_password_reset' as password_reset_url %}
+                <p><a href="{{ password_reset_url }}">Recuperar mi contraseña</a></p>
+            </div>
+        </div>
     </div>
-</div>
+</section>
+
 </body>
 {% endblock %}
