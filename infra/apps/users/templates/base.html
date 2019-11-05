@@ -12,12 +12,15 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/poncho.min.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/global.css' %}"/>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
-    {% block styles %}{% endblock %}
+    {% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/flex_styles.css' %}"/>
+    {% endblock %}
 </head>
+<body>
 
 <header>{% block header %}{% include 'header.html' %}{% endblock %}</header>
 {% block body %}
-<body>
+
 <div>
     <ol class="breadcrumb i-breadcrumb">
         {% block breadcrumbs %} {% endblock %}
@@ -27,5 +30,9 @@
 {% block content %}
 {% endblock %}
 </div>
-</body>
+
 {% endblock %}
+
+<footer class="main-footer">{% block footer %}{% include 'footer.html' %}{% endblock %}</footer>
+
+</body>

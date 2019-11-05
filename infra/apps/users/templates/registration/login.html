@@ -1,14 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n static %}
 
-{% block styles %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>
-<link rel="stylesheet" type="text/css" href="{% static 'css/new_styles.css' %}"/>
-<link rel="stylesheet" type="text/css" href="{% static 'css/flex_styles.css' %}"/>
-{% endblock %}
-
 {% block body %}
-<body>
 
 <section>
     <div class="container">
@@ -41,23 +34,14 @@
                     {% csrf_token %}
 
 					<div class="form-group item-form">
-						<label>Usuario</label>
-						<input type="text" name="user" class="form-control" placeholder="Usuario">
+						<label for="{{ form.username.id_for_label }}">Usuario</label>
+						<input id="{{ form.username.id_for_label }}" type="text" name="username" class="form-control" placeholder="Usuario"
+                        {% if form.username.value != None %}value="{{ form.username.value|stringformat:'s' }}"{% endif %}>
                     </div>
 					<div class="form-group item-form">
-						<label class="pull-left">Contraseña</label>
-						<a href="#" class="no-text-decoration pull-right d-flex justify-content-start align-items-center">
-						    <i class="fa fa-eye fa-fw"></i>
-						    <span>&nbsp;Mostrar</span>
-						</a>
-                        <input type="password" name="password" class="form-control" placeholder="Contraseña">
-                    </div>
-                    <div class="form-group item-form">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Recordarme
-                            </label>
-                        </div>
+						<label for="{{ form.password.id_for_label }}" class="pull-left">Contraseña</label>
+                        <input id="{{ form.password.id_for_label }}" type="password" name="password" class="form-control" placeholder="Contraseña"
+                        {% if form.password.value != None %}value="{{ form.password.value|stringformat:'s' }}"{% endif %}>
                     </div>
                     <input class="btn btn-success m-b-3" type="submit" value="{% trans 'INGRESAR' %}"/>
                 </form>
@@ -68,5 +52,4 @@
     </div>
 </section>
 
-</body>
 {% endblock %}
