@@ -1,69 +1,118 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block styles %}
-{% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/nodes_styles.css' %}"/>
 {% endblock %}
 
 {% block breadcrumbs %}
-    <li>
-        <a href="{% url 'catalog:nodes' %}">Nodos</a>
-    </li>
-    <li>{{ node_name }}</li>
+<section class="jumbotron" style="background-image: url({% static 'svg/hero_bg.svg' %});">
+    <div class="jumbotron_bar">
+	    <div class="container">
+	        <ol class="breadcrumb hidden-xs pull-left">
+		        <li><a href="{% url 'catalog:nodes' %}">Inicio</a></li>
+		        <li class="active"><span>{{ node_name }}</span></li>
+	        </ol>
+	        <ol class="list-inline pull-right d-flex flex-wrap align-items-center">
+		        <li><span class="m-b-xs">ESTÁS VIENDO NODO {{ node_name|upper }}</span></li>
+		        <li><a href="{% url 'catalog:nodes' %}" class="btn btn-primary btn-sm m-b-0">CAMBIAR DE NODO</a></li>
+	        </ol>
+        </div>
+    </div>
+    <div class="jumbotron_body">
+        <div class="container">
+            <h1>Mi catálogo</h1>
+            <p>{{ node_name }}</p>
+        </div>
+    </div>
+    <!--<div class="overlay"></div>-->
+</section>
 {% endblock %}
 
 {% block content %}
-<h1 class="text-primary">Catálogo del nodo {{ node_name }}</h1>
-
-<div class="row">
-    <div class="col-sm-8 col-sm-offset-2 container general-container">
-        <div class="row">
-            <div class="col-sm-6">
-                <h3 class="text-primary">Catálogo actual</h3>
-                {% if has_json %}
-                    <a class="btn btn-link" href="{{ base_url }}{{ node_name }}/data.json" download="data.json">data.json</a>
-                {% endif %}
-                {% if has_xlsx %}
-                    <a class="btn btn-link" href="{{ base_url }}{{ node_name }}/catalog.xlsx" download="catalog.xlsx">catalog.xlsx</a>
-                {% endif %}
-                {% if not has_json and not has_xlsx %}
-                    <small>No hay catálogos subidos</small>
-                {% endif %}
+<section>
+    <div class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<a class="panel panel-default panel-icon panel-primary" href="{% url 'catalog:add_catalog' node_id=node_id %}">
+					<div class="panel-heading hidden-xs">
+						<img src="{%  static 'svg/subir_nueva_version.svg' %}" class="icon -large">
+                    </div>
+                    <div class="panel-body">
+						<h3><span class="visible-xs-inline"><i class="fa fa-file text-secondary"></i>&nbsp; </span>Subir nueva versión</h3>
+                    </div>
+                </a>
             </div>
-
-            <div class="col-sm-6">
-                <h3 class="text-primary">Versiones anteriores</h3>
-                    {% for catalog in object_list %}
-                        <a class="btn btn-primary btn-sm" href="/{% if 'media' in base_url %}media/{% endif %}{{ catalog.json_file }}" download="{{ catalog.json_file }}">{{ catalog.uploaded_at|date:"Y-m-d" }} (JSON) </a>
-                        <a class="btn btn-primary btn-sm" href="/{% if 'media' in base_url %}media/{% endif %}{{ catalog.xlsx_file }}" download="{{ catalog.xlsx_file }}">{{ catalog.uploaded_at|date:"Y-m-d" }} (XLSX) </a>
-                    {% empty %}
-                        <small>No hay versiones anteriores disponibles</small>
-                    {% endfor %}
+			<div class="col-md-4">
+				<a class="panel panel-default panel-icon panel-primary" href="historial.php">
+					<div class="panel-heading hidden-xs">
+						<img src="{% static 'svg/ver_historial.svg' %}" class="icon -large">
+                    </div>
+					<div class="panel-body">
+						<h3><span class="visible-xs-inline"><i class="fa fa-file text-secondary"></i>&nbsp; </span>Ver historial</h3>
+                    </div>
+                </a>
             </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="inline col-sm-8 col-sm-offset-2">
-                <a class="btn btn-primary" href="{% url 'catalog:add_catalog' node_id=node_id %}">Subir nuevo catálogo</a>
-                {% if user.is_superuser %}
-                    <form class='form-inline' action="{% url 'catalog:sync_catalog' node_id=node_id %}" method="post">
-                    {% csrf_token %}
-                    <input type="submit" value="SYNC" class="btn btn-primary"/>
-                    </form>
-                {% endif %}
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-8 col-sm-offset-2">
-                <h3 class="text-primary">Distribuciones</h3>
-                <a class="btn btn-primary" href="{% url 'catalog:node_distributions' node_id=node_id %}">Ver distribuciones</a>
+            <div class="col-md-4">
+				<a class="panel panel-default panel-icon panel-primary" href="{% url 'catalog:node_distributions' node_id=node_id %}">
+					<div class="panel-heading hidden-xs">
+						<img src="{% static 'svg/ver_distribuciones.svg' %}" class="icon -large">
+                    </div>
+                    <div class="panel-body">
+						<h3><span class="visible-xs-inline"><i class="fa fa-file text-secondary"></i>&nbsp; </span>Ver distribuciones</h3>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
-</div>
-<br>
-<div class="row">
-    <a class="btn btn-primary btn-sm" href="{% url 'catalog:nodes' %}">Volver</a>
-</div>
+</section>
+
+<section>
+    <div class="container">
+		<h2 class="m-b-3">Archivos actuales</h2>
+        <div class="row">
+            {% if has_json %}
+            <div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="d-flex flex-wrap justify-content-between align-items-center">
+							<div class="d-flex justify-content-start align-items-center m-b-xs">
+								<img src="{% static 'svg/file_json.svg' %}" class="icon -small m-r-1">
+								<h6 class="m-y-0">data.json</h6>
+                            </div>
+                            <div class="d-flex justify-content-end align-items-center">
+								<a type="button" class="btn btn-primary btn-sm m-b-0 m-r-1" download="data.json" href="{{ base_url }}{{ node_name }}/data.json"><i class="fa fa-download fa-fw fa-lg"></i> DESCARGAR</a>
+								<button id="jsonCopy" data-url="{{ base_url }}{{ node_name }}/data.json" type="button" class="btn btn-primary btn-sm m-b-0" onclick="copyUrlToClipBoard(jsonCopy)"><i class="fa fa-link fa-fw fa-lg"></i> COPIAR LINK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if has_xlsx %}
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="d-flex flex-wrap justify-content-between align-items-center">
+							<div class="d-flex justify-content-start align-items-center m-b-xs">
+								<img src="{% static 'svg/file_xlsx.svg' %}" class="icon -small m-r-1">
+								<h6 class="m-y-0">catalogo.xlsx</h6>
+                            </div>
+                            <div class="d-flex justify-content-end align-items-center">
+								<a type="button" class="btn btn-primary btn-sm m-b-0 m-r-1" download="catalog.xlsx" href="{{ base_url }}{{ node_name }}/catalog.xlsx"><i class="fa fa-download fa-fw fa-lg"></i> DESCARGAR</a>
+								<button id="xlsxCopy" data-url="{{ base_url }}{{ node_name }}/catalog.xlsx" type="button" class="btn btn-primary btn-sm m-b-0" onclick="copyUrlToClipBoard(xlsxCopy)"><i class="fa fa-link fa-fw fa-lg"></i> COPIAR LINK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if not has_json and not has_xlsx %}
+            <small>No hay catálogos subidos</small>
+            {% endif %}
+		</div>
+	</div>
+</section>
+
+<script src="{% static 'js/copy_url.js' %}"></script>
 {% endblock %}

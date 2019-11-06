@@ -13,9 +13,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/poncho.min.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/global.css' %}"/>
-
-    {% block styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/flex_styles.css' %}"/>
+    {% block styles %}
     {% endblock %}
 </head>
 <body>
@@ -23,15 +22,11 @@
 <header>{% block header %}{% include 'header.html' %}{% endblock %}</header>
 {% block body %}
 
-<div>
-    <ol class="breadcrumb i-breadcrumb">
-        {% block breadcrumbs %} {% endblock %}
-    </ol>
-</div>
-<div class="main-content container">
+
+{% block breadcrumbs %} {% endblock %}
+
 {% block content %}
 {% endblock %}
-</div>
 
 {% endblock %}
 
