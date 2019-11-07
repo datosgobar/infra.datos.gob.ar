@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 from django.core.files import File
 from django.test import Client
 
-from infra.apps.catalog.models import CatalogUpload, Node, Distribution
+from infra.apps.catalog.models import CatalogUpload, Node, DistributionUpload
 from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
 
 
@@ -58,11 +58,11 @@ def media_root():
 def distribution():
     _catalog()
     with open_catalog('test_data.csv') as distribution_fd:
-        model = Distribution(file=File(distribution_fd),
-                             node=_node(),
-                             identifier="125.1",
-                             dataset_identifier="125",
-                             file_name="test_data.csv")
+        model = DistributionUpload(file=File(distribution_fd),
+                                   node=_node(),
+                                   identifier="125.1",
+                                   dataset_identifier="125",
+                                   file_name="test_data.csv")
         model.save()
 
     return model

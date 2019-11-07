@@ -18,7 +18,7 @@ from infra.apps.catalog.exceptions.catalog_not_uploaded_error import \
 from infra.apps.catalog.exceptions.catalog_sync_error import CatalogSyncError
 from infra.apps.catalog.forms import CatalogForm, DistributionForm
 from infra.apps.catalog.mixins import UserIsNodeAdminMixin
-from infra.apps.catalog.models import CatalogUpload, Node, Distribution
+from infra.apps.catalog.models import CatalogUpload, Node, DistributionUpload
 from infra.apps.catalog.sync import sync_catalog
 from infra.apps.catalog.validator.url_or_file import URLOrFileValidator
 
@@ -62,7 +62,7 @@ class AddCatalogView(LoginRequiredMixin, UserIsNodeAdminMixin, FormView):
 
 
 class DistributionUpserter(TemplateView):
-    model = Distribution
+    model = DistributionUpload
     template_name = 'distributions/distribution_form.html'
 
     def post_error(self, context):
@@ -189,7 +189,7 @@ class AddDistributionVersionView(DistributionUpserter):
 
 
 class ListDistributions(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
-    model = Distribution
+    model = DistributionUpload
     template_name = "distributions/node_distributions.html"
 
     def get_queryset(self):
@@ -258,7 +258,7 @@ class NodeUploadsView(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
 
 
 class DistributionUploads(ListView):
-    model = Distribution
+    model = DistributionUpload
     template_name = 'distributions/uploads.html'
 
     def node_id(self):

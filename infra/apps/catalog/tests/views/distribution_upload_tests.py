@@ -22,7 +22,7 @@ def test_file_name_listed(client, distribution):
 def test_older_versions_listed(client, distribution):
     with freeze_time('2019-01-01'):
         with open_catalog('test_data.csv') as fd:
-            other = distribution.node.distribution_set \
+            other = distribution.node.distributionupload_set \
                 .create(file=File(fd),
                         identifier=distribution.identifier,
                         dataset_identifier=distribution.dataset_identifier,

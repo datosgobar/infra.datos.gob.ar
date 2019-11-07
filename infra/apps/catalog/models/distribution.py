@@ -22,7 +22,7 @@ def distribution_file_path(instance, _filename=None):
     return os.path.join(directory, final_name)
 
 
-class Distribution(models.Model):
+class DistributionUpload(models.Model):
     node = models.ForeignKey(to=Node, on_delete=models.CASCADE, unique_for_date='uploaded_at')
     uploaded_at = models.DateField(auto_now_add=True)
     dataset_identifier = models.CharField(max_length=64)
@@ -35,7 +35,7 @@ class Distribution(models.Model):
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         self.node.get_latest_catalog_upload()  # Validación de que hay un upload
-        super(Distribution, self).save(force_insert, force_update, using, update_fields)
+        super(DistributionUpload, self).save(force_insert, force_update, using, update_fields)
         self.file.storage.save_as_latest(self)
 
     @classmethod
@@ -56,7 +56,7 @@ class Distribution(models.Model):
 
     @classmethod
     def get_version_from_same_day(cls, node, distribution_identifier):
-        versions_from_today = Distribution.objects.filter(
+        versions_from_today = DistributionUpload.objects.filter(
             identifier=distribution_identifier,
             node=node,
             uploaded_at=timezone.now().date())

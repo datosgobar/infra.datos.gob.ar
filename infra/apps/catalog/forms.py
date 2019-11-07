@@ -1,7 +1,7 @@
 # coding=utf-8
 from django import forms
 
-from infra.apps.catalog.models import CatalogUpload, Distribution
+from infra.apps.catalog.models import CatalogUpload, DistributionUpload
 
 FORMAT_OPTIONS = [
         ('json', 'JSON'),
@@ -23,7 +23,7 @@ class CatalogForm(forms.ModelForm):
 
 class DistributionForm(forms.ModelForm):
     class Meta:
-        model = Distribution
+        model = DistributionUpload
         fields = ['distribution_identifier', 'file']
 
     file = forms.FileField(required=False,
