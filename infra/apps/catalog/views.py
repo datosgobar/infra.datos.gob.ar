@@ -190,6 +190,7 @@ class AddDistributionVersionView(DistributionUpserter):
 
 class ListDistributions(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
     model = Distribution
+    paginate_by = 5
     template_name = "distributions/node_distributions.html"
 
     def get_queryset(self):
