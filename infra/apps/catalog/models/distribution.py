@@ -68,7 +68,8 @@ class Distribution(models.Model):
         self.catalog.get_latest_catalog_upload()  # Validación de que hay un upload
         super(Distribution, self).save(force_insert, force_update, using, update_fields)
 
-
+    def __str__(self):
+        return f'{self.identifier} ({self.catalog.identifier})'
 class DistributionUpload(models.Model):
     distribution = models.ForeignKey(to=Distribution, on_delete=models.CASCADE)
     uploaded_at = models.DateField(auto_now_add=True)

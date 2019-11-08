@@ -14,8 +14,13 @@ class NodeAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(models.DistributionUpload)
+@admin.register(models.Distribution)
 class DistributionAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(models.DistributionUpload)
+class DistributionUploadAdmin(admin.ModelAdmin):
     pass
 
 

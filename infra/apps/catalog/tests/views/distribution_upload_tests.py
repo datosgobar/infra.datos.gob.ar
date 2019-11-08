@@ -14,11 +14,6 @@ def _call(client, distribution):
                                       'identifier': distribution.identifier}))
 
 
-def test_file_name_listed(client, distribution):
-    response = _call(client, distribution)
-    assert distribution.file_name in response.content.decode('utf-8')
-
-
 def test_older_versions_listed(client, distribution_upload):
     distribution = distribution_upload.distribution
     with freeze_time('2019-01-01'):

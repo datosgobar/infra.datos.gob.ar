@@ -208,7 +208,6 @@ class ListDistributions(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
 
         for distributions in qs.values():
             distributions.sort(key=lambda x: (x.uploaded_at, x.id), reverse=True)
-            del distributions[3:]
         return qs
 
 
