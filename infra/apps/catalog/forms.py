@@ -53,4 +53,3 @@ class DistributionForm(forms.ModelForm):
                               widget=forms.Select(attrs={'class': 'form-control'}))
 
         self.fields['file_name'].initial = self.instance.file_name if self.instance.pk else None
-

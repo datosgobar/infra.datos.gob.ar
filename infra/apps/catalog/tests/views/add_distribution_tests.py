@@ -117,7 +117,8 @@ def test_context_manager_does_not_lose_files_using_same_file_name(client, distri
     assert isfile(file_path) and isfile(file_path_with_date)
 
 
-def test_context_manager_removes_old_same_day_version_file_if_name_changes(client, distribution_upload):
+def test_context_manager_removes_old_same_day_version_file_if_name_changes(client,
+                                                                           distribution_upload):
     old_file_path = join('tests_media', distribution_upload.file_path())
     with open_catalog('test_data.csv') as sample:
         raw_data = {'node': distribution_upload.distribution.catalog,
@@ -126,7 +127,8 @@ def test_context_manager_removes_old_same_day_version_file_if_name_changes(clien
                     'file_name': 'new_file_name.csv',
                     'file': sample}
         client.post(_add_url(distribution_upload.distribution.catalog), raw_data)
-    updated_distribution = DistributionUpload.objects.get(distribution=distribution_upload.distribution)
+    updated_distribution = DistributionUpload.objects \
+        .get(distribution=distribution_upload.distribution)
     new_file_path = join(settings.MEDIA_ROOT, updated_distribution.file_path())
     assert new_file_path != old_file_path
     assert not isfile(old_file_path)

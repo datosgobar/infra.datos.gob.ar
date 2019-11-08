@@ -34,7 +34,8 @@ class DistributionManager(models.Manager):
         )
 
         if not created and data['file_name'] != distribution.file_name:
-            same_day_version = distribution.distributionupload_set.get(uploaded_at=timezone.now().date(),)
+            same_day_version = distribution.distributionupload_set \
+                .get(uploaded_at=timezone.now().date(),)
 
             file_path_without_date = os.path.join(settings.MEDIA_ROOT, same_day_version.file_path())
             file_path_with_date = \
@@ -58,7 +59,8 @@ class DistributionManager(models.Manager):
 class Distribution(models.Model):
     objects = DistributionManager()
 
-    catalog = models.ForeignKey(to=Node, on_delete=models.CASCADE, unique_for_date='uploaded_at')
+    catalog = models.ForeignKey(to=Node, on_delete=models.CASCADE,
+                                unique_for_date='uploaded_at')
     dataset_identifier = models.CharField(max_length=64)
     file_name = models.CharField(max_length=800)
     identifier = models.CharField(max_length=64)
@@ -70,6 +72,8 @@ class Distribution(models.Model):
 
     def __str__(self):
         return f'{self.identifier} ({self.catalog.identifier})'
+
+
 class DistributionUpload(models.Model):
     distribution = models.ForeignKey(to=Distribution, on_delete=models.CASCADE)
     uploaded_at = models.DateField(auto_now_add=True)
@@ -109,4 +113,5 @@ class DistributionUpload(models.Model):
 
     def file_path(self, with_date=False):
         path = Path(self.file.name)
-        return path.with_name(self.file_name_with_date() if with_date else self.distribution.file_name)
+        filename = self.file_name_with_date() if with_date else self.distribution.file_name
+        return path.with_name(filename)

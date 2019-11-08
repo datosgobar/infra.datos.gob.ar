@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 from django.core.files import File
 from django.test import Client
 
-from infra.apps.catalog.models import CatalogUpload, Node, DistributionUpload
+from infra.apps.catalog.models import CatalogUpload, Node
 from infra.apps.catalog.models.distribution import Distribution
 from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
 

@@ -5,7 +5,6 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
-from django.core.files import File
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -18,7 +17,6 @@ from infra.apps.catalog.exceptions.catalog_not_uploaded_error import \
     CatalogNotUploadedError
 from infra.apps.catalog.exceptions.catalog_sync_error import CatalogSyncError
 from infra.apps.catalog.forms import CatalogForm, DistributionForm
-from infra.apps.catalog.helpers.temp_file_from_url import temp_file_from_url
 from infra.apps.catalog.mixins import UserIsNodeAdminMixin
 from infra.apps.catalog.models import CatalogUpload, Node, DistributionUpload
 from infra.apps.catalog.models.distribution import Distribution
