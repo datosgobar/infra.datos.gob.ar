@@ -2,40 +2,122 @@
 {% load static %}
 
 {% block breadcrumbs %}
-    <li>
-        <a href="{% url 'catalog:nodes' %}">Nodos</a>
-    </li>
-    <li>
-        <a href="{% url 'catalog:node' node.id %}">{{ node.identifier }}</a>
-    </li>
-    <li>Distribuciones</li>
+<section class="jumbotron" style="background-image: url({% static 'svg/hero_bg.svg' %});">
+    <div class="jumbotron_bar">
+	    <div class="container">
+	        <ol class="breadcrumb hidden-xs pull-left">
+		        <li><a href="{% url 'catalog:nodes' %}">Inicio</a></li>
+		        <li class="active"><a href="{% url 'catalog:node' node.id %}">{{ node.identifier }}</a></li>
+		        <li class="active"><span>Distribuciones</span></li>
+	        </ol>
+	        <ol class="list-inline pull-right d-flex flex-wrap align-items-center">
+		        <li><span class="m-b-xs">ESTÁS VIENDO NODO {{ node.identifier|upper }}</span></li>
+		        <li><a href="{% url 'catalog:nodes' %}" class="btn btn-primary btn-sm m-b-0">CAMBIAR DE NODO</a></li>
+	        </ol>
+        </div>
+    </div>
+    <div class="jumbotron_body">
+        <div class="container">
+            <h1>Distribuciones</h1>
+            <p>{{ node.identifier }}</p>
+        </div>
+    </div>
+</section>
 {% endblock %}
 
 {% block content %}
-<h1 class="text-primary">Distribuciones para {{ node }}</h1>
+<section>
+    <div class="container">
+        <div class="m-b-4">
+	        <div class="row d-flex flex-wrap align-items-center">
+		        <div class="col-xs-12 col-md-4">
+			        <p class="m-b-0">
+						{% with object_list|length as results %}
+						{% if results == 1 %}
+						1 resultado
+						{% else %}
+						{{ results }} resultados
+						{% endif %}
+						{% endwith %}
+					</p>
+		        </div>
+		        <div class="col-xs-12 col-md-8">
+			        <div class="row">
+				        <div class="col-xs-12 col-sm-5">
+					        <a href="{% url 'catalog:add_distribution' node_id=node.id %}" class="btn btn-primary btn-block text-nowrap m-b-0"><i class="fa fa-plus-circle fa-fw fa-lg"></i> AGREGAR DISTRIBUCIÓN</a>
+				        </div>
+			        </div>
+		        </div>
+	        </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover -has-hidden-content">
+				<thead>
+					<tr>
+						<th>Nombre </th>
+                        <th class="text-center">ID</th>
+						<th class="text-center">Fecha versión actual</th>
+						<th>Acciones</th>
+                    </tr>
+                </thead>
+				<tbody>
+				{% for id, distributions in object_list.items %}
+					{% with distributions.0 as distribution %}
+					<tr>
+					    <td>{{ distributions.0.file_name }}</td>
+					    <td class="text-center">{{ id }}</td>
+						<td class="text-center">{{ distribution.uploaded_at|date:"d/m/Y" }}</td>
+						<td>
+						    <div class="d-flex align-items-center justify-content-start">
+							    <a href="{% get_media_prefix  %}{{ distribution.file_path }}" download="{{ distribution.file_name }}"
+										type="button" class="btn btn-primary btn-sm text-nowrap m-b-0 m-r-05"><i class="fa fa-download fa-fw fa-lg"></i> DESCARGAR</a>
+                                <div class="table-hidden-content">
+									<button id="fileCopy" data-url="{% get_media_prefix  %}{{ distribution.file_path }}" class="btn btn-primary btn-sm m-b-0 m-r-05" onclick="copyUrlToClipBoard(fileCopy)"
+											data-toggle="popover" data-trigger="focus" data-placement="top" data-content="Vínculo copiado al portapapeles">
+										<i class="fa fa-copy fa-fw fa-lg"></i>
+                                    </button>
+									<a href="#" class="btn btn-primary btn-sm m-b-0 m-r-05" data-toggle="modal" data-target=".modal-confirm-remove" title="Eliminar">
+										<i class="fa fa-trash fa-fw fa-lg"></i>
+                                    </a>
+                                    <a href="{% url 'catalog:distribution_uploads' node_id=node.id identifier=distributions.0.identifier%}" class="btn btn-primary btn-sm m-b-0" title="Ver anteriores">
+                                        <i class="fa fa-clock-o fa-fw fa-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+					{% endwith %}
+				{% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if page_obj.paginator.num_pages > 1 %}
+		<div class="text-center">
+			<ul class="pagination">
+                {% if page_obj.has_previous %}
+				<li>
+					<a href="?page={{ page_obj.previous_page_number }}">
+						<i class="fa fa-angle-left fa-fw fa-lg"></i>
+                    </a>
+                </li>
+                {% endif %}
 
-<div class="row">
-    <div class="col-sm-6 col-sm-offset-3 general-container">
-        {% for id, distributions in object_list.items %}
-        <p>
-            <a class="" href="{% url 'catalog:distribution_uploads' node_id=node.id identifier=distributions.0.identifier%}">
-                Distribución: {{ id }}
-            </a>
-            ({% for distribution in distributions %}
-                <a href="{% get_media_prefix  %}{% if forloop.first %}{{ distribution.file_path }}"
-                     download="{{ distribution.file_name }}">{{ distribution.file_name }}
-                {% else %}{{ distribution.file.name }}"
-                    download="{{ distribution.file_name_with_date }}">{{ distribution.file_name_with_date }}{% endif %}
-                </a>{% if not forloop.last %} | {% endif %}
-            {% endfor %})
-        </p>
-        {% endfor %}
-        <a class="btn btn-primary" href="{% url 'catalog:add_distribution' node_id=node.id %}">Agregar distribución</a>
+                <li class="active"><a>{{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</a></li>
+
+				<li><a href="#">{{ page_obj.}}</a></li>
+
+                {% if page_obj.has_next %}
+				<li>
+					<a href="?page={{ page_obj.next_page_number }}">
+						<i class="fa fa-angle-right fa-fw fa-lg"></i>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        {% endif %}
     </div>
-</div>
-<br>
-<div class="row">
-    <a class="btn btn-primary btn-sm" href="{% url 'catalog:node' node_id=node.id%}">Volver</a>
-</div>
+</section>
 
+<script src="{% static 'js/copy_url.js' %}"></script>
 {% endblock %}

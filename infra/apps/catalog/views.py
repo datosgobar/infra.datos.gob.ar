@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
+from django.core.files import File
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -17,8 +18,10 @@ from infra.apps.catalog.exceptions.catalog_not_uploaded_error import \
     CatalogNotUploadedError
 from infra.apps.catalog.exceptions.catalog_sync_error import CatalogSyncError
 from infra.apps.catalog.forms import CatalogForm, DistributionForm
+from infra.apps.catalog.helpers.temp_file_from_url import temp_file_from_url
 from infra.apps.catalog.mixins import UserIsNodeAdminMixin
 from infra.apps.catalog.models import CatalogUpload, Node, DistributionUpload
+from infra.apps.catalog.models.distribution import Distribution
 from infra.apps.catalog.sync import sync_catalog
 from infra.apps.catalog.validator.url_or_file import URLOrFileValidator
 
@@ -62,7 +65,7 @@ class AddCatalogView(LoginRequiredMixin, UserIsNodeAdminMixin, FormView):
 
 
 class DistributionUpserter(TemplateView):
-    model = DistributionUpload
+    model = Distribution
     template_name = 'distributions/distribution_form.html'
 
     def post_error(self, context):
@@ -94,13 +97,8 @@ class DistributionUpserter(TemplateView):
 
     def generate_distribution(self, form, node, request, context):
         try:
-            raw_data = {'dataset_identifier': form.cleaned_data['dataset_identifier'],
-                        'file_name': form.cleaned_data['file_name'],
-                        'distribution_identifier': form.cleaned_data['distribution_identifier'],
-                        'file': form.cleaned_data['file'],
-                        'node': node,
-                        'url': form.cleaned_data['url']}
-            self.model.update_or_create(raw_data)
+            data = form.cleaned_data
+            self.model.objects.upsert_upload(node, data)
         except RequestException:
             messages.error(request, 'Error descargando la distribución desde la URL especificada')
             return self.post_error(context)
@@ -180,8 +178,7 @@ class AddDistributionVersionView(DistributionUpserter):
         return self.generate_distribution(form, node, request, context)
 
     def get_last_distribution(self, dist_id, node):
-        distribution = self.model.objects.filter(identifier=dist_id, node=node). \
-            order_by('uploaded_at').last()
+        distribution = self.model.objects.filter(identifier=dist_id, catalog=node).first()
         if distribution:
             distribution.file = None
             return distribution
@@ -190,11 +187,12 @@ class AddDistributionVersionView(DistributionUpserter):
 
 class ListDistributions(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
     model = DistributionUpload
+    paginate_by = 5
     template_name = "distributions/node_distributions.html"
 
     def get_queryset(self):
         node = self.kwargs['node_id']
-        return self.model.objects.filter(node=node)
+        return self.model.objects.filter(distribution__catalog=node)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ListDistributions, self).get_context_data(object_list=object_list, **kwargs)
@@ -205,8 +203,8 @@ class ListDistributions(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
 
     def last_three_versions_of_each_distribution(self, queryset):
         qs = {}
-        for distribution in queryset:
-            qs.setdefault(distribution.identifier, []).append(distribution)
+        for upload in queryset:
+            qs.setdefault(upload.distribution.identifier, []).append(upload)
 
         for distributions in qs.values():
             distributions.sort(key=lambda x: (x.uploaded_at, x.id), reverse=True)
@@ -269,8 +267,8 @@ class DistributionUploads(ListView):
 
     def get_queryset(self):
         return (self.model.objects
-                .filter(node=self.node_id(),
-                        identifier=self.identifier())
+                .filter(distribution__catalog=self.node_id(),
+                        distribution__identifier=self.identifier())
                 .order_by('-uploaded_at'))
 
     def get_context_data(self, *, object_list=None, **kwargs):

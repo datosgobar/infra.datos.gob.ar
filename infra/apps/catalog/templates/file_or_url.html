@@ -1,22 +1,19 @@
-{% load static %}<div class="row">
-    <div id="file-or-url" class="col-md-8 col-md-offset-2">
-        <strong>Podés cargar un archivo, o usar una URL</strong>
-        <button id="file-button" class="btn btn-link" type="button">Archivo</button>
-        <button id="url-button" class="btn btn-link" type="button">URL</button>
+{% load static %}
+<ul class="nav nav-tabs nav-justified">
+    <li class="active"><a href="#tab-1" data-toggle="tab"><i class="fa fa-upload fa-fw"></i> SUBIR UN ARCHIVO</a></li>
+    <li> <a href="#tab-2" data-toggle="tab"><i class="fa fa-link fa-fw"></i> IMPORTAR DESDE URL</a></li>
+</ul>
+<div class="tab-content p-t-2">
+    <div class="tab-pane active" id="tab-1">
+        <div class="form-group item-form">
+            <label>Archivo:</label>
+            {{ form.file }}
+        </div>
+    </div>
+    <div class="tab-pane" id="tab-2">
+        <div class="form-group item-form">
+            <label>URL:</label>
+            {{ form.url }}
+        </div>
     </div>
 </div>
-<div id="file-field" class="row hidden">
-    <div class="col-md-8 col-md-offset-2 form-group item-form">
-        <strong class="text-left col-sm-12">Archivo</strong>
-        <div class="col-sm-10">{{ form.file }}</div>
-        <div class="col-sm-1"><button class="btn btn-danger" type="button" id="file-return-button">X</button></div>
-    </div>
-</div>
-<div id="url-field" class="row hidden">
-    <div class="col-md-8 col-md-offset-2 form-group item-form">
-        <strong class="text-left col-sm-12">URL</strong>
-        <div class="col-sm-10">{{ form.url }}</div>
-        <div class="col-sm-1"><button class="btn btn-danger" type="button" id="url-return-button">X</button></div>    </div>
-</div>
-
-    <script type="application/javascript" src="{% static 'file_or_url.js' %}"></script>

@@ -2,6 +2,7 @@ from io import BytesIO
 from os.path import isfile, join
 
 import pytest
+from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
 
@@ -63,7 +64,7 @@ def test_create_from_url(admin_client, catalog, requests_mock):
                  'file_name': "data.csv"}
 
     admin_client.post(_add_url(catalog.node), form_data)
-    assert DistributionUpload.objects.get().identifier == "125.1"
+    assert DistributionUpload.objects.get().distribution.identifier == "125.1"
 
 
 def test_create_from_url_404(admin_client, catalog, requests_mock):
@@ -86,7 +87,7 @@ def test_create_from_file(admin_client, catalog):
                      'file_name': 'test_data.csv'}
 
         admin_client.post(_add_url(catalog.node), form_data)
-    assert DistributionUpload.objects.get().identifier == "125.1"
+    assert DistributionUpload.objects.get().distribution.identifier == "125.1"
 
 
 def test_posting_new_version_twice_persists_only_one_instance(client, catalog):
@@ -103,32 +104,33 @@ def test_posting_new_version_twice_persists_only_one_instance(client, catalog):
     assert DistributionUpload.objects.count() == 1
 
 
-def test_context_manager_does_not_lose_files_using_same_file_name(client, distribution):
-    file_path = join('tests_media', distribution.file_path())
-    file_path_with_date = join('tests_media', distribution.file_path(with_date=True))
+def test_context_manager_does_not_lose_files_using_same_file_name(client, distribution_upload):
+    file_path = join('tests_media', distribution_upload.file_path())
+    file_path_with_date = join('tests_media', distribution_upload.file_path(with_date=True))
     with open_catalog('test_data.csv') as sample:
-        raw_data = {'node': distribution.node,
-                    'dataset_identifier': distribution.dataset_identifier,
-                    'distribution_identifier': distribution.identifier,
-                    'file_name': distribution.file_name,
+        raw_data = {'node': distribution_upload.distribution.catalog,
+                    'dataset_identifier': distribution_upload.distribution.dataset_identifier,
+                    'distribution_identifier': distribution_upload.distribution.identifier,
+                    'file_name': distribution_upload.distribution.file_name,
                     'file': sample}
-        client.post(_add_url(distribution.node), raw_data)
+        client.post(_add_url(distribution_upload.distribution.catalog), raw_data)
     assert isfile(file_path) and isfile(file_path_with_date)
 
 
-def test_context_manager_removes_old_same_day_version_file_if_name_changes(client, distribution):
-    old_file_path = join('tests_media', distribution.file_path())
+def test_context_manager_removes_old_same_day_version_file_if_name_changes(client, distribution_upload):
+    old_file_path = join('tests_media', distribution_upload.file_path())
     with open_catalog('test_data.csv') as sample:
-        raw_data = {'node': distribution.node,
-                    'dataset_identifier': distribution.dataset_identifier,
-                    'distribution_identifier': distribution.identifier,
+        raw_data = {'node': distribution_upload.distribution.catalog,
+                    'dataset_identifier': distribution_upload.distribution.dataset_identifier,
+                    'distribution_identifier': distribution_upload.distribution.identifier,
                     'file_name': 'new_file_name.csv',
                     'file': sample}
-        client.post(_add_url(distribution.node), raw_data)
-    updated_distribution = DistributionUpload.objects.get(node=distribution.node,
-                                                          identifier=distribution.identifier)
-    new_file_path = join('tests_media', updated_distribution.file_path())
-    assert new_file_path != old_file_path and not isfile(old_file_path) and isfile(new_file_path)
+        client.post(_add_url(distribution_upload.distribution.catalog), raw_data)
+    updated_distribution = DistributionUpload.objects.get(distribution=distribution_upload.distribution)
+    new_file_path = join(settings.MEDIA_ROOT, updated_distribution.file_path())
+    assert new_file_path != old_file_path
+    assert not isfile(old_file_path)
+    assert isfile(new_file_path)
 
 
 def test_new_version_form_contains_previous_data(client, catalog):

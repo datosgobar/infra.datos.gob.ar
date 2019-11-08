@@ -11,7 +11,7 @@ def distribution_file_handler(same_day_version, new_file_name):
         file_path_with_date = \
             os.path.join(settings.MEDIA_ROOT, same_day_version.file_path(with_date=True))
         yield
-        if new_file_name != same_day_version.file_name:
+        if new_file_name != same_day_version.distribution.file_name:
             os.remove(file_path_without_date)
             os.remove(file_path_with_date)
     except AttributeError:
