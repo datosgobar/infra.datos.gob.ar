@@ -27,7 +27,8 @@ class DistributionForm(forms.ModelForm):
         fields = ['distribution_identifier', 'file']
 
     file = forms.FileField(required=False,
-                           widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+                           widget=forms.FileInput(attrs={'class': 'form-control-file',
+                                                         'style': 'height: 44px;'}))
     file_name = forms.CharField(required=True,
                                 widget=forms.TextInput(attrs={'class': 'form-control'}))
     url = forms.URLField(required=False, widget=forms.URLInput(attrs={'class': 'form-control'}))
