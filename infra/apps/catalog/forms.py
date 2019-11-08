@@ -18,7 +18,12 @@ class CatalogForm(forms.ModelForm):
                            widget=forms.FileInput(attrs={'class': 'form-control-file'}))
     format = forms.CharField(label='Formato', widget=forms.Select(attrs={'class': 'form-control'},
                                                                   choices=FORMAT_OPTIONS))
-    url = forms.URLField(required=False, widget=forms.URLInput(attrs={'class': 'form-control'}))
+    url = forms.URLField(required=False,
+                         widget=forms.URLInput(
+                             attrs={
+                                 'placeholder': 'URL',
+                                 'class': 'form-control'
+                             }))
 
 
 class DistributionForm(forms.ModelForm):
