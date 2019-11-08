@@ -15,10 +15,16 @@ class CatalogForm(forms.ModelForm):
         fields = ['format', 'file']
 
     file = forms.FileField(required=False,
-                           widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+                           widget=forms.FileInput(attrs={'class': 'form-control-file',
+                                                         'style': 'height: 44px;'}))
     format = forms.CharField(label='Formato', widget=forms.Select(attrs={'class': 'form-control'},
                                                                   choices=FORMAT_OPTIONS))
-    url = forms.URLField(required=False, widget=forms.URLInput(attrs={'class': 'form-control'}))
+    url = forms.URLField(required=False,
+                         widget=forms.URLInput(
+                             attrs={
+                                 'placeholder': 'URL',
+                                 'class': 'form-control'
+                             }))
 
 
 class DistributionForm(forms.ModelForm):
