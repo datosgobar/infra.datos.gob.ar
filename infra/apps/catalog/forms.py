@@ -1,7 +1,7 @@
 # coding=utf-8
 from django import forms
 
-from infra.apps.catalog.models import CatalogUpload, Distribution
+from infra.apps.catalog.models import CatalogUpload, DistributionUpload
 
 FORMAT_OPTIONS = [
         ('json', 'JSON'),
@@ -29,7 +29,7 @@ class CatalogForm(forms.ModelForm):
 
 class DistributionForm(forms.ModelForm):
     class Meta:
-        model = Distribution
+        model = DistributionUpload
         fields = ['distribution_identifier', 'file']
 
     file = forms.FileField(required=False,
@@ -47,8 +47,9 @@ class DistributionForm(forms.ModelForm):
         latest = node.get_latest_catalog_upload()
         datasets = [(dataset['identifier'], dataset['title'] + " - " + dataset['identifier'])
                     for dataset in latest.get_datasets()]
+        initial_choice = self.instance.dataset_identifier if self.instance.pk else None
         self.fields['dataset_identifier'] = \
-            forms.ChoiceField(choices=datasets, initial=self.instance.dataset_identifier,
+            forms.ChoiceField(choices=datasets, initial=initial_choice,
                               widget=forms.Select(attrs={'class': 'form-control'}))
 
-        self.fields['file_name'].initial = self.instance.file_name
+        self.fields['file_name'].initial = self.instance.file_name if self.instance.pk else None

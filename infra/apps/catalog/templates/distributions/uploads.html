@@ -27,13 +27,13 @@
         <div class="row">
             <div class="col-sm-6">
                 <h3 class="text-primary">Distribución actual</h3>
-                <a class="btn btn-link" href="{% get_media_prefix  %}{{ object_list.0.file_path }}" download="{{ object_list.0.file_name }}">{{ object_list.0.file_name }}</a>
+                <a class="btn btn-link" href="{% get_media_prefix  %}{{ object_list.0.distribution.file_path }}" download="{{ object_list.0.distribution.file_name }}">{{ object_list.0.distribution.file_name }}</a>
             </div>
 
             <div class="col-sm-6">
                 <h3 class="text-primary">Versiones anteriores</h3>
                 {% for distribution in object_list %}
-                    <a class="btn btn-primary btn-sm" href="{% get_media_prefix  %}{{ distribution.file.name }}" download="{{ distribution.file_name_with_date }}">{{ distribution.file_name }} ({{ distribution.uploaded_at|date:"Y-m-d" }})</a>
+                    <a class="btn btn-primary btn-sm" href="{% get_media_prefix  %}{{ distribution.distribution.file.name }}" download="{{ distribution.distribution.file_name_with_date }}">{{ distribution.distribution.file_name }} ({{ distribution.uploaded_at|date:"Y-m-d" }})</a>
             {% endfor %}
             </div>
         </div>
