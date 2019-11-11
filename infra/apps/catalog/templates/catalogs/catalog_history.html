@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block breadcrumbs %}
 <section class="jumbotron" style="background-image: url({% static 'svg/hero_bg.svg' %});">
@@ -6,11 +7,11 @@
 	    <div class="container">
 	        <ol class="breadcrumb hidden-xs pull-left">
 		        <li><a href="{% url 'catalog:nodes' %}">Inicio</a></li>
-		        <li><span>{{ node_name }}</span></li>
+		        <li ><a href="{% url 'catalog:node' node.id %}">{{ node.identifier }}</a></li>
 		        <li class="active"><span>Historial</span></li>
 	        </ol>
 	        <ol class="list-inline pull-right d-flex flex-wrap align-items-center">
-		        <li><span class="m-b-xs">ESTÁS VIENDO NODO {{ node_name|upper }}</span></li>
+		        <li><span class="m-b-xs">ESTÁS VIENDO NODO {{ node.identifier|upper }}</span></li>
 		        <li><a href="{% url 'catalog:nodes' %}" class="btn btn-primary btn-sm m-b-0">CAMBIAR DE NODO</a></li>
 	        </ol>
         </div>
@@ -18,7 +19,7 @@
     <div class="jumbotron_body">
         <div class="container">
             <h1>Historial</h1>
-            <p>{{ node_name }}</p>
+            <p>{{ node.identifier }}</p>
         </div>
     </div>
 </section>
@@ -31,18 +32,34 @@
             <div class="col-md-6">
                 <h2>XLSX:</h2>
                 <div class="table-responsive m-lg-b-xs">
-                    <table class="table table-hover">
+                    <table class="table table-hover -has-hidden-content">
                         <thead>
                             <tr>
-                                <th>Nombre del archivo</th>
-                                <th class="text-center">Fecha</th>
+                                <th>Fecha</th>
+                                <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
+                        {% for uploaded_date, file in xlsx_files %}
                             <tr>
-                                <td>Nombre del archivo</td>
-                                <td class="text-center">02/02/20</td>
+                                <td>{{ uploaded_date|date:"d/m/Y" }}</td>
+                                <td>
+                                    <div class="d-flex align-items-center justify-content-end">
+                                        <a href="{% get_media_prefix %}{{ file.name }}" download="{{ file.name }}"
+                                                type="button" class="btn btn-primary btn-sm text-nowrap m-b-0 m-r-05"><i class="fa fa-download fa-fw fa-lg"></i> DESCARGAR</a>
+                                        <div class="table-hidden-content">
+                                            <button id="xlsxFileCopy{{ forloop.counter }}" data-url="{% get_media_prefix %}{{ file.name }}" class="btn btn-primary btn-sm m-b-0 m-r-05" onclick="copyUrlToClipBoard(xlsxFileCopy{{ forloop.counter }})"
+                                                    data-toggle="popover" data-trigger="focus" data-placement="top" data-content="Vínculo copiado al portapapeles">
+                                                <i class="fa fa-copy fa-fw fa-lg"></i>
+                                            </button>
+                                            <a href="#" class="btn btn-primary btn-sm m-b-0 m-r-05" data-toggle="modal" data-target=".modal-confirm-remove" title="Eliminar">
+                                                <i class="fa fa-trash fa-fw fa-lg"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -53,15 +70,31 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Nombre del archivo</th>
-                                <th class="text-center">Fecha</th>
+                                <th>Fecha</th>
+                                <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
+                        {% for uploaded_date, file in json_files %}
                             <tr>
-                                <td>Nombre del archivo</td>
-                                <td class="text-center">02/02/20</td>
+                                <td>{{ uploaded_date|date:"d/m/Y" }}</td>
+                                <td>
+                                    <div class="d-flex align-items-center justify-content-end">
+                                        <a href="{% get_media_prefix %}{{ file.name }}" download="{{ file.name }}"
+                                                type="button" class="btn btn-primary btn-sm text-nowrap m-b-0 m-r-05"><i class="fa fa-download fa-fw fa-lg"></i> DESCARGAR</a>
+                                        <div class="table-hidden-content">
+                                            <button id="jsonFileCopy{{ forloop.counter }}" data-url="{% get_media_prefix %}{{ file.name }}" class="btn btn-primary btn-sm m-b-0 m-r-05" onclick="copyUrlToClipBoard(jsonFileCopy{{ forloop.counter }})"
+                                                    data-toggle="popover" data-trigger="focus" data-placement="top" data-content="Vínculo copiado al portapapeles">
+                                                <i class="fa fa-copy fa-fw fa-lg"></i>
+                                            </button>
+                                            <a href="#" class="btn btn-primary btn-sm m-b-0 m-r-05" data-toggle="modal" data-target=".modal-confirm-remove" title="Eliminar">
+                                                <i class="fa fa-trash fa-fw fa-lg"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -69,4 +102,8 @@
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/copy_url.js' %}"></script>
 {% endblock %}

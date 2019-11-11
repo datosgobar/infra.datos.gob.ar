@@ -310,11 +310,29 @@ class SyncCatalog(LoginRequiredMixin, TemplateView):
         except Node.DoesNotExist:
             return None
 
-class CatalogHistory(LoginRequiredMixin, TemplateView):
+
+class CatalogHistory(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
+    model = CatalogUpload
     template_name = 'catalogs/catalog_history.html'
     http_method_names = ['get']
 
-    def get_context_data(self, **kwargs):
-        context = super(CatalogHistory, self).get_context_data(**kwargs)
+    def get_queryset(self):
+        node = self.kwargs["node_id"]
+        return self.model.objects.filter(node=node).order_by("-uploaded_at")
+
+    def get_context_data(self, object_list=None, **kwargs):
+        context = super(CatalogHistory, self).get_context_data(object_list=object_list, **kwargs)
+        context['node'] = Node.objects.get(id=self.kwargs['node_id'])
+        context['json_files'], context['xlsx_files'] = \
+            self.get_files_from_catalog_upload(context['object_list'])
         return context
+
+    def get_files_from_catalog_upload(self, catalog_uploads):
+        xlsx_files = []
+        json_files = []
+        for catalog_upload in catalog_uploads:
+            xlsx_files.append((catalog_upload.uploaded_at, catalog_upload.xlsx_file))
+            json_files.append((catalog_upload.uploaded_at, catalog_upload.json_file))
+
+        return json_files, xlsx_files
 
