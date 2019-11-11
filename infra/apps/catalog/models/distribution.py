@@ -1,4 +1,5 @@
 import os
+import shutil
 from pathlib import Path
 
 from django.conf import settings
@@ -14,7 +15,7 @@ from infra.apps.catalog.storage.distribution_storage import \
 
 
 def distribution_file_path(instance, _filename=None):
-    directory = distribution_directory(instance)
+    directory = distribution_directory(instance.distribution)
     decomposed_name = instance.distribution.file_name.rsplit('.', maxsplit=1)
     final_name = f'{decomposed_name[0]}-{instance.uploaded_at}'
     if len(decomposed_name) > 1:
@@ -69,6 +70,10 @@ class Distribution(models.Model):
              update_fields=None):
         self.catalog.get_latest_catalog_upload()  # Validación de que hay un upload
         super(Distribution, self).save(force_insert, force_update, using, update_fields)
+
+    def delete(self, using=None, keep_parents=False):
+        super(Distribution, self).delete(using=using, keep_parents=keep_parents)
+        shutil.rmtree(os.path.join(settings.MEDIA_ROOT, distribution_directory(self)))
 
     def __str__(self):
         return f'{self.identifier} ({self.catalog.identifier})'
