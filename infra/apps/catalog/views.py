@@ -10,7 +10,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.urls import reverse_lazy
 from django.views.generic import ListView, TemplateView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, DeleteView
 from requests import RequestException
 
 from infra.apps.catalog.exceptions.catalog_not_uploaded_error import \
@@ -331,8 +331,16 @@ class CatalogHistory(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
         xlsx_files = []
         json_files = []
         for catalog_upload in catalog_uploads:
-            xlsx_files.append((catalog_upload.uploaded_at, catalog_upload.xlsx_file))
-            json_files.append((catalog_upload.uploaded_at, catalog_upload.json_file))
+            xlsx_files.append((catalog_upload, catalog_upload.xlsx_file))
+            json_files.append((catalog_upload, catalog_upload.json_file))
 
         return json_files, xlsx_files
 
+
+class DeleteCatalogUpload(LoginRequiredMixin, UserIsNodeAdminMixin, DeleteView):
+    model = CatalogUpload
+    http_method_names = ['post']
+
+    def get_success_url(self):
+        return reverse_lazy('catalog:catalog_history',
+                            kwargs={'node_id': self.kwargs["node_id"]})
