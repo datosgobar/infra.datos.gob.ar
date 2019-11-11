@@ -1,37 +1,53 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block breadcrumbs %}
-    <li>
-        <a href="{% url 'catalog:nodes' %}">Nodos</a>
-    </li>
-    <li>
-        <a href="{% url 'catalog:node' node_id %}">{{ node_identifier }}</a>
-    </li>
-    <li>
-        <a href="{% url 'catalog:add_catalog' node_id %}">Agregar Catálogo</a>
-    </li>
+<section class="jumbotron" style="background-image: url({% static 'svg/hero_bg.svg' %});">
+    <div class="jumbotron_bar">
+	    <div class="container">
+	        <ol class="breadcrumb hidden-xs pull-left">
+		        <li><a href="{% url 'catalog:nodes' %}">Inicio</a></li>
+		        <li class="active"><span>{{ node_identifier }}</span></li>
+	        </ol>
+	        <ol class="list-inline pull-right d-flex flex-wrap align-items-center">
+		        <li><span class="m-b-xs">ESTÁS VIENDO NODO {{ node_identifier|upper }}</span></li>
+		        <li><a href="{% url 'catalog:nodes' %}" class="btn btn-primary btn-sm m-b-0">CAMBIAR DE NODO</a></li>
+	        </ol>
+        </div>
+    </div>
+    <div class="jumbotron_body">
+        <div class="container">
+            <h1>Mi catálogo</h1>
+            <p>{{ node_identifier }}</p>
+        </div>
+    </div>
+</section>
 {% endblock %}
 
 {% block content %}
-<h1 class="text-success">Agregar catálogo</h1>
-
-<a class="btn btn-primary btn-sm" href="{% url 'catalog:node' node_id=node_id %}">Volver al nodo</a>
-
-{% if messages %}
-<div class="info">
-    <h5>Se encontraron los siguientes errores en la validación del catálogo:</h5>
-</div>
-<div class="info">
-    {% for message in messages %}
-    <div class="alert alert-{{ message.tags }} alert-danger info">
-        {{ message|safe }}
+<section>
+    <div class="container">
+		<h2 class="m-b-3">Se subió el catalogo</h2>
+        <div class="row">
+            <div class="col-md-6">
+                {% if messages %}
+                <div class="info">
+                    <h5>Se encontraron los siguientes errores en la validación del catálogo:</h5>
+                </div>
+                <div class="info">
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-danger info">
+                        {{ message|safe }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="info">
+                    <h5>El catálogo subido es válido</h5>
+                </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
-    {% endfor %}
-</div>
-{% else %}
-<div class="info">
-    <h5>El catálogo subido es válido</h5>
-</div>
-{% endif %}
-
+</section>
 {% endblock %}
