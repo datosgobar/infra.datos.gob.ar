@@ -56,7 +56,7 @@
 					<tr>
 						<th>Nombre </th>
                         <th class="text-center">ID</th>
-						<th class="text-center">Fecha versión actual</th>
+						<th class="text-center">Fecha</th>
 						<th>Acciones</th>
                     </tr>
                 </thead>
@@ -74,7 +74,7 @@
                                 <div class="table-hidden-content">
 									<button id="fileCopy" data-url="{% get_media_prefix  %}{{ distribution.distribution.file_path }}" class="btn btn-primary btn-sm m-b-0 m-r-05" onclick="copyUrlToClipBoard(fileCopy)"
 											data-toggle="popover" data-trigger="focus" data-placement="top" data-content="Vínculo copiado al portapapeles">
-										<i class="fa fa-copy fa-fw fa-lg"></i>
+										<i class="fa fa-link fa-fw fa-lg"></i>
                                     </button>
 									<a href="#" class="btn btn-primary btn-sm m-b-0 m-r-05" data-toggle="modal" data-target=".modal-confirm-remove" title="Eliminar">
 										<i class="fa fa-trash fa-fw fa-lg"></i>
