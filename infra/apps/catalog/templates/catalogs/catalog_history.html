@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block breadcrumbs %}
+<section class="jumbotron" style="background-image: url({% static 'svg/hero_bg.svg' %});">
+    <div class="jumbotron_bar">
+	    <div class="container">
+	        <ol class="breadcrumb hidden-xs pull-left">
+		        <li><a href="{% url 'catalog:nodes' %}">Inicio</a></li>
+		        <li><span>{{ node_name }}</span></li>
+		        <li class="active"><span>Historial</span></li>
+	        </ol>
+	        <ol class="list-inline pull-right d-flex flex-wrap align-items-center">
+		        <li><span class="m-b-xs">ESTÁS VIENDO NODO {{ node_name|upper }}</span></li>
+		        <li><a href="{% url 'catalog:nodes' %}" class="btn btn-primary btn-sm m-b-0">CAMBIAR DE NODO</a></li>
+	        </ol>
+        </div>
+    </div>
+    <div class="jumbotron_body">
+        <div class="container">
+            <h1>Historial</h1>
+            <p>{{ node_name }}</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>XLSX:</h2>
+                <div class="table-responsive m-lg-b-xs">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nombre del archivo</th>
+                                <th class="text-center">Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Nombre del archivo</td>
+                                <td class="text-center">02/02/20</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h2>JSON:</h2>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nombre del archivo</th>
+                                <th class="text-center">Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Nombre del archivo</td>
+                                <td class="text-center">02/02/20</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

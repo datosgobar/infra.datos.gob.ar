@@ -314,3 +314,12 @@ class SyncCatalog(LoginRequiredMixin, TemplateView):
             return Node.objects.get(id=self.kwargs['node_id']).identifier
         except Node.DoesNotExist:
             return None
+
+class CatalogHistory(LoginRequiredMixin, TemplateView):
+    template_name = 'catalogs/catalog_history.html'
+    http_method_names = ['get']
+
+    def get_context_data(self, **kwargs):
+        context = super(CatalogHistory, self).get_context_data(**kwargs)
+        return context
+
