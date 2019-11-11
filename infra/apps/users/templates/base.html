@@ -1,8 +1,8 @@
+<html lang="en">
 {% load i18n static %}
 <!DOCTYPE html>
-<html lang="en">
-
 <head>
+    {% load i18n static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -33,8 +33,6 @@
 <footer class="main-footer">{% block footer %}{% include 'footer.html' %}{% endblock %}</footer>
 
 </body>
-
-
 {% block scripts %}
 {% endblock %}
 </html>

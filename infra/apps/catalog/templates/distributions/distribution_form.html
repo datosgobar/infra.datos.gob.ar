@@ -1,63 +1,89 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block breadcrumbs %}
-    <li>
-        <a href="{% url 'catalog:nodes' %}">Nodos</a>
-    </li>
-    <li>
-        <a href="{% url 'catalog:node' node_id %}">{{ node_identifier }}</a>
-    </li>
-    <li>
-        <a href="{% url 'catalog:node_distributions' node_id %}">Distribuciones</a>
-    </li>
-    <li>Agregar</li>
+<section class="jumbotron" style="background-image: url({% static 'svg/hero_bg.svg' %});">
+	<div class="jumbotron_bar">
+		<div class="container">
+	        <ol class="breadcrumb hidden-xs pull-left">
+		        <li><a href="{% url 'catalog:nodes' %}">Inicio</a></li>
+		        <li><a href="{% url 'catalog:node' node_id %}">{{ node_identifier }}</a></li>
+		        <li><a href="{% url 'catalog:node_distributions' node_id %}">Distribuciones</a></li>
+		        <li class="active"><span>Agregar</span></li>
+	        </ol>
+	        <ol class="list-inline pull-right d-flex flex-wrap align-items-center">
+		        <li><span class="m-b-xs">ESTÁS VIENDO NODO {{ node_identifier|upper }}</span></li>
+		        <li><a href="{% url 'catalog:nodes' %}" class="btn btn-primary btn-sm m-b-0">CAMBIAR DE NODO</a></li>
+	        </ol>
+        </div>
+    </div>
+    <div class="jumbotron_body p-y-2">
+		<div class="container">
+			<h1>Agregar distribuciones</h1>
+            <p>{{ node_identifier }}</p>
+        </div>
+    </div>
+</section>
 {% endblock %}
 
 {% block content %}
-    <h1 class="text-primary">Agregar distribución</h1>
 
-    {% if messages %}
-        <div class="errors">
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-danger error">
-                    {{ message|safe }}
-                </div>
-            {% endfor %}
+<section>
+    <div class="container">
+		<div class="row d-flex justify-content-center">
+			<div class="col-md-6 col-lg-5">
+				<h4 class="text-center m-b-3">Agregar una distribución:</h4>
+            </div>
         </div>
-    {% endif %}
-
-    {% if form %}
-        <div class="row">
-            <div class="col-sm-6 col-sm-offset-3">
-                <form class="custom-form" method="post" enctype="multipart/form-data">
+        <div class="row d-flex justify-content-center">
+            {% if messages %}
+                <div class="errors">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-danger error">
+                            {{ message|safe }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+		<div class="row d-flex justify-content-center">
+			<div class="col-xs-12 col-md-6 col-lg-5">
+				<form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-8 col-md-offset-2 form-group item-form">
-                            <strong class="text-left col-sm-12">{{ form.distribution_identifier.label }}</strong>
-                            {{ form.distribution_identifier }}
-                        </div>
+					<div class="form-group item-form">
+						<label>Identificador</label>
+                        {{ form.distribution_identifier }}
                     </div>
-                    <div class="row">
-                        <div class="col-md-8 col-md-offset-2 form-group item-form">
-                            <strong class="text-left col-sm-12">{{ form.dataset_identifier.label }}</strong>
-                            {{ form.dataset_identifier }}
-                        </div>
+					<div class="form-group item-form">
+                        <label>Dataset</label>
+					    {{ form.dataset_identifier }}
                     </div>
-                    <div class="row">
-                        <div class="col-md-8 col-md-offset-2 form-group item-form">
-                            <strong class="text-left col-sm-12">{{ form.file_name.label }}</strong>
-                            {{ form.file_name }}
-                        </div>
+
+                    <div class="form-group item-form">
+                        <label>Nombre de archivo</label>
+                        {{ form.file_name }}
                     </div>
+
                     {% include 'file_or_url.html' %}
 
-                    <input class="btn btn-success" type="submit" value="Agregar">
+					<div class="row">
+						<div class="col-xs-6">
+							&nbsp;
+                        </div>
+						<div class="col-xs-6">
+							<input type="submit" class="btn btn-success pull-right" value="Agregar">
+							<div class="clearfix"></div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
-        <br>
-    {% endif %}
-    <div class="row">
-        <a class="btn btn-primary btn-sm" href="{% url 'catalog:node_distributions' node_id=node_id %}">Volver</a>
     </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 {% endblock %}

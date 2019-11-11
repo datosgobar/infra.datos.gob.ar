@@ -7,7 +7,8 @@ from django.contrib.auth import get_user_model
 from django.core.files import File
 from django.test import Client
 
-from infra.apps.catalog.models import CatalogUpload, Node, Distribution
+from infra.apps.catalog.models import CatalogUpload, Node
+from infra.apps.catalog.models.distribution import Distribution
 from infra.apps.catalog.tests.helpers.open_catalog import open_catalog
 
 
@@ -55,17 +56,27 @@ def media_root():
 
 
 @pytest.fixture
-def distribution():
-    _catalog()
+def distribution_upload():
+    _catalog()  # Necesario que exista un catálogo para crear un distribution upload exitorsamente
     with open_catalog('test_data.csv') as distribution_fd:
-        model = Distribution(file=File(distribution_fd),
-                             node=_node(),
-                             identifier="125.1",
-                             dataset_identifier="125",
-                             file_name="test_data.csv")
-        model.save()
+        model = _distribution().distributionupload_set.create(file=File(distribution_fd))
 
     return model
+
+
+def _distribution():
+    model = Distribution(catalog=_node(),
+                         identifier="125.1",
+                         dataset_identifier="125",
+                         file_name="test_data.csv")
+    model.save()
+    return model
+
+
+@pytest.fixture
+def distribution():
+    _catalog()
+    return _distribution()
 
 
 @pytest.fixture
