@@ -186,7 +186,7 @@ class AddDistributionVersionView(DistributionUpserter):
 
 class ListDistributions(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
     model = DistributionUpload
-    paginate_by = 5
+    paginate_by = 10
     template_name = "distributions/node_distributions.html"
 
     def get_queryset(self):
