@@ -7,7 +7,7 @@ function copyUrlToClipBoard(element){
 
     var input = document.createElement("input");
     document.getElementsByTagName("BODY")[0].append(input);
-    input.value = url
+    input.value = url;
     input.select();
     document.execCommand("copy");
     input.remove();

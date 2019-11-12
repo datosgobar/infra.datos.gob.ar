@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block breadcrumbs %}
+<section class="jumbotron" style="background-image: url({% static 'svg/hero_bg.svg' %});">
+    <div class="jumbotron_bar">
+	    <div class="container">
+	        <ol class="breadcrumb hidden-xs pull-left">
+		        <li><a href="{% url 'catalog:nodes' %}">Inicio</a></li>
+		        <li ><a href="{% url 'catalog:node' node.id %}">{{ node.identifier }}</a></li>
+		        <li class="active"><span>Historial</span></li>
+	        </ol>
+	        <ol class="list-inline pull-right d-flex flex-wrap align-items-center">
+		        <li><span class="m-b-xs">ESTÁS VIENDO NODO {{ node.identifier|upper }}</span></li>
+		        <li><a href="{% url 'catalog:nodes' %}" class="btn btn-primary btn-sm m-b-0">CAMBIAR DE NODO</a></li>
+	        </ol>
+        </div>
+    </div>
+    <div class="jumbotron_body">
+        <div class="container">
+            <h1>Historial</h1>
+            <p>{{ node.identifier }}</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>XLSX:</h2>
+                <div class="table-responsive m-lg-b-xs">
+                    <table class="table table-hover -has-hidden-content">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for catalog_upload in object_list %}
+                        {% with catalog_upload.xlsx_file as file %}
+                            <tr>
+                                <td>{{ catalog_upload.uploaded_at|date:"d/m/Y" }}</td>
+                                <td>
+                                    <div class="d-flex align-items-center justify-content-end">
+                                        <a href="{% get_media_prefix %}{{ file.name }}" download="{{ file.name }}"
+                                                type="button" class="btn btn-primary btn-sm text-nowrap m-b-0 m-r-05"><i class="fa fa-download fa-fw fa-lg"></i> DESCARGAR</a>
+                                        <div class="table-hidden-content">
+                                            <button id="xlsxFileCopy{{ forloop.counter }}" data-url="{% get_media_prefix %}{{ file.name }}" class="btn btn-primary btn-sm m-b-0 m-r-05" onclick="copyUrlToClipBoard(xlsxFileCopy{{ forloop.counter }})"
+                                                    data-toggle="popover" data-trigger="focus" data-placement="top" data-content="Vínculo copiado al portapapeles">
+                                                <i class="fa fa-link fa-fw fa-lg"></i>
+                                            </button>
+                                            <a data-toggle="modal" data-target="#xlsxModal{{ forloop.counter }}"
+                                               class="btn btn-primary btn-sm m-b-0 m-r-05" title="Eliminar">
+                                                <i class="fa fa-trash fa-fw fa-lg"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Modal -->
+                            <div class="modal fade" id="xlsxModal{{ forloop.counter }}" tabindex="-1" role="dialog" >
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            ¿Está seguro de querer eliminar este catálogo?
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action="{% url 'catalog:delete_catalog_upload' node.id catalog_upload.pk %}"
+                                                  method="post">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="button" data-dismiss="modal"
+                                                  onclick="submit()" class="btn btn-primary">Eliminar</button>
+                                                {% csrf_token %}
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endwith %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h2>JSON:</h2>
+                <div class="table-responsive">
+                    <table class="table table-hover -has-hidden-content">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for catalog_upload in object_list %}
+                        {% with catalog_upload.json_file as file %}
+                            <tr>
+                                <td>{{ catalog_upload.uploaded_at|date:"d/m/Y" }}</td>
+                                <td>
+                                    <div class="d-flex align-items-center justify-content-end">
+                                        <a href="{% get_media_prefix %}{{ file.name }}" download="{{ file.name }}"
+                                                type="button" class="btn btn-primary btn-sm text-nowrap m-b-0 m-r-05"><i class="fa fa-download fa-fw fa-lg"></i> DESCARGAR</a>
+                                        <div class="table-hidden-content">
+                                            <button id="jsonFileCopy{{ forloop.counter }}" data-url="{% get_media_prefix %}{{ file.name }}" class="btn btn-primary btn-sm m-b-0 m-r-05" onclick="copyUrlToClipBoard(jsonFileCopy{{ forloop.counter }})"
+                                                    data-toggle="popover" data-trigger="focus" data-placement="top" data-content="Vínculo copiado al portapapeles">
+                                                <i class="fa fa-link fa-fw fa-lg"></i>
+                                            </button>
+                                            <a data-toggle="modal" data-target="#jsonModal{{ forloop.counter }}"
+                                               class="btn btn-primary btn-sm m-b-0 m-r-05" title="Eliminar">
+                                                <i class="fa fa-trash fa-fw fa-lg"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Modal -->
+                            <div class="modal fade" id="jsonModal{{ forloop.counter }}" tabindex="-1" role="dialog" >
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            ¿Está seguro de querer eliminar este catálogo?
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action="{% url 'catalog:delete_catalog_upload' node.id catalog_upload.pk %}"
+                                                  method="post">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="button" data-dismiss="modal"
+                                                  onclick="submit()" class="btn btn-primary">Eliminar</button>
+                                                {% csrf_token %}
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endwith %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/copy_url.js' %}"></script>
+<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+{% endblock %}

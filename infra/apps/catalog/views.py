@@ -5,13 +5,12 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic import ListView, TemplateView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, DeleteView
 from requests import RequestException
 
 from infra.apps.catalog.exceptions.catalog_not_uploaded_error import \
@@ -311,6 +310,38 @@ class SyncCatalog(LoginRequiredMixin, TemplateView):
             return Node.objects.get(id=self.kwargs['node_id']).identifier
         except Node.DoesNotExist:
             return None
+
+
+class CatalogHistory(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
+    model = CatalogUpload
+    template_name = 'catalogs/catalog_history.html'
+    http_method_names = ['get']
+
+    def get_queryset(self):
+        node = self.kwargs["node_id"]
+        return self.model.objects.filter(node=node).order_by("-uploaded_at")
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CatalogHistory, self).get_context_data(object_list=object_list, **kwargs)
+        context['node'] = Node.objects.get(id=self.kwargs['node_id'])
+        return context
+
+
+class DeleteCatalogUpload(LoginRequiredMixin, UserIsNodeAdminMixin, DeleteView):
+    model = CatalogUpload
+    http_method_names = ['post']
+
+    def get_success_url(self):
+        return reverse_lazy('catalog:catalog_history',
+                            kwargs={'node_id': self.kwargs["node_id"]})
+
+    def delete(self, request, *args, **kwargs):
+        catalog = self.get_object()
+        if catalog.node.id != self.kwargs["node_id"]:
+            return HttpResponse('Unauthorized', status=401)
+        success_url = self.get_success_url()
+        catalog.delete()
+        return HttpResponseRedirect(success_url)
 
 
 class DeleteDistribution(LoginRequiredMixin, UserIsNodeAdminMixin, View):

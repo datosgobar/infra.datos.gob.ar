@@ -6,12 +6,12 @@ from infra.apps.catalog.models import Node
 class UserIsNodeAdminMixin(UserPassesTestMixin):
 
     def check_user_is_node_admin(self, user, node_id):
-        if user.is_superuser:
-            return True
         try:
             node = Node.objects.get(id=node_id)
         except Node.DoesNotExist:
             return False
+        if user.is_superuser:
+            return True
         return node in user.node_set.all()
 
     def test_func(self):
