@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
 from django.http import Http404, HttpResponseRedirect, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.urls import reverse_lazy
 from django.views import View
@@ -321,5 +321,5 @@ class DeleteDistribution(View):
         except Distribution.DoesNotExist:
             return HttpResponse(status=400)
 
-        return HttpResponseRedirect(reverse('catalog:distribution_uploads',
-                                            kwargs={'node_id': node_id, 'identifier': identifier}))
+        return redirect('catalog:distribution_uploads',
+                        node_id=node_id, identifier=identifier)
