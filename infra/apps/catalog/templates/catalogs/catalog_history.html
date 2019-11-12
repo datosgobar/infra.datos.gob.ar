@@ -50,18 +50,38 @@
                                         <div class="table-hidden-content">
                                             <button id="xlsxFileCopy{{ forloop.counter }}" data-url="{% get_media_prefix %}{{ file.name }}" class="btn btn-primary btn-sm m-b-0 m-r-05" onclick="copyUrlToClipBoard(xlsxFileCopy{{ forloop.counter }})"
                                                     data-toggle="popover" data-trigger="focus" data-placement="top" data-content="Vínculo copiado al portapapeles">
-                                                <i class="fa fa-copy fa-fw fa-lg"></i>
+                                                <i class="fa fa-link fa-fw fa-lg"></i>
                                             </button>
-                                            <form action="{% url 'catalog:delete_catalog_upload' node.id catalog_upload.pk %}"
-                                                  method="post" class="btn btn-primary btn-sm m-b-0 m-r-05"
-                                                  onclick="submit()"  data-toggle="modal" data-target=".modal-confirm-remove" title="Eliminar">
-                                                {% csrf_token %}
+                                            <a data-toggle="modal" data-target="#xlsxModal{{ forloop.counter }}"
+                                               class="btn btn-primary btn-sm m-b-0 m-r-05" title="Eliminar">
                                                 <i class="fa fa-trash fa-fw fa-lg"></i>
-                                            </form>
+                                            </a>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
+                            <!-- Modal -->
+                            <div class="modal fade" id="xlsxModal{{ forloop.counter }}" tabindex="-1" role="dialog" >
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            ¿Está seguro de querer eliminar este catálogo?
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action="{% url 'catalog:delete_catalog_upload' node.id catalog_upload.pk %}"
+                                                  method="post">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="button" data-dismiss="modal"
+                                                  onclick="submit()" class="btn btn-primary">Eliminar</button>
+                                                {% csrf_token %}
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         {% endfor %}
                         </tbody>
                     </table>
@@ -70,7 +90,7 @@
             <div class="col-md-6">
                 <h2>JSON:</h2>
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover -has-hidden-content">
                         <thead>
                             <tr>
                                 <th>Fecha</th>
@@ -88,18 +108,38 @@
                                         <div class="table-hidden-content">
                                             <button id="jsonFileCopy{{ forloop.counter }}" data-url="{% get_media_prefix %}{{ file.name }}" class="btn btn-primary btn-sm m-b-0 m-r-05" onclick="copyUrlToClipBoard(jsonFileCopy{{ forloop.counter }})"
                                                     data-toggle="popover" data-trigger="focus" data-placement="top" data-content="Vínculo copiado al portapapeles">
-                                                <i class="fa fa-copy fa-fw fa-lg"></i>
+                                                <i class="fa fa-link fa-fw fa-lg"></i>
                                             </button>
-                                            <form action="{% url 'catalog:delete_catalog_upload' node.id catalog_upload.pk %}"
-                                                  method="post" class="btn btn-primary btn-sm m-b-0 m-r-05"
-                                                  onclick="submit()"  data-toggle="modal" data-target=".modal-confirm-remove" title="Eliminar">
-                                                {% csrf_token %}
+                                            <a data-toggle="modal" data-target="#jsonModal{{ forloop.counter }}"
+                                               class="btn btn-primary btn-sm m-b-0 m-r-05" title="Eliminar">
                                                 <i class="fa fa-trash fa-fw fa-lg"></i>
-                                            </form>
+                                            </a>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
+                            <!-- Modal -->
+                            <div class="modal fade" id="jsonModal{{ forloop.counter }}" tabindex="-1" role="dialog" >
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            ¿Está seguro de querer eliminar este catálogo?
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action="{% url 'catalog:delete_catalog_upload' node.id catalog_upload.pk %}"
+                                                  method="post">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="button" data-dismiss="modal"
+                                                  onclick="submit()" class="btn btn-primary">Eliminar</button>
+                                                {% csrf_token %}
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         {% endfor %}
                         </tbody>
                     </table>
@@ -112,4 +152,6 @@
 
 {% block scripts %}
 <script src="{% static 'js/copy_url.js' %}"></script>
+<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
 {% endblock %}
