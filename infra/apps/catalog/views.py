@@ -320,7 +320,7 @@ class CatalogHistory(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
         node = self.kwargs["node_id"]
         return self.model.objects.filter(node=node).order_by("-uploaded_at")
 
-    def get_context_data(self, object_list=None, **kwargs):
+    def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CatalogHistory, self).get_context_data(object_list=object_list, **kwargs)
         context['node'] = Node.objects.get(id=self.kwargs['node_id'])
         return context
@@ -335,11 +335,11 @@ class DeleteCatalogUpload(LoginRequiredMixin, UserIsNodeAdminMixin, DeleteView):
                             kwargs={'node_id': self.kwargs["node_id"]})
 
     def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        if self.object.node.id != self.kwargs["node_id"]:
+        catalog = self.get_object()
+        if catalog.node.id != self.kwargs["node_id"]:
             return HttpResponse('Unauthorized', status=401)
         success_url = self.get_success_url()
-        self.object.delete()
+        catalog.delete()
         return HttpResponseRedirect(success_url)
 
 
