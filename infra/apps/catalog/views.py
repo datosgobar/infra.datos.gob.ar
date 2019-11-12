@@ -256,6 +256,7 @@ class NodeUploadsView(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
 class DistributionUploads(ListView):
     model = DistributionUpload
     template_name = 'distributions/uploads.html'
+    paginate_by = 10
 
     def node_id(self):
         return self.kwargs['node_id']
