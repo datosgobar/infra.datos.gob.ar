@@ -1,6 +1,12 @@
 Versiones
 =========
 
+0.1.0 (12-11-19)
+-------------------
+
+- Nuevos estilos de interfaz visual
+- Feature de borrado de subidas de catálogo, y distribuciones
+
 0.0.6 (10-09-19)
 -------------------
 
