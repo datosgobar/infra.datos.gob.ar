@@ -40,7 +40,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                        {% for catalog_upload, file in xlsx_files %}
+                        {% for catalog_upload in object_list %}
+                        {% with catalog_upload.xlsx_file as file %}
                             <tr>
                                 <td>{{ catalog_upload.uploaded_at|date:"d/m/Y" }}</td>
                                 <td>
@@ -82,6 +83,7 @@
                                     </div>
                                 </div>
                             </div>
+                        {% endwith %}
                         {% endfor %}
                         </tbody>
                     </table>
@@ -98,7 +100,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                        {% for catalog_upload, file in json_files %}
+                        {% for catalog_upload in object_list %}
+                        {% with catalog_upload.json_file as file %}
                             <tr>
                                 <td>{{ catalog_upload.uploaded_at|date:"d/m/Y" }}</td>
                                 <td>
@@ -140,6 +143,7 @@
                                     </div>
                                 </div>
                             </div>
+                        {% endwith %}
                         {% endfor %}
                         </tbody>
                     </table>
