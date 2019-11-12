@@ -38,4 +38,7 @@ urlpatterns = [
     path('<int:node_id>/sync/',
          catalog_views.SyncCatalog.as_view(),
          name='sync_catalog'),
+    path('<int:node_id>/distributions/<str:identifier>/delete/',
+         catalog_views.DeleteDistribution.as_view(),
+         name='delete_distribution'),
 ]

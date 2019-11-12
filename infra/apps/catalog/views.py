@@ -6,9 +6,10 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import FormView, DeleteView
 from requests import RequestException
@@ -333,3 +334,11 @@ class DeleteCatalogUpload(LoginRequiredMixin, UserIsNodeAdminMixin, DeleteView):
     def get_success_url(self):
         return reverse_lazy('catalog:catalog_history',
                             kwargs={'node_id': self.kwargs["node_id"]})
+
+
+class DeleteDistribution(LoginRequiredMixin, UserIsNodeAdminMixin, View):
+
+    def post(self, request, node_id, identifier):
+        get_object_or_404(Distribution, identifier=identifier, catalog=node_id).delete()
+        return redirect('catalog:distribution_uploads',
+                        node_id=node_id, identifier=identifier)
