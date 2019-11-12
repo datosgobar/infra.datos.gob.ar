@@ -115,3 +115,6 @@ class DistributionUpload(models.Model):
         path = Path(self.file.name)
         filename = self.file_name_with_date() if with_date else self.distribution.file_name
         return path.with_name(filename)
+
+    def file_path_with_date(self):
+        return self.file_path(with_date=True)
