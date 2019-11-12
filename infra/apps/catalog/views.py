@@ -5,10 +5,9 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import FormView, DeleteView
@@ -334,6 +333,14 @@ class DeleteCatalogUpload(LoginRequiredMixin, UserIsNodeAdminMixin, DeleteView):
     def get_success_url(self):
         return reverse_lazy('catalog:catalog_history',
                             kwargs={'node_id': self.kwargs["node_id"]})
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.node.id != self.kwargs["node_id"]:
+            return HttpResponse('Unauthorized', status=401)
+        success_url = self.get_success_url()
+        self.object.delete()
+        return HttpResponseRedirect(success_url)
 
 
 class DeleteDistribution(LoginRequiredMixin, UserIsNodeAdminMixin, View):
