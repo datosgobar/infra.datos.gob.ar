@@ -47,3 +47,14 @@ def test_get_method_not_supported(logged_client, node):
                                              'identifier': 'bad_id'}))
 
     assert resp.status_code == 405
+
+
+def test_delete_distribution_of_unauthorized_node(logged_client, node, distribution_upload):
+    distribution = distribution_upload.distribution
+    node.admins.clear()
+
+    resp = logged_client.post(reverse('catalog:delete_distribution',
+                                      kwargs={'node_id': distribution.catalog.id,
+                                              'identifier': distribution.identifier}))
+
+    assert resp.status_code == 403

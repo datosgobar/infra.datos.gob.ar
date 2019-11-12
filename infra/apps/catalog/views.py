@@ -312,7 +312,7 @@ class SyncCatalog(LoginRequiredMixin, TemplateView):
             return None
 
 
-class DeleteDistribution(View):
+class DeleteDistribution(LoginRequiredMixin, UserIsNodeAdminMixin, View):
 
     def post(self, request, node_id, identifier):
         try:
