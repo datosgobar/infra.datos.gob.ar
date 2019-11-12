@@ -1,9 +1,15 @@
 import os
 
+import pytest
 from django.conf import settings
 from django.urls import reverse
 
 from infra.apps.catalog.models import Distribution
+
+
+@pytest.fixture(autouse=True)
+def give_user_edit_rights(user, node):
+    node.admins.add(user)
 
 
 def test_delete_distribution(logged_client, distribution):
@@ -25,20 +31,12 @@ def test_if_uploads_existed_they_are_deleted(logged_client, distribution_upload)
     assert not os.path.isfile(filepath)
 
 
-def test_node_does_not_exist(logged_client, distribution):
-    resp = logged_client.post(reverse('catalog:delete_distribution',
-                                      kwargs={'node_id': 20,
-                                              'identifier': distribution.identifier}))
-
-    assert resp.status_code == 400
-
-
 def test_distribution_does_not_exist(logged_client, node):
     resp = logged_client.post(reverse('catalog:delete_distribution',
                                       kwargs={'node_id': node.id,
                                               'identifier': 'bad_id'}))
 
-    assert resp.status_code == 400
+    assert resp.status_code == 404
 
 
 def test_get_method_not_supported(logged_client, node):
