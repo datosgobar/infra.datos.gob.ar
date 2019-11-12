@@ -37,10 +37,10 @@ def test_delete_catalog_of_another_node(user, logged_client, catalog):
     node2.admins.add(user)
     catalog.node.admins.clear()
     response = logged_client.post(reverse('catalog:delete_catalog_upload',
-                                  kwargs={
-                                      'node_id': node2.id,
-                                      'pk': catalog.pk
-                                  }))
+                                          kwargs={
+                                              'node_id': node2.id,
+                                              'pk': catalog.pk
+                                          }))
 
     assert response.status_code == 401
 
