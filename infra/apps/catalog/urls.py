@@ -41,4 +41,7 @@ urlpatterns = [
     path('<int:node_id>/distributions/<str:identifier>/delete/',
          catalog_views.DeleteDistribution.as_view(),
          name='delete_distribution'),
+    path('<int:node_id>/distribution_uploads/<int:pk>/delete/',
+         catalog_views.DeleteDistributionUpload.as_view(),
+         name='delete_distribution_upload'),
 ]
