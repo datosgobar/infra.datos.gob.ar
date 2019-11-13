@@ -62,26 +62,51 @@
                 </thead>
 				<tbody>
 				{% for id, distributions in object_list.items %}
-					{% with distributions.0 as distribution %}
+					{% with distributions.0 as last_distribution_upload %}
 					<tr>
-					    <td>{{ distributions.0.distribution.file_name }}</td>
+					    <td>{{ last_distribution_upload.distribution.file_name }}</td>
 					    <td class="text-center">{{ id }}</td>
-						<td class="text-center">{{ distribution.uploaded_at|date:"d/m/Y" }}</td>
+						<td class="text-center">{{ last_distribution_upload.uploaded_at|date:"d/m/Y" }}</td>
 						<td>
 						    <div class="d-flex align-items-center justify-content-start">
-							    <a href="{% get_media_prefix  %}{{ distribution.file_path }}" download="{{ distribution.file_name }}"
+							    <a href="{% get_media_prefix  %}{{ last_distribution_upload.file_path }}"
+                                   download="{{ last_distribution_upload.distribution.file_name }}"
 										type="button" class="btn btn-primary btn-sm text-nowrap m-b-0 m-r-05"><i class="fa fa-download fa-fw fa-lg"></i> DESCARGAR</a>
                                 <div class="table-hidden-content">
-									<button id="fileCopy{{ forloop.counter }}" data-url="{% get_media_prefix  %}{{ distribution.file_path }}" class="btn btn-primary btn-sm m-b-0 m-r-05"
-											onclick="copyUrlToClipBoard(fileCopy{{ forloop.counter }})" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="Vínculo copiado al portapapeles">
+									<button id="fileCopy{{ forloop.counter }}" data-url="{% get_media_prefix  %}{{ last_distribution_upload.file_path }}"
+                                            class="btn btn-primary btn-sm m-b-0 m-r-05"
+											onclick="copyUrlToClipBoard(fileCopy{{ forloop.counter }})"
+                                            data-toggle="popover" data-trigger="focus" data-placement="top" data-content="Vínculo copiado al portapapeles">
 										<i class="fa fa-link fa-fw fa-lg"></i>
                                     </button>
-									<a href="" id="distributionDelete{{ distribution.id }}" onclick="deleteDistribution({{ distribution.id }})" data-url="{% url 'catalog:delete_distribution' node_id=node.id identifier=distribution.distribution.identifier %}" class="btn btn-primary btn-sm m-b-0 m-r-05" data-toggle="modal" data-target=".modal-confirm-remove" title="Eliminar">
+                                    <a data-toggle="modal" data-target="#deleteModal{{ forloop.counter }}"
+                                       class="btn btn-primary btn-sm m-b-0 m-r-05" title="Eliminar">
 										<i class="fa fa-trash fa-fw fa-lg"></i>
                                     </a>
-                                    <a href="{% url 'catalog:distribution_uploads' node_id=node.id identifier=distributions.0.distribution.identifier%}" class="btn btn-primary btn-sm m-b-0" title="Ver anteriores">
+                                    <a href="{% url 'catalog:distribution_uploads' node_id=node.id identifier=id %}" class="btn btn-primary btn-sm m-b-0" title="Ver anteriores">
                                         <i class="fa fa-clock-o fa-fw fa-lg"></i>
                                     </a>
+                                </div>
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="deleteModal{{ forloop.counter }}" tabindex="-1" role="dialog" >
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            ¿Está seguro de querer eliminar la distribución "{{ id }}"?
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                            <button id="distributionDelete{{ last_distribution_upload.id }}"
+                                                    onclick="deleteDistribution({{ last_distribution_upload.id }})"
+                                                    data-url="{% url 'catalog:delete_distribution' node_id=node.id identifier=id %}"
+                                                    type="button" data-dismiss="modal"
+                                                    class="btn btn-primary">Eliminar</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </td>
@@ -121,8 +146,9 @@
 {% csrf_token %}
 {% endblock %}
 
-    {% block scripts %}
-<script src="{% static 'js/copy_url.js' %}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+{% block scripts %}
+    <script src="{% static 'js/copy_url.js' %}"></script>
     <script src="{% static 'js/delete.js' %}"></script>
-        {% endblock %}
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+{% endblock %}
