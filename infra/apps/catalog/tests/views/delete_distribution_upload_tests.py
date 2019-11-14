@@ -103,10 +103,10 @@ def test_delete_the_unique_version_redirects_to_distribution_list(logged_client,
     distribution = distribution_upload.distribution
     node = distribution.catalog
     response = logged_client.post(reverse('catalog:delete_distribution_upload',
-                                  kwargs={
-                                      'node_id': node.id,
-                                      'pk': distribution_upload.pk
-                                  }))
+                                          kwargs={
+                                              'node_id': node.id,
+                                              'pk': distribution_upload.pk
+                                          }))
 
     assert response.url == reverse('catalog:node_distributions', kwargs={'node_id': node.id})
 
