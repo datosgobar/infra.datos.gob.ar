@@ -58,6 +58,9 @@ class DistributionManager(models.Manager):
 
 
 class Distribution(models.Model):
+    class Meta:
+        unique_together = ('identifier', 'catalog')
+
     objects = DistributionManager()
 
     catalog = models.ForeignKey(to=Node, on_delete=models.CASCADE,
