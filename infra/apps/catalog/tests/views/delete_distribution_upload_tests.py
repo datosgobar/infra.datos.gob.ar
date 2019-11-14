@@ -84,7 +84,8 @@ def test_delete_the_unique_version_deletes_the_distribution_too(logged_client, d
     assert not Distribution.objects.filter(pk=distribution.pk).count()
 
 
-def test_delete_not_the_unique_version_not_deletes_the_distribution(logged_client, distribution_upload):
+def test_delete_not_the_unique_version_not_deletes_the_distribution(logged_client,
+                                                                    distribution_upload):
     distribution = distribution_upload.distribution
     node = distribution.catalog
     _create_dist2(distribution, distribution_upload)
@@ -97,7 +98,8 @@ def test_delete_not_the_unique_version_not_deletes_the_distribution(logged_clien
     assert Distribution.objects.filter(pk=distribution.pk).count()
 
 
-def test_delete_the_unique_version_redirects_to_distribution_list(logged_client, distribution_upload):
+def test_delete_the_unique_version_redirects_to_distribution_list(logged_client,
+                                                                  distribution_upload):
     distribution = distribution_upload.distribution
     node = distribution.catalog
     response = logged_client.post(reverse('catalog:delete_distribution_upload',
@@ -109,7 +111,8 @@ def test_delete_the_unique_version_redirects_to_distribution_list(logged_client,
     assert response.url == reverse('catalog:node_distributions', kwargs={'node_id': node.id})
 
 
-def test_delete_not_the_unique_version_redirect_to_distribution_history(logged_client, distribution_upload):
+def test_delete_not_the_unique_version_redirect_to_distribution_history(logged_client,
+                                                                        distribution_upload):
 
     node = distribution_upload.distribution.catalog
     distribution = distribution_upload.distribution
