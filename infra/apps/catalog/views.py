@@ -356,18 +356,29 @@ class DeleteDistributionUpload(LoginRequiredMixin, UserIsNodeAdminMixin, DeleteV
     model = DistributionUpload
     http_method_names = ['post']
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.distribution_upload = None
+
     def get_success_url(self):
-        return reverse_lazy('catalog:distribution_uploads',
+        if self.distribution_upload.distribution.distributionupload_set.count() > 1:
+            return reverse_lazy('catalog:distribution_uploads',
+                                kwargs={
+                                    'node_id': self.kwargs["node_id"],
+                                    'identifier': self.distribution_upload.distribution.identifier
+                                })
+        return reverse_lazy('catalog:node_distributions',
                             kwargs={
                                 'node_id': self.kwargs["node_id"],
-                                'identifier': self.distribution_upload.distribution.identifier
                             })
 
     def delete(self, request, *args, **kwargs):
-        # noinspection PyAttributeOutsideInit
         self.distribution_upload = self.get_object()
         if self.distribution_upload.distribution.catalog.id != self.kwargs["node_id"]:
             return HttpResponse('Unauthorized', status=401)
         success_url = self.get_success_url()
+        dist = self.distribution_upload.distribution
         self.distribution_upload.delete()
+        if not dist.distributionupload_set.count():
+            dist.delete()
         return HttpResponseRedirect(success_url)
