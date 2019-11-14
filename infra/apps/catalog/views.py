@@ -252,9 +252,9 @@ class NodeUploadsView(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
         return render(request, self.template_name, params_dict)
 
 
-class DistributionUploads(ListView):
+class DistributionUploads(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
     model = DistributionUpload
-    template_name = 'distributions/uploads.html'
+    template_name = 'distributions/distribution_history.html'
     paginate_by = 10
 
     def node_id(self):
@@ -350,3 +350,35 @@ class DeleteDistribution(LoginRequiredMixin, UserIsNodeAdminMixin, View):
         get_object_or_404(Distribution, identifier=identifier, catalog=node_id).delete()
         return redirect('catalog:distribution_uploads',
                         node_id=node_id, identifier=identifier)
+
+
+class DeleteDistributionUpload(LoginRequiredMixin, UserIsNodeAdminMixin, DeleteView):
+    model = DistributionUpload
+    http_method_names = ['post']
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.distribution_upload = None
+
+    def get_success_url(self):
+        if self.distribution_upload.distribution.distributionupload_set.count() > 1:
+            return reverse_lazy('catalog:distribution_uploads',
+                                kwargs={
+                                    'node_id': self.kwargs["node_id"],
+                                    'identifier': self.distribution_upload.distribution.identifier
+                                })
+        return reverse_lazy('catalog:node_distributions',
+                            kwargs={
+                                'node_id': self.kwargs["node_id"],
+                            })
+
+    def delete(self, request, *args, **kwargs):
+        self.distribution_upload = self.get_object()
+        if self.distribution_upload.distribution.catalog.id != self.kwargs["node_id"]:
+            return HttpResponse('Unauthorized', status=401)
+        success_url = self.get_success_url()
+        dist = self.distribution_upload.distribution
+        self.distribution_upload.delete()
+        if not dist.distributionupload_set.count():
+            dist.delete()
+        return HttpResponseRedirect(success_url)
