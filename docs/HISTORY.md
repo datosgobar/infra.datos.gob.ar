@@ -1,5 +1,9 @@
 Versiones
 =========
+0.1.1 (19-11-19)
+-------------------
+
+- Fixes del borrado de distribuciones y distribuciones historicas
 
 0.1.0 (12-11-19)
 -------------------
