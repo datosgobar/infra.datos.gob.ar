@@ -46,10 +46,10 @@
                         <div class="col-xs-12 col-sm-7">
 					        <div class="d-flex align-items-center m-b-xs">
 						        <h6 class="text-nowrap m-r-1">Filtrar por dataset</h6>
-						        <select class="form-control">
-							        <option onclick="filterDataset(this.value)" value="">Todos</option>
+						        <select onchange="filterDataset(this.value)" class="form-control">
+							        <option value="">Todos</option>
 									{% for dataset in dataset_list %}
-							        <option onclick="filterDataset(this.value)" value="{{ dataset.0 }}">{{ dataset.1 }}</option>
+							        <option {% if dataset.0 == selected_dataset %}selected{% endif %} value="{{ dataset.0 }}">{{ dataset.1 }}</option>
 									{% endfor %}
 						        </select>
 					        </div>
