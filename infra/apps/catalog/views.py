@@ -188,6 +188,7 @@ class ListDistributions(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
     paginate_by = 10
     template_name = "distributions/node_distributions.html"
 
+    # pylint: disable=W0201
     def get(self, request, *args, **kwargs):
         self.object_list = self.get_queryset()
         context = self.get_context_data(**kwargs)
@@ -196,8 +197,8 @@ class ListDistributions(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
         if not selected_dataset:
             return self.render_to_response(context)
 
-        distributions = { id: dist for id, dist in context.get('object_list').items()
-                          if dist[0].distribution.dataset_identifier == selected_dataset }
+        distributions = {id: dist for id, dist in context.get('object_list').items()
+                         if dist[0].distribution.dataset_identifier == selected_dataset}
         context.update({
             'object_list': distributions
         })
