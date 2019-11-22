@@ -199,8 +199,9 @@ class ListDistributions(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
 
         distributions = {id: dist for id, dist in context.get('object_list').items()
                          if dist[0].distribution.dataset_identifier == selected_dataset}
+
         context.update({
-            'object_list': distributions
+            'object_list': distributions,
         })
 
         return self.render_to_response(context)
@@ -214,6 +215,12 @@ class ListDistributions(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
         context['node'] = Node.objects.get(id=self.kwargs['node_id'])
         context['object_list'] = \
             self.last_three_versions_of_each_distribution(context['object_list'])
+
+        datasets = []
+        for _, dist in context.get('object_list').items():
+            datasets.append(self._get_dataset_id_title_pair(dist))
+        datasets = list(set(datasets))
+        context['dataset_list'] = datasets
         return context
 
     def last_three_versions_of_each_distribution(self, queryset):
@@ -224,6 +231,16 @@ class ListDistributions(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
         for distributions in qs.values():
             distributions.sort(key=lambda x: (x.uploaded_at, x.id), reverse=True)
         return qs
+
+    def _get_dataset_id_title_pair(self, distributions):
+        distribution = distributions[0].distribution
+        latest_catalog_upload = distribution.catalog.get_latest_catalog_upload()
+        pair = None
+        for dataset in latest_catalog_upload.get_datasets():
+            if dataset['identifier'] == distribution.dataset_identifier:
+                pair = (dataset['identifier'], dataset['title'] + " - " + dataset['identifier'])
+
+        return pair
 
 
 class CatalogUploadSuccess(LoginRequiredMixin, UserIsNodeAdminMixin, TemplateView):
