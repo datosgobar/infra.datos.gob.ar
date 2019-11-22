@@ -202,7 +202,7 @@ class ListDistributions(LoginRequiredMixin, UserIsNodeAdminMixin, ListView):
 
         context.update({
             'object_list': distributions,
-            'selected_dataset' :selected_dataset,
+            'selected_dataset': selected_dataset,
         })
 
         return self.render_to_response(context)
