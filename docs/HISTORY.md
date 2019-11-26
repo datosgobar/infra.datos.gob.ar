@@ -1,5 +1,10 @@
 Versiones
 =========
+0.2.0 (26-11-19)
+-------------------
+
+- Filtrado por dataset en la vista de distribuciones
+
 0.1.1 (19-11-19)
 -------------------
 
