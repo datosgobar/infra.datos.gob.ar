@@ -43,6 +43,17 @@
 		        </div>
 		        <div class="col-xs-12 col-md-8">
 			        <div class="row">
+                        <div class="col-xs-12 col-sm-7">
+					        <div class="d-flex align-items-center m-b-xs">
+						        <h6 class="text-nowrap m-r-1">Filtrar por dataset</h6>
+						        <select onchange="filterDataset(this.value)" class="form-control">
+							        <option value="">Todos</option>
+									{% for dataset in dataset_list %}
+							        <option {% if dataset.0 == selected_dataset %}selected{% endif %} value="{{ dataset.0 }}">{{ dataset.1 }}</option>
+									{% endfor %}
+						        </select>
+					        </div>
+				        </div>
 				        <div class="col-xs-12 col-sm-5">
 					        <a href="{% url 'catalog:add_distribution' node_id=node.id %}" class="btn btn-primary btn-block text-nowrap m-b-0"><i class="fa fa-plus-circle fa-fw fa-lg"></i> AGREGAR DISTRIBUCIÓN</a>
 				        </div>
@@ -149,6 +160,7 @@
 {% block scripts %}
     <script src="{% static 'js/copy_url.js' %}"></script>
     <script src="{% static 'js/delete.js' %}"></script>
+    <script src="{% static 'js/filter_dataset.js' %}"></script>
     <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 {% endblock %}
