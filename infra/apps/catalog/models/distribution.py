@@ -63,8 +63,7 @@ class Distribution(models.Model):
 
     objects = DistributionManager()
 
-    catalog = models.ForeignKey(to=Node, on_delete=models.CASCADE,
-                                unique_for_date='uploaded_at')
+    catalog = models.ForeignKey(to=Node, on_delete=models.CASCADE)
     dataset_identifier = models.CharField(max_length=64)
     file_name = models.CharField(max_length=800)
     identifier = models.CharField(max_length=64)
