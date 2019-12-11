@@ -43,6 +43,9 @@ class AddCatalogView(LoginRequiredMixin, UserIsNodeAdminMixin, FormView):
         except ValidationError as e:
             messages.error(request, e)
             return self.form_invalid(form)
+        except PermissionError as e:
+            messages.error(request, e)
+            return self.form_invalid(form)
 
         validation_error_messages = catalog.validate()
         for error_message in validation_error_messages:
